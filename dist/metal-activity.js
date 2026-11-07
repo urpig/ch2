@@ -3,6 +3,7 @@ import {specimenArt} from './oxygen-affinity.js';
 import {affinityBenchArt} from './affinity-appearance.js';
 import {bindReactantPickup} from './life-reactant-drag.js';
 import {playActivitySpray} from './activity-spray.js';
+import {storySpeech} from './story-dialogue.js';
 
 const names=Object.fromEntries(activitySamples.map(({symbol,name})=>[symbol,name]));
 const conditionLabel=id=>metalConditions.find(item=>item.id===id).label;
@@ -106,7 +107,9 @@ export function metalActivityMarkup(s){
  const phase=trial?'after':'ready';
  const safety=safetyNote(condition,trial?.symbol);
  return `<div class="metal-activity">
-  <div class="inquiry-question"><p><strong>活性</strong>是物質起化學反應的傾向。用相同條件比較兩種樣本，觀察誰比較容易反應。</p></div>
+  <div class="inquiry-question"><p aria-label="元素對氧活性排列"><strong>活性大小：</strong>鉀 ＞ 鈉 ＞ 鈣 ＞ 鎂 ＞ 鋁 ＞ 碳 ＞ 鋅 ＞ 鉻 ＞ 鐵 ＞ 錫 ＞ 鉛 ＞ 氫 ＞ 銅 ＞ 汞 ＞ 銀 ＞ 鉑 ＞ 金</p></div>
+  ${storySpeech('grandpa','「活性大的物質，如鉀、鈉，遇到冷水就會反應。有些活性較小的金屬要用酸，像金就要用王水才能溶解喔！接下來，我先示範把鉀放到冷水裡。」')}
+  <p><button type="button" class="primary" data-activity-demo>▶ 看阿公示範：鉀 ＋ 冷水</button></p>
   <section class="activity-bench" aria-label="元素活性比較實驗">
 
    <div class="activity-controls">
@@ -139,7 +142,7 @@ export function metalActivityMarkup(s){
  </div>`;
 }
 
-export function bindMetalActivity(root,s,update){
+export function bindMetalActivity(root,s,update,{demo=false}={}){
  const stage=root.querySelector('[data-activity-stage]');
  const target=stage.querySelector('[data-activity-target]');
  const effects=stage.querySelector('[data-activity-effects]');
@@ -219,6 +222,11 @@ export function bindMetalActivity(root,s,update){
  }
 
  const place=symbol=>run({symbol,condition},'[data-activity-target]');
+ root.querySelector('[data-activity-demo]').onclick=()=>{
+  if(timer!==null)return;
+  s.activityCondition='cold';
+  update('[data-activity-demo]',rack.scrollLeft,true);
+ };
  function miss(){
   showSafety(shownTrial(s)?.symbol,showingIncident);
   status.textContent='還沒放進燒杯。把樣本拖到玻璃杯上，再放手。';
@@ -292,6 +300,7 @@ export function bindMetalActivity(root,s,update){
    if(previous)rack.querySelector(`[data-activity-sample="${previous}"]`).focus({preventScroll:true});
   }
  };
+ if(demo)run({symbol:'K',condition:'cold'},'[data-activity-demo]');
  return ()=>{
   clearTimeout(timer);
   stopSpray();

@@ -12,7 +12,6 @@ export function mountCombustionDemo(root,c,ctx,{onSample,onPractice}){
   <div class="combustion-demo-tools"><button type="button" class="primary" data-combustion-demo-play>${seen?'↻ 重播':'▶ 播放'}${name}的完整示範</button><button type="button" class="secondary" data-combustion-demo-pause disabled>暫停</button><span data-demo-step>準備樣本</span></div>
   <ol class="combustion-demo-steps" aria-label="示範步驟"><li data-demo-process="0">取樣</li><li data-demo-process="1">加熱燃燒</li><li data-demo-process="2">產物加水</li><li data-demo-process="3">測試紙</li></ol>
   <div class="combustion-demo-stage">${combustionDemoArtwork(key)}</div>
-  <div class="combustion-demo-caption" role="status" aria-live="polite"><b data-demo-phase></b><p data-demo-caption></p></div>
   <div class="combustion-demo-next" ${seen?'':'hidden'}>${key==='Na'?'<button type="button" class="primary" data-demo-next>接著看硫的示範 →</button>':ready?'<p>兩次都用紅、藍石蕊比較：鈉的產物加水呈鹼性，硫的產物溶於水呈酸性。</p><button type="button" class="primary" data-demo-practice>換你動手，選一份樣本 →</button>':''}</div>
  </section><div class="comparison-sheet" data-demo-records>${combustionRecordsMarkup(c.type,has)}</div>`;
  const stage=root.querySelector('.combustion-demo-stage'),play=root.querySelector('[data-combustion-demo-play]'),pause=root.querySelector('[data-combustion-demo-pause]');
@@ -22,7 +21,9 @@ export function mountCombustionDemo(root,c,ctx,{onSample,onPractice}){
   elapsed=time;const frame=combustionDemoFrame(key,time),pose=paintCombustionDemoArt(stage,frame);
   atmosphere?.update({key,isMetal:key==='Na',mobile:true,stage:pose.lamp?'react':'done',bowl:pose.bowl,specimenActive:pose.burning,heater:1,covered:true,frameTime:time/1000,externalClock:true},{preserveTime:true});
   if(phase!==frame.phase){
-   phase=frame.phase;root.querySelector('[data-demo-step]').textContent=frame.label;root.querySelector('[data-demo-phase]').textContent=frame.label;root.querySelector('[data-demo-caption]').textContent=frame.caption;
+   phase=frame.phase;root.querySelector('[data-demo-step]').textContent=frame.label;
+   const instruction=root.closest('article')?.querySelector('[data-demo-instruction]');
+   if(instruction)instruction.textContent=`${name} · ${frame.label}：${frame.caption}`;
    const process=frame.index<2?0:['heat','transfer','burn','cool'].includes(frame.phase)?1:['pour','dissolve','wash','shake'].includes(frame.phase)?2:3;
    root.querySelectorAll('[data-demo-process]').forEach(item=>{if(Number(item.dataset.demoProcess)===process)item.setAttribute('aria-current','step');else item.removeAttribute('aria-current');});
   }

@@ -99,7 +99,7 @@ export function mountForgePrep({intro,activityRoot,transfer,lifeRoot},addQuestio
   if(selector)focus(intro,selector);
  }
 
- function renderActivity(selector,rackScroll=0){
+ function renderActivity(selector,rackScroll=0,demo=false){
   disposeActivity?.();
   activityRoot.innerHTML=`
    ${storyDialogue('「為什麼木炭很快就燒起來了，鐵釘卻是慢慢地生鏽呢？」','「因為物質會有不同的活性！活性是物質起反應的容易程度。我們來看看不同物質遇到冷水、熱水、酸會有什麼差別！」')}
@@ -109,7 +109,7 @@ export function mountForgePrep({intro,activityRoot,transfer,lifeRoot},addQuestio
    </section>
    ${activityComplete()?notebookMarkup('B'):''}
    ${storageNotice()}`;
-  const update=(target,keepRackScroll)=>{save();renderActivity(target,keepRackScroll);};
+  const update=(target,keepRackScroll,playDemo=false)=>{save();renderActivity(target,keepRackScroll,playDemo);};
   activityRoot.querySelector('[data-activity-reset]').onclick=()=>{
    s.activityCondition='cold';
    s.activityComparison='free';
@@ -119,7 +119,7 @@ export function mountForgePrep({intro,activityRoot,transfer,lifeRoot},addQuestio
    update('[data-activity-reset]');
   };
   const content=activityRoot.querySelector('[data-inquiry-content]');
-  disposeActivity=bindMetalActivity(content,s,update);
+  disposeActivity=bindMetalActivity(content,s,update,{demo});
   content.querySelector('.activity-rack').scrollLeft=rackScroll;
   if(selector)focus(activityRoot,selector);
  }
