@@ -28,3 +28,8 @@ export function lifeRecord(s,key,role){
  if(correct&&!s.evidence.includes(key))s.evidence.push(key);return correct;
 }
 export function appleComparison(time){const t=Number.isFinite(time)?Math.max(0,Math.min(4,time)):0,i=Math.floor(t),blend=values=>values[i]+((values[Math.min(4,i+1)]-values[i])*(t-i));return {plain:blend([0,.24,.52,.8,1]),protected:blend([0,.01,.04,.12,.46]),reserve:Math.max(0,1-t/3)};}
+export const lifeCaseGroups=[
+ ['vitamin','維他命 C 與蘋果保鮮',['food']],
+ ['biology','光合作用與呼吸作用',['photo','resp']],
+ ['bleach','實驗室漂白',['peroxide','chlorine','sulfur']]
+];

@@ -2,7 +2,7 @@ import {ironComparisonEvidence} from './affinity-free-model.js';
 import {mountTermDemo,loadTermReview} from './term-demo.js';
 import {storySpeech,storyDialogue,definitionDialogue,notebookMarkup} from './story-dialogue.js';
 import {mountEverydayRedox,loadLifeReview} from './everyday-redox.js';
-import {lifeQuiz,lifeReady} from './everyday-redox-model.js';
+import {lifeQuiz,lifeReady,lifeCaseGroups} from './everyday-redox-model.js';
 import {prepQuizzes} from './forge-prep-model.js';
 import {freshInquiry,restoreInquiry,inquiryReady,oxidationQuiz} from './inquiry-model.js';
 import {evidenceStudio,bindEvidence} from './inquiry-studios.js';
@@ -140,7 +140,6 @@ export function mountForgePrep({intro,activityRoot,transfer,lifeRoot},addQuestio
  });
  mountTermDemo(transfer.querySelector('[data-term-demo]'),{review:termReview});
 
- const lifeTabs=[['biology','光合作用與呼吸作用'],['bleach','實驗室漂白'],['food','蘋果保鮮']];
  const lifeIntroductions={
   photo:['<span data-glossary-skip>「氧化還原反應真神奇，生活中哪裡也能看到氧化還原反應呀？」</span>','「生活中到處都是喔，我們來看看下面的這些例子。」'],
   resp:['「我們的身體也像葉子一樣，會做氧化還原反應嗎？」','「會呀。細胞靠有氧呼吸利用養分。我們看動畫，比較葡萄糖和氧氣最後形成了什麼。」'],
@@ -149,36 +148,19 @@ export function mountForgePrep({intro,activityRoot,transfer,lifeRoot},addQuestio
   sulfur:['「換成二氧化硫，也會和剛才的漂白一樣嗎？」','「看看氣體注入密閉罩後，竹筷的顏色怎麼變。再和過氧化氫比一比，反應的角色一樣嗎？」'],
   food:['「剛才讓東西褪色，這次能讓蘋果維持原色嗎？」','「我們只在左邊加入維生素 C，讓兩邊等一樣久。看看哪一片蘋果比較快變褐。」']
  };
- const lifeKey=()=>s.life==='biology'?life.bio:s.life==='bleach'?life.bleach:'food';
- function showLifeIntroduction(key){
-  const [question,reply]=lifeIntroductions[key];
-  lifeRoot.querySelector('[data-life-introduction]').innerHTML=storyDialogue(question,reply);
- }
  function renderLife(selector){
   disposeLife();
+  const groups=lifeCaseGroups;
   lifeRoot.innerHTML=`
-   <div data-life-introduction></div>
-   <section class="prep-studio inquiry-studio" aria-label="生活案例">
-    <div class="interaction-reset-bar"><button type="button" class="card-reset" data-life-reset-all>↺ 重設生活卡</button></div>
-    <div data-inquiry-content>
-     <div class="redox-examples" role="group" aria-label="日常生活中的氧化還原情境">${lifeTabs.map(([id,label])=>`<button data-redox-example="${id}" aria-pressed="${s.life===id}">${label}</button>`).join('')}</div>
-     <div id="everyday-redox" class="life-integrated" tabindex="-1"></div>
-    </div>
-   </section>
-   <div data-life-notes ${lifeReady(life)?'':'hidden'}>
-    ${notebookMarkup('D')}
-   </div>`;
-  lifeRoot.querySelectorAll('[data-redox-example]').forEach(button=>button.onclick=()=>{
-   s.life=button.dataset.redoxExample;
-   save();
-   renderLife(`[data-redox-example="${s.life}"]`);
-  });
-  lifeRoot.querySelector('[data-life-reset-all]').onclick=()=>{
-   lifeReview.reset();
-   renderLife('[data-life-reset-all]');
-  };
-  showLifeIntroduction(lifeKey());
-  disposeLife=mountEverydayRedox(lifeRoot.querySelector('#everyday-redox'),{tab:lifeTabs.findIndex(([id])=>id===s.life),review:lifeReview,onCaseChange:showLifeIntroduction});
+   <div class="interaction-reset-bar"><button type="button" class="card-reset" data-life-reset-all>↺ 重設生活卡</button></div>
+   <div id="everyday-redox" class="life-experiments-stack">
+    ${groups.map(([id,title,cases])=>`<section class="life-case-group" id="life-${id}" aria-label="${title}"><h3>${title}</h3>${cases.map(key=>`<section class="life-case-example" data-life-case="${key}">${storyDialogue(...lifeIntroductions[key])}<div class="prep-studio inquiry-studio life-integrated" data-life-example="${key}"></div></section>`).join('')}</section>`).join('')}
+   </div>
+   <div data-life-notes ${lifeReady(life)?'':'hidden'}>${notebookMarkup('D')}</div>`;
+  const disposers=[];
+  for(const target of lifeRoot.querySelectorAll('[data-life-example]'))disposers.push(mountEverydayRedox(target,{caseKey:target.dataset.lifeExample,review:lifeReview}));
+  disposeLife=()=>disposers.forEach(dispose=>dispose());
+  lifeRoot.querySelector('[data-life-reset-all]').onclick=()=>{lifeReview.reset();renderLife('[data-life-reset-all]');};
   if(selector)focus(lifeRoot,selector);
  }
  lifeRoot.addEventListener('life-progress',()=>{

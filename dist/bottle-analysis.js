@@ -59,8 +59,24 @@ export function mountBottleAnalysis(board,{key,completed,delay,onCleanup=()=>{},
   say(next.instruction||messages[state.phase]);
   if(state.phase==='complete'&&!committed){committed=true;onComplete();}
  }
- releases.push(bindDrop(wash,mouth,{anchor:[.89,.1],keep:true,disabled:()=>state.phase!=='pour',onDrop:()=>{station.classList.add('pouring');dispatch({type:'water'});delay(()=>{if(!alive||!board.isConnected)return;station.classList.remove('pouring');wash.style.left=(255/760*100)+'%';wash.style.top=(200/430*100)+'%';wash.style.transform='';},650);},onMiss:()=>say('把洗瓶的細口移到集氣瓶瓶口，再放手。',true)}));
- releases.push(bindFreeInstrument(shaker,board,{position:[560,215],offset:[84,135],bounds:[535,585,215,215],instrumentClass:'free-bottle-shaker',onMove:(p,held)=>{shakingHeld=held;const dx=p[0]-560;const transform=`translate(${dx} 0)`;baseJar.setAttribute('transform',transform);water.setAttribute('transform',transform);lid.style.translate=(dx/760*board.getBoundingClientRect().width)+'px 0';station.querySelector('[data-jar-water]').setAttribute('d',`M483 ${314+dx*.12}Q560 ${318-dx*.2} 637 ${314-dx*.12}V326Q637 342 560 342Q483 342 483 326Z`);if(held&&state.phase==='shake')dispatch({type:'shake',distance:p[0]-lastShake});lastShake=p[0];if(!held&&state.phase!=='shake')show();},onRelease:()=>[560,215]}));
+ function addWater(){
+  if(state.phase!=='pour')return false;
+  station.classList.add('pouring');dispatch({type:'water'});
+  delay(()=>{if(!alive||!board.isConnected)return;station.classList.remove('pouring');wash.style.left=(255/760*100)+'%';wash.style.top=(200/430*100)+'%';wash.style.transform='';},650);return true;
+ }
+ function moveShaker(p,held){
+  shakingHeld=held;const dx=p[0]-560,transform=`translate(${dx} 0)`;
+  baseJar.setAttribute('transform',transform);water.setAttribute('transform',transform);lid.style.translate=(dx/760*board.getBoundingClientRect().width)+'px 0';
+  station.querySelector('[data-jar-water]').setAttribute('d',`M483 ${314+dx*.12}Q560 ${318-dx*.2} 637 ${314-dx*.12}V326Q637 342 560 342Q483 342 483 326Z`);
+  if(held&&state.phase==='shake')dispatch({type:'shake',distance:p[0]-lastShake});lastShake=p[0];if(!held&&state.phase!=='shake')show();
+ }
+ function spot(paper){
+  if(state.phase!=='test'||!state.loaded||dropping||state.spotted[paper])return false;
+  dropping=true;tool.classList.add('dispensing');
+  delay(()=>{if(!alive||!board.isConnected)return;tool.classList.remove('dispensing');dropping=false;dispatch({type:'spot',paper,key});if(state.phase!=='complete')say('已留下這張試紙的觀察。回瓶內再取液，測另一張石蕊試紙。');},450);return true;
+ }
+ releases.push(bindDrop(wash,mouth,{anchor:[.89,.1],keep:true,disabled:()=>state.phase!=='pour',onDrop:addWater,onMiss:()=>say('把洗瓶的細口移到集氣瓶瓶口，再放手。',true)}));
+ releases.push(bindFreeInstrument(shaker,board,{position:[560,215],offset:[84,135],bounds:[535,585,215,215],instrumentClass:'free-bottle-shaker',onMove:moveShaker,onRelease:()=>[560,215]}));
  const tool=station.querySelector('[data-pipette=sample]');
  releases.push(bindFreeInstrument(tool,board,{position:[390,335],offset:[22,291],bounds:[30,720,300,415],instrumentClass:'free-pipette',onRelease:p=>{
   if(state.phase!=='test'||dropping)return;
@@ -74,12 +90,11 @@ export function mountBottleAnalysis(board,{key,completed,delay,onCleanup=()=>{},
   if(!strip){say('把尖端對準紅色或藍色石蕊試紙，讓液滴落在紙上。',true);return;}
   const paper=strip.dataset.litmusPaper;
   if(state.spotted[paper]){say('這張已經測過了，請滴在另一張石蕊試紙上。',true);return;}
-  dropping=true;tool.classList.add('dispensing');
-  delay(()=>{
-   if(!alive||!board.isConnected)return;
-   tool.classList.remove('dispensing');dropping=false;dispatch({type:'spot',paper,key});
-   if(state.phase!=='complete')say('已留下這張試紙的觀察。回瓶內再取液，測另一張石蕊試紙。');
-  },450);
+  spot(paper);
  }}));
  onCleanup(()=>{alive=false;for(const f of releases)f();baseJar.removeAttribute('transform');});show();
+ return {addWater,shake:x=>moveShaker([x,215],true),stopShaking:()=>moveShaker([560,215],false),take:()=>dispatch({type:'take'}),spot,
+  moveWash([x,y]){wash.style.left=((x-89)/760*100)+'%';wash.style.top=((y-16)/430*100)+'%';wash.style.transform='';},
+  movePipette([x,y]){tool.style.left=((x-22)/760*100)+'%';tool.style.top=((y-291)/430*100)+'%';},
+  get state(){return {...state,spotted:{...state.spotted}};}};
 }

@@ -21,27 +21,28 @@ export function loadLifeReview(source){
  return {state,save,reset(){Object.assign(state,freshLife());save();}};
 }
 
-export function mountEverydayRedox(root,{tab=0,review,onCaseChange=()=>{}}={}){
+export function mountEverydayRedox(root,{tab=0,caseKey=null,review,onCaseChange=()=>{}}={}){
  const s=review.state;
  let message='',cleanup=()=>{};
- s.tab=tab;
+ if(!caseKey)s.tab=tab;
+ const group=caseKey?(lifeBiology[caseKey]?0:lifeBleaches[caseKey]?1:2):tab;
  const save=()=>review.save();
- const activeKey=()=>s.tab===0?s.bio:s.tab===1?s.bleach:'food';
+ const activeKey=()=>caseKey||(group===0?s.bio:group===1?s.bleach:'food');
  function biologyRoles(key,seen){const b=lifeBiology[key];return `<section class="life-path-task" aria-label="依反應資料配對角色"><h4>這次是誰被氧化、誰被還原？</h4><div class="bio-role-tasks">${b.paths.map((p,i)=>`<fieldset><legend>${p.from}</legend>${[['oxidation','被氧化'],['reduction','被還原']].map(([r,label])=>`<button data-bio-role="${i}:${r}" aria-pressed="${s.bioRoles[key]?.[i]===r}" ${seen?'':'disabled'}>${label}</button>`).join('')}</fieldset>`).join('')}</div><p class="life-answer-feedback" role="status">${message}</p></section>`;}
  function render(focus,fromStart=false){
   cleanup();cleanup=()=>{};const key=activeKey();let seen=(key==='food'?(s.time>=4||s.evidence.includes('food')):s.seen.includes(key)||s.evidence.includes(key))&&!fromStart;
   onCaseChange(key);
-  root.innerHTML=`${s.tab<2?`<div class="life-selector" role="group" aria-label="${s.tab===0?'選擇生物反應':'選擇漂白方式'}">${Object.entries(s.tab===0?lifeBiology:lifeBleaches).map(([k,b])=>`<button data-life-choice="${k}" aria-pressed="${key===k}">${s.tab===1?({peroxide:'過氧化氫 × 豆干',chlorine:'次氯酸鈉 × 衣服',sulfur:'二氧化硫 × 竹筷'})[k]:b.name}${s.evidence.includes(k)?' ✓':''}</button>`).join('')}</div>`:''}
+  root.innerHTML=`${!caseKey&&group<2?`<div class="life-selector" role="group" aria-label="${group===0?'選擇生物反應':'選擇漂白方式'}">${Object.entries(group===0?lifeBiology:lifeBleaches).map(([k,b])=>`<button data-life-choice="${k}" aria-pressed="${key===k}">${group===1?({peroxide:'過氧化氫 × 豆干',chlorine:'次氯酸鈉 × 衣服',sulfur:'二氧化硫 × 竹筷'})[k]:b.name}${s.evidence.includes(k)?' ✓':''}</button>`).join('')}</div>`:''}
   ${lifePairedMarkup(key,seen)}
-  ${s.tab===0?biologyRoles(key,seen):`
+  ${group===0?biologyRoles(key,seen):`
    <section class="life-path-task" aria-label="反應後的小問題">
     <h4>${labels[key]}在這次反應中，自己發生什麼變化？</h4>
     ${key==='food'&&seen?'<p class="reaction-evidence-note">維生素 C 讓褐變過程中的物質被還原。</p>':''}
     <div class="life-role-choices">${['自己被氧化','自己被還原'].map((label,i)=>`<button data-life-check="${i===0?'oxidation':'reduction'}" ${seen?'':'disabled'}>${label}</button>`).join('')}</div>
     <p class="life-answer-feedback" role="status">${message}</p>
    </section>`}
-  ${s.tab===1?`<p class="life-safety">${key==='chlorine'?'含氯漂白水不可混合酸性或含氨清潔劑。':key==='sulfur'?'二氧化硫具刺激性，只在螢幕中模擬，不自行操作。':'豆干漂白僅作氧化還原觀察，不是食品加工示範；不可自行處理或食用。'}</p>`:''}
-  ${s.evidence.includes('peroxide')&&s.evidence.includes('sulfur')?'<section class="bleach-comparison"><h4>都能褪色，角色一樣嗎？</h4><table><thead><tr><th>試劑</th><th>色素</th><th>試劑自己</th></tr></thead><tbody><tr><th>過氧化氫</th><td>被氧化</td><td>被還原</td></tr><tr><th>二氧化硫</th><td>被還原</td><td>被氧化</td></tr></tbody></table></section>':''}
+  ${group===1?`<p class="life-safety">${key==='chlorine'?'含氯漂白水不可混合酸性或含氨清潔劑。':key==='sulfur'?'二氧化硫具刺激性，只在螢幕中模擬，不自行操作。':'豆干漂白僅作氧化還原觀察，不是食品加工示範；不可自行處理或食用。'}</p>`:''}
+  ${!caseKey&&s.evidence.includes('peroxide')&&s.evidence.includes('sulfur')?'<section class="bleach-comparison"><h4>都能褪色，角色一樣嗎？</h4><table><thead><tr><th>試劑</th><th>色素</th><th>試劑自己</th></tr></thead><tbody><tr><th>過氧化氫</th><td>被氧化</td><td>被還原</td></tr><tr><th>二氧化硫</th><td>被還原</td><td>被氧化</td></tr></tbody></table></section>':''}
 `;
   cleanup=bindLifePairedReaction(root.querySelector('[data-life-observation]'),event=>{
    if(event==='start'){
@@ -53,7 +54,7 @@ export function mountEverydayRedox(root,{tab=0,review,onCaseChange=()=>{}}={}){
    }
    if(key==='food')s.time=4;else if(!s.seen.includes(key))s.seen.push(key);message='';render('[data-life-retry]');save();root.dispatchEvent(new CustomEvent('life-observed',{bubbles:true}));
   });
-  root.querySelectorAll('[data-life-choice]').forEach(b=>b.onclick=()=>{if(s.tab===0)s.bio=b.dataset.lifeChoice;else s.bleach=b.dataset.lifeChoice;message='';render('[data-life-choice="'+activeKey()+'"]',true);save();});
+  root.querySelectorAll('[data-life-choice]').forEach(b=>b.onclick=()=>{if(group===0)s.bio=b.dataset.lifeChoice;else s.bleach=b.dataset.lifeChoice;message='';render('[data-life-choice="'+activeKey()+'"]',true);save();});
   root.querySelectorAll('[data-life-check]').forEach(b=>b.onclick=()=>{
    if(!seen)return;
    const role=b.dataset.lifeCheck,correct=lifeRecord(s,key,role);
