@@ -54,7 +54,7 @@ export function mountTermDemo(root,{review=loadTermReview()}={}){
    }
    pause.disabled=false;play.textContent='↻ 從頭再看';
    player=createFoodPlayback({
-    duration:6900,maxFrameGapMs:3000,
+    duration:24000,maxFrameGapMs:250,
     onTime:value=>paintTermExperiment(experiment,right,value/4,reduced,true),
     onState:state=>{
      paused=state.paused;experiment.toggleAttribute('data-paused',!state.running);

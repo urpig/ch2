@@ -1,4 +1,9 @@
 .combustion-lesson { width:100%; min-width:0; }
+.combustion-procedure { margin:18px 0; padding:18px 22px; border:1px solid #c4d1be; border-radius:10px; background:#f5f6ec; }
+.combustion-procedure h3 { margin:0 0 10px; font-size:20px; }
+.combustion-procedure ol { margin:0; padding-left:1.6em; font-size:17px; line-height:1.8; }
+.combustion-procedure-current { margin:12px 0 0; padding-top:10px; border-top:1px solid #c4d1be; font-size:17px; font-weight:700; line-height:1.6; }
+.combustion-procedure-current:empty { display:none; }
 .combustion-lesson [hidden] { display:none!important; }
 .combustion-lesson-tabs { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px; }
 .combustion-lesson-tabs button,.combustion-demo-samples button { min-height:44px; border:1px solid #abbfae; border-radius:7px; padding:8px 16px; background:#fffdf2; color:#2b5049; font-family:inherit; font-size:17px; line-height:1.4; font-weight:700; cursor:pointer; }
