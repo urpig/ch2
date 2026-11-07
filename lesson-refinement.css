@@ -517,3 +517,10 @@
  #card-5 .factory-feed-rack .factory-feed>span{font-size:11px}
  .life-auto-observation .life-mix-workbench{margin-inline:0}
 }
+.life-experiments-stack { display:grid; gap:38px; }
+.life-case-group { min-width:0; display:grid; gap:24px; }
+.life-case-group>h3 { margin:12px 0 0; padding-bottom:12px; border-bottom:2px solid #b8c6a6; font-size:clamp(23px,2.3vw,29px); color:#284f45; }
+.life-case-example { min-width:0; scroll-margin-top:24px; }
+.life-case-example>.story-dialogue { margin:0 0 20px; }
+.life-case-example .prep-studio { padding:20px; }
+@media(max-width:650px){.life-experiments-stack{gap:28px}.life-case-example .prep-studio{padding:10px}.life-case-group{gap:20px}}

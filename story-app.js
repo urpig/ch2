@@ -73,11 +73,7 @@ function mountInquiryCard(step){
  return article.querySelector('.chapter-body');
 }
 function combustionProcedure(){
- return `<section class="combustion-procedure" aria-label="鈉與硫的操作步驟">
-  <h3>先看阿公怎麼做</h3>
-  <ol><li><strong>取樣：</strong>把樣本放上燃燒匙。</li><li><strong>加熱燃燒：</strong>觀察火焰；硫點燃後放進集氣瓶。</li><li><strong>產物加水：</strong>冷卻後，鈉的產物加入清水；硫的集氣瓶加入蒸餾水並左右搖晃。</li><li><strong>測試紙：</strong>分別測紅、藍石蕊，觀察顏色變化。</li></ol>
-  <p class="combustion-procedure-current" data-demo-instruction role="status" aria-live="polite"></p>
- </section>`;
+ return '<section class="combustion-procedure" aria-label="實驗步驟"><h3>實驗步驟</h3><ol></ol><p class="combustion-procedure-current" data-demo-instruction role="status" aria-live="polite"></p></section>';
 }
 function mount(step){
  const c=step.lesson;
