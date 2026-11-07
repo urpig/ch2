@@ -2,7 +2,7 @@ import {freshAffinityLab,restoreAffinityLab,affinityLabReady} from './affinity-f
 import {activityQuiz,metalConditions,restoreActivityRecords,activityComparisonsComplete} from './metal-activity-model.js';
 export const observationCases=[
  {id:'burn',title:'木炭燃燒',kind:'fast',time:'短時間內',before:'木炭 C ＋ 氧氣 O₂',after:'二氧化碳 CO₂',mass:{start:30,end:24}},
- {id:'rust',title:'鐵釘生鏽',kind:'slow',time:'長時間快轉',before:'鐵釘 Fe',after:'鐵鏽（含鐵的氧化物）',mass:{start:10,end:10.3},observation:'鐵鏽留在鐵釘上，秤也量到結合的氧。'}
+ {id:'rust',title:'鐵釘生鏽',kind:'slow',time:'長時間快轉',before:'鐵釘 Fe',after:'鐵鏽（氧化鐵）',mass:{start:10,end:10.3}}
 ];
 export const oxidationQuiz={
  question:'木炭燃燒和鐵釘生鏽的快慢不同。哪個線索能說明兩者都是氧化？',

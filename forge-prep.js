@@ -69,7 +69,7 @@ export function mountForgePrep({intro,activityRoot,transfer,lifeRoot},addQuestio
  const storageNotice=()=>saved?'':'<p class="prep-footer" role="status">瀏覽器暫時無法保存進度。</p>';
 
  intro.innerHTML=`
-  ${storyDialogue('「氧化鐵？阿公，氧化是什麼意思呀？氧化鐵跟鐵又有什麼不同？」','「物質和氧結合就叫氧化。氧化鐵是鐵和氧結合形成的新物質。分別播放木炭燃燒和鐵釘生鏽，比比看變化的快慢和秤上的重量。」')}
+  ${storyDialogue('「氧化鐵？阿公，氧化是什麼意思呀？氧化鐵跟鐵又有什麼不同？」','「物質和氧結合的過程就叫氧化。氧化鐵是鐵和氧結合形成的新物質。氧化反應有分成劇烈的跟緩慢的。」')}
   <section id="forge-prep-a" class="prep-studio inquiry-studio" tabindex="-1" aria-label="認識氧化反應">
    <div data-inquiry-content></div>
   </section>
@@ -81,7 +81,7 @@ export function mountForgePrep({intro,activityRoot,transfer,lifeRoot},addQuestio
  function renderIntro(selector){
   disposeIntro?.();
   oxidationContent.innerHTML=evidenceStudio(s);
-  oxidationNotes.innerHTML=(observedOxidation()?notebookMarkup('A'):'')+storageNotice();
+  oxidationNotes.innerHTML=(observedOxidation()?storyDialogue('「阿公，為什麼木炭燃燒後變輕了，鐵釘生鏽後卻變重了呢？」','「因為木炭燃燒時，碳會跟氧結合成二氧化碳飄走，所以變輕了。鐵釘生鏽則是因為氧會跑到鐵釘裡面，跟鐵結合形成鐵鏽，所以變重了。」')+notebookMarkup('A'):'')+storageNotice();
   const update=target=>{
    const {top}=oxidationCard.getBoundingClientRect();
    const readingCard=top>=0&&top<window.innerHeight/3;
