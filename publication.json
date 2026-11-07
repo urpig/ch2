@@ -18,12 +18,82 @@
     "sourceFolder": "/",
     "publishCommand": "node publish-pages.mjs",
     "url": "https://urpig.github.io/ch2/",
-    "sourceCommit": "da2b1232256b5c0d641f22b1a27f3f809dba3067",
-    "pagesCommit": "07ef63abd0ce4bf9cc1f71d7561a38c3dcad6ca0",
-    "sourceTree": "de2be82ad46f0d0cd677c69685026d7879e7c18e",
-    "verifiedAt": "2026-10-30T15:07:01.840Z"
+    "sourceCommit": "843db7db0198988250b31673626cf3595f8d1b54",
+    "pagesCommit": "de8f9aea5fbe9ec4bfe995452caee724ffe66731",
+    "sourceTree": "f9618617a9d10720b3edc10646c98649eb820ea3",
+    "verifiedAt": "2026-11-07T13:36:44.697Z"
   },
   "currentPublicDeployment": {
+    "provider": "github-pages",
+    "url": "https://urpig.github.io/ch2/",
+    "status": "published",
+    "sourceCommit": "843db7db0198988250b31673626cf3595f8d1b54",
+    "pagesCommit": "de8f9aea5fbe9ec4bfe995452caee724ffe66731",
+    "sourceTree": "f9618617a9d10720b3edc10646c98649eb820ea3",
+    "fileCount": 283,
+    "anonymousHttpVerifiedAt": "2026-11-07T13:36:44.693Z",
+    "anonymousHttpChecksPassed": 18,
+    "httpVerification": "All 18 requests used no credentials, returned HTTP 200, and matched committed dist. Text normalized only for CRLF/LF; four PNGs matched byte-for-byte.",
+    "verifiedFiles": [
+      "index.html",
+      "term-worked-example.js",
+      "story-dialogue.js",
+      "story-app.js",
+      "combustion-records.js",
+      "combustion-demo.js",
+      "term-demo.css",
+      "metal-activity.js",
+      "life-autoplay.js",
+      "furnace-workshop.js",
+      "life-biology-lab.js",
+      "factory-art.js",
+      "factory-workshop.css",
+      "assets/story/factory-skip-v3.png",
+      "assets/story/factory-plant-v2.png",
+      "assets/story/factory-burden-v3.png",
+      "assets/story/life-beaker-v2.png",
+      "forge-prep.js"
+    ],
+    "deploymentRun": "https://github.com/urpig/ch2/actions/runs/42377117080",
+    "deploymentConclusion": "success",
+    "browserVerifiedAt": "2026-11-07T13:36:44.697Z",
+    "browserVerification": [
+      "Public 03A begins with its experiment; replay hides the final explanations, pause changes to resume, and completion reveals the two Grandpa dialogue boxes.",
+      "Public 03A no longer renders affinity-lab; its three research-record bullets contain the requested definitions and paired oxidizer/reducer roles.",
+      "The public biology tab is named 光合作用與呼吸作用; switching to bleaching and back works.",
+      "Public photosynthesis starts only after Play; Pause changes to Resume and can be resumed.",
+      "Public 390 by 844 viewport renders the longer biology tab label without horizontal overflow (375px page width)."
+    ],
+    "automatedTestsPassed": 209,
+    "verificationLimits": "Targeted public smoke checks cover the revised terms, notes, biology tab navigation and playback controls. They do not repeat every experiment. Physical phone touch, real student use and browser-console collection were not run for this release.",
+    "screenshot": "outputs/qa-manual-life-furnace-20261107/public-redox-research-record.png",
+    "mobileScreenshot": "outputs/qa-manual-life-furnace-20261107/public-life-mobile.png"
+  },
+  "previousPublicDeployment": {
+    "provider": "netlify",
+    "site": "whimsical-babka-221c30",
+    "url": "https://whimsical-babka-221c30.netlify.app/",
+    "deployId": "6add0fa73b84e3e7169c710e",
+    "status": "published",
+    "publishedAtDisplay": "2026-10-25 04:06 Asia/Taipei (minute precision from dashboard)",
+    "sourceCommit": "56efa9804420e626dd16b447a9496e8e7bf10a16",
+    "sourceDirectory": "dist",
+    "sourceTree": "53fdefc95427a3be896c1509a3bbf08d803c98ec",
+    "fileCount": 167,
+    "archiveSha256": "167ec8f7cb332dad3f7452f34bf1c3cc5e2672ff6ef102853190416e726af585",
+    "anonymousHttpVerifiedAt": "2026-10-24T20:14:11.409Z",
+    "anonymousHttpChecksPassed": 7,
+    "httpVerification": "No cookies or authorization supplied; all seven requests returned 200. JavaScript and image contents match the repo. HTML static text and app entry match after hosting link/comment processing.",
+    "browserVerification": [
+      "Public page renders the current story and antioxidant epilogue.",
+      "A prediction can be selected and submitted; the ore responds to keyboard rotation and records evidence.",
+      "Prediction and evidence survive reload; reset restores four choices and a visible scene preview.",
+      "No console errors or warnings observed during the smoke check."
+    ],
+    "verificationLimits": "This publication smoke check did not repeat every lesson interaction or mobile interaction. The unchanged application source previously passed all 123 automated tests.",
+    "publicationSequence": "Published to the existing Netlify site under the explicit public-link request before the user selected GitHub Pages for future publication. No further Netlify publication is authorized by this record."
+  },
+  "previousGitHubPagesDeployment": {
     "provider": "github-pages",
     "url": "https://urpig.github.io/ch2/",
     "status": "published",
@@ -62,61 +132,5 @@
       "outputs/biology-photo-public.png",
       "outputs/biology-respiration-public.png"
     ]
-  },
-  "previousPublicDeployment": {
-    "provider": "netlify",
-    "site": "whimsical-babka-221c30",
-    "url": "https://whimsical-babka-221c30.netlify.app/",
-    "deployId": "6add0fa73b84e3e7169c710e",
-    "status": "published",
-    "publishedAtDisplay": "2026-10-25 04:06 Asia/Taipei (minute precision from dashboard)",
-    "sourceCommit": "56efa9804420e626dd16b447a9496e8e7bf10a16",
-    "sourceDirectory": "dist",
-    "sourceTree": "53fdefc95427a3be896c1509a3bbf08d803c98ec",
-    "fileCount": 167,
-    "archiveSha256": "167ec8f7cb332dad3f7452f34bf1c3cc5e2672ff6ef102853190416e726af585",
-    "anonymousHttpVerifiedAt": "2026-10-24T20:14:11.409Z",
-    "anonymousHttpChecksPassed": 7,
-    "httpVerification": "No cookies or authorization supplied; all seven requests returned 200. JavaScript and image contents match the repo. HTML static text and app entry match after hosting link/comment processing.",
-    "browserVerification": [
-      "Public page renders the current story and antioxidant epilogue.",
-      "A prediction can be selected and submitted; the ore responds to keyboard rotation and records evidence.",
-      "Prediction and evidence survive reload; reset restores four choices and a visible scene preview.",
-      "No console errors or warnings observed during the smoke check."
-    ],
-    "verificationLimits": "This publication smoke check did not repeat every lesson interaction or mobile interaction. The unchanged application source previously passed all 123 automated tests.",
-    "publicationSequence": "Published to the existing Netlify site under the explicit public-link request before the user selected GitHub Pages for future publication. No further Netlify publication is authorized by this record."
-  },
-  "previousGitHubPagesDeployment": {
-    "provider": "github-pages",
-    "url": "https://urpig.github.io/ch2/",
-    "status": "published",
-    "sourceCommit": "7e7052cfdcb4bd0cfe8372b3855a6d6eb526bdf6",
-    "pagesCommit": "6ad4b040a709dd7eb64bbcc548012cc7b399f7b6",
-    "sourceTree": "6bc38de7203639fa2b4060f76f067d575bc5d8d0",
-    "fileCount": 225,
-    "anonymousHttpVerifiedAt": "2026-10-30T10:11:37.784Z",
-    "anonymousHttpChecksPassed": 7,
-    "httpVerification": "Six public files match committed dist after line-ending normalization; the specified chapter 1 destination returns HTTP 200.",
-    "verifiedFiles": [
-      "index.html",
-      "forge-prep-model.js",
-      "forge-prep.css",
-      "narrative-labs.js",
-      "ore-hammer.js",
-      "oxygen-affinity.js"
-    ],
-    "browserVerifiedAt": "2026-10-30T10:14:09.840Z",
-    "browserVerification": [
-      "Public A-D workshop practice and all five main-card quizzes have four choices.",
-      "Public C practice accepts both the new D option and the correct C option with appropriate feedback.",
-      "Public activity table shows the new 26px heading and question; definition map fills the available content width.",
-      "Ore view toolbar is absent; local hammer interaction still crushes the ore.",
-      "Public chapter 1 header link was clicked and opened https://urpig.github.io/ch1/dist/chemistry/index.html.",
-      "No captured console errors."
-    ],
-    "automatedTestsPassed": 171,
-    "verificationLimits": "Local 390px check confirmed four 17px choices without horizontal overflow and persistence of option D. Public smoke checks cover revised practice, headings and navigation; unchanged experiments were not all replayed.",
-    "screenshot": "outputs/ch2-public-four-choice-practice.png"
   }
 }
