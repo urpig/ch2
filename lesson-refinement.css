@@ -68,7 +68,26 @@
 .iron-affinity-bench .iron-cup-target.drop-hover{outline:2px solid #ad8b45;outline-offset:3px;background:#fff5d033}
 .iron-bench-detail{box-shadow:0 5px 15px #25423b16;border-radius:10px;background:linear-gradient(140deg,#fffff6f5,#edf3e9f0)}
 .iron-bench-comparison figure{background:radial-gradient(ellipse at 50% 35%,#fffef5,#e7eee2)}
-.iron-added-grains i{border-radius:50%;width:2px;height:2px}
+.iron-affinity-bench[data-phase=running] .iron-cup-target{box-shadow:none}
+.iron-cup-target::after{
+ content:"";position:absolute;inset:66% 12% 3%;pointer-events:none;opacity:0;
+ background:radial-gradient(ellipse at 48% 70%,#9acaff8c,transparent 69%);mix-blend-mode:screen;
+}
+.iron-affinity-bench[data-phase=running] .iron-cup-target::after{animation:iron-flame-reflection 3s ease-in-out both}
+.iron-product-developing{
+ position:absolute;inset:0;pointer-events:none;opacity:0;animation:iron-product-develop 1.54s ease-in-out 1.17s both;
+}
+.iron-product-developing>svg{width:100%;height:100%;display:block;overflow:visible}
+.iron-cup-target .iron-added-grains{inset:0;z-index:1}
+.iron-cup-target .iron-added-grains i{
+ top:0;left:50%;width:var(--grain-radius);height:auto;aspect-ratio:1.18;
+ border:0;border-radius:55% 45% 60% 40%;background:radial-gradient(circle at 30% 30%,#f3f2d97a,transparent 70%),var(--iron-grain);
+ box-shadow:0 .5px 1px #2b413d78;opacity:0;animation:iron-specimen-fall .52s ease-in both;animation-delay:calc(var(--i) * .017s);
+}
+@keyframes iron-specimen-fall{0%{opacity:0;top:-12%;left:53%;rotate:0deg}24%{opacity:1}83%{opacity:.95}100%{opacity:0;top:57%;left:var(--grain-end);rotate:110deg}}
+@keyframes iron-product-develop{from{opacity:0}to{opacity:1}}
+@keyframes iron-flame-reflection{0%,100%{opacity:0}36%{opacity:.65}75%{opacity:.75}}
+@media(prefers-reduced-motion:reduce){.iron-product-developing,.iron-affinity-bench[data-phase=running] .iron-cup-target::after{animation:none}}
 
 /* Direct apple control/experimental comparison. */
 .apple-comparison{padding:24px;border:1px solid #c3cdb8;border-radius:14px;background:#fffdf4;margin:18px 0}
@@ -115,65 +134,214 @@
 .life-biology-lab .life-result-path>b,.life-biology-lab .life-result-path>p strong{font-size:15px;line-height:1.6;font-weight:650}
 .life-biology-lab .life-result-path>p{display:flex;align-items:center;justify-content:center;margin:0;padding:10px 0 0;min-height:36px}
 @media(max-width:650px){.life-biology-lab .life-result-path>b,.life-biology-lab .life-result-path>p strong{font-size:12px}}
-/* Shared tiled room and worktop echo the combustion laboratory. */
-.life-lab-room{position:relative;aspect-ratio:760/460;overflow:hidden;border:1px solid #b3c9cd;border-radius:8px;background:#dce9ed}
-.life-lab-backdrop{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.life-lab-room .lab-specimen-groups{position:absolute;left:17%;right:3%;top:18%;bottom:2%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:end}
-.lab-specimen-groups figure{margin:0;min-width:0;text-align:center;background:none;border:0;border-radius:0;overflow:visible}
-.lab-specimen-photo{position:relative;aspect-ratio:1;background:var(--specimen-image) left center/200% 100% no-repeat;border-radius:6px;overflow:hidden}
-.lab-specimen-treated{position:absolute;inset:0;background:inherit;background-position:right center;opacity:var(--life-progress,0)}
-.lab-specimen-groups figcaption{display:grid;gap:4px;padding:10px 3px;color:#fffdf0;font-size:14px;text-shadow:0 1px 2px #29464e}
-.lab-specimen-groups figcaption b{font-size:14px}.lab-specimen-groups figcaption span{font-size:12px;color:#eaf1e9}
-.life-bleach-workbench .bleach-bench-reagent{top:42%;left:1%;width:15%}
-.life-lab-room .bleach-bench-reagent strong{color:#254d53}
-.apple-lab-room .lab-specimen-groups{left:6%;right:6%;top:13%}
-.apple-lab-room .apple-photo{background-image:url('./assets/story/apple-comparison-lab.png');border-radius:6px}
-.life-reactor-peroxide .life-reactor-drop,.life-reactor-chlorine .life-reactor-drop,.life-reactor-sulfur .life-reactor-drop{left:59%;top:20%;width:38%;height:65%}
-.life-reactor-art:has(.life-lab-room)>.life-reactor-drop .life-zone-name{display:none}
-@media(max-width:650px){.life-lab-room .lab-specimen-groups{gap:7px}.lab-specimen-groups figcaption{padding:5px 0;font-size:11px}.lab-specimen-groups figcaption b{font-size:11px}.lab-specimen-groups figcaption span{font-size:9px}.apple-lab-room .apple-groups{gap:8px}}
+/* The sample photographs sit on the same bench as the instruments. */
+.life-reactor-art .life-lab-room {
+ position:relative;
+ width:100%;
+ aspect-ratio:760/460;
+ overflow:hidden;
+ border-radius:8px;
+ background:#64766d;
+}
+.life-lab-backdrop {
+ position:absolute;
+ inset:0;
+ background:linear-gradient(180deg,transparent 56%,#14242c0f 67%,#12252dca),
+  url('./assets/story/everyday-lab-bench.jpg') center/cover no-repeat;
+}
+.life-lab-phase {
+ position:absolute;
+ z-index:4;
+ left:2.7%;
+ top:4%;
+ padding:4px 9px;
+ background:#193633eb;
+ color:#fffbed;
+ border:1px solid #f9fff845;
+ border-radius:5px;
+ font-size:clamp(9px,1.15vw,14px);
+ font-weight:650;
+}
+.life-lab-room .lab-specimen-groups {
+ position:absolute;
+ inset:0 4% 0 24%;
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:4%;
+}
+.life-lab-room .lab-specimen-groups figure {
+ position:relative;
+ margin:0;
+ min-width:0;
+ text-align:center;
+ border:0;
+ background:none;
+ overflow:visible;
+}
+.lab-specimen-groups figure::before {
+ content:"";
+ position:absolute;
+ left:5%;
+ right:5%;
+ bottom:19%;
+ height:12%;
+ border-radius:50%;
+ border:1px solid #effcf279;
+ background:radial-gradient(ellipse at 42% 40%,#5d747638 60%,#cfdfda86 68%,#a4b5b17d 80%);
+ box-shadow:inset 1px 2px 3px #fafff5a1,2px 5px 9px #091b2069;
+}
+.life-lab-room :is(.lab-specimen-photo,.apple-photo) {
+ position:absolute;
+ z-index:1;
+ left:50%;
+ bottom:16.5%;
+ width:81%;
+ aspect-ratio:1;
+ transform:translateX(-50%);
+ border-radius:0;
+ filter:drop-shadow(1px 5px 4px #10252c70);
+}
+.life-reactor-peroxide {--specimen-image:url('./assets/story/tofu-cutout-comparison.png')}
+.life-reactor-chlorine {--specimen-image:url('./assets/story/cloth-cutout-comparison.png')}
+.life-reactor-sulfur {--specimen-image:url('./assets/story/chopsticks-cutout-comparison.png')}
+.lab-specimen-original,.lab-specimen-treated {
+ position:absolute;
+ inset:0;
+ background:var(--specimen-image) left center/200% 100% no-repeat;
+}
+.lab-specimen-treated {background-position:right center}
+.life-reactor-peroxide .lab-experimental .lab-specimen-original {opacity:calc(1 - var(--specimen-replace,0))}
+.life-reactor-peroxide .lab-specimen-treated {
+ mask-image:linear-gradient(#000 calc(var(--specimen-fade,0) * 142% - 40%),transparent calc(var(--specimen-fade,0) * 142%));
+}
+.life-reactor-chlorine .lab-specimen-treated {
+ opacity:var(--specimen-fade,0);
+ mask-image:radial-gradient(ellipse at 51% 51%,#000 calc(var(--specimen-fade,0) * 46%),transparent calc(25% + var(--specimen-fade,0) * 53%));
+}
+.life-reactor-sulfur .lab-experimental .lab-specimen-original {
+ filter:brightness(calc(1 + var(--specimen-fade,0) * .34)) saturate(calc(1 - var(--specimen-fade,0) * .37));
+}
+.life-reactor-sulfur .lab-specimen-photo {width:74%}
+.lab-experimental :is(.lab-specimen-photo,.apple-photo)::after {
+ content:"";
+ position:absolute;
+ inset:0;
+ pointer-events:none;
+ opacity:var(--specimen-wet,0);
+ background:radial-gradient(ellipse 22% 9% at 52% 31%,#fff8dcb0,transparent 96%),
+  radial-gradient(ellipse 26% 15% at 51% 34%,#4a5d514d,transparent 98%);
+ mix-blend-mode:soft-light;
+}
+.life-reactor-chlorine .lab-experimental .lab-specimen-photo::after {
+ background:radial-gradient(ellipse 31% 26% at 50% 51%,#49666f8a,transparent 98%);
+ mix-blend-mode:multiply;
+}
+.life-reactor-food .lab-experimental .apple-photo::after {
+ background:radial-gradient(ellipse 24% 16% at 49% 46%,#fff7d4bb,transparent 98%);
+}
+.life-lab-room .lab-specimen-groups figcaption {
+ position:absolute;
+ z-index:3;
+ inset:auto 0 3.3%;
+ display:grid;
+ gap:2px;
+ padding:0 2px;
+ color:#fffdf0;
+ text-shadow:0 1px 3px #122630;
+}
+.life-lab-room .lab-specimen-groups figcaption b {font-size:clamp(10px,1.25vw,15px)}
+.life-lab-room .lab-specimen-groups figcaption span {font-size:clamp(8px,.97vw,12px);color:#e9f3ea}
+.life-lab-room .apple-photo {background-image:url('./assets/story/apple-cutout-comparison.png')}
+.apple-lab-room .lab-control {--apple-local-brown:var(--apple-control-brown,0)}
+.apple-lab-room .lab-experimental {--apple-local-brown:var(--apple-treated-brown,0)}
+.apple-lab-room .apple-photo::before {
+ content:"";
+ position:absolute;
+ inset:0;
+ background:inherit;
+ /* Align the browned cutout before blending its flesh texture. */
+ background-position:94.8% center;
+ opacity:var(--apple-local-brown);
+ mask-image:radial-gradient(ellipse 27% 36% at 30% 53%,#000 59%,transparent 100%),
+  radial-gradient(ellipse 27% 36% at 72% 53%,#000 59%,transparent 100%);
+ pointer-events:none;
+}
 .life-biology-lab .life-result-path{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;min-height:100px;padding:12px 14px;gap:0}
 .life-biology-lab .life-result-path>b,.life-biology-lab .life-result-path>p{grid-column:1;min-width:0;width:100%;box-sizing:border-box}
 .life-biology-lab .life-result-path>b{display:block;padding:0 0 10px;align-self:end}
 .life-biology-lab .life-result-path>p{border-top:1px solid #bec8b788;align-self:start;padding:10px 0 0;line-height:1.6}
 .life-biology-lab .life-result-path>p strong{display:block;white-space:normal;width:auto;max-width:100%}
-.life-reactor-art .life-lab-room{width:100%;max-width:none}
-
-/* Transparent specimens share the worktop, with the experimental group on the left. */
-.life-reactor-peroxide .lab-specimen-photo{border-radius:0;filter:drop-shadow(0 7px 4px #15353e38)}
-.life-reactor-peroxide .life-reactor-drop{left:17%;top:20%;width:39%;height:65%}
-.life-reactor-peroxide .bleach-bench-reagent{top:48%;width:15%}
-.life-reactor-peroxide .bleach-bench-reagent[aria-pressed=true] .bleach-beaker{filter:drop-shadow(0 0 4px #d1a74c)}
-
-.peroxide-pour{display:none;position:absolute;left:26%;top:22%;width:15%;z-index:7;pointer-events:none;transform-origin:30% 65%}
-.peroxide-pour strong{display:none}.peroxide-pour svg{width:100%;height:auto}.peroxide-pour i{position:absolute;left:16%;top:72%;height:70%;width:3px;background:linear-gradient(#dff9ffb3,#efffff44);border-radius:50%;opacity:0}
-.life-reactor-peroxide:has(.peroxide-pour) .peroxide-pour{display:none}
-.life-manual-reaction[data-life-reaction=peroxide][data-phase=running] .peroxide-pour{display:block;animation:peroxide-pour 1.35s ease-in-out both}
-.life-manual-reaction[data-life-reaction=peroxide][data-phase=running] .peroxide-pour i{animation:peroxide-stream 1.35s ease-in-out both}
-@keyframes peroxide-pour{0%{opacity:0;transform:translate(-80%,65%)}20%{opacity:1;transform:rotate(0)}40%,70%{opacity:1;transform:rotate(-55deg)}90%{opacity:1;transform:rotate(0)}100%{opacity:0;transform:translate(-80%,65%)}}
-@keyframes peroxide-stream{0%,35%,80%,100%{opacity:0}45%,70%{opacity:.85;transform:rotate(55deg)}}
-@media(prefers-reduced-motion:reduce){.life-manual-reaction[data-phase=running] .peroxide-pour{animation:none;display:none}}
-/* Common handling and photo cutouts for all everyday bench experiments. */
-.life-bleach-workbench .lab-specimen-photo{border-radius:0;filter:drop-shadow(0 7px 4px #15353e38)}
-.life-bleach-workbench .life-reactor-drop{left:17%;top:20%;width:39%;height:65%;border:0;background:transparent;box-shadow:none}
-.life-bleach-workbench .life-reactor-drop:focus-visible{outline:2px dashed #96783c;outline-offset:-10px}
-.life-bleach-workbench .bleach-bench-reagent{top:48%;left:1%;width:15%}
-.bleach-bench-reagent[aria-pressed=true] .bleach-supply{filter:drop-shadow(0 0 4px #d1a74c)}
-.lab-reagent-transfer{display:none;position:absolute;left:26%;top:22%;width:15%;z-index:7;pointer-events:none;transform-origin:30% 65%}
-.lab-reagent-transfer strong{display:none}.lab-reagent-transfer svg{width:100%;height:auto}.lab-reagent-transfer i{position:absolute;left:16%;top:72%;height:70%;width:3px;background:linear-gradient(#dff9ffb3,#efffff44);border-radius:50%;opacity:0}
-.life-manual-reaction[data-phase=running] .liquid-transfer{display:block;animation:peroxide-pour 1.35s ease-in-out both}
-.life-manual-reaction[data-phase=running] .liquid-transfer i{animation:peroxide-stream 1.35s ease-in-out both}
-.life-manual-reaction[data-phase=running] .gas-transfer{display:block;left:33%;top:17%;animation:gas-delivery 1.5s ease-in-out both}
-.lab-gas-chamber{position:absolute;left:17%;top:17%;width:39%;height:64%;border:1px solid #95bbc5;border-radius:45% 45% 5% 5%;background:linear-gradient(95deg,#f5ffff44,transparent 30%,#e1f4f622 75%,#fff7);z-index:2;pointer-events:none;box-shadow:inset 3px 0 2px #fff7}
-.lab-gas-chamber span{position:absolute;top:5%;left:0;width:100%;text-align:center;font-size:11px;color:#466d73}
-.apple-lab-room .lab-specimen-groups{left:17%;right:3%;top:18%;bottom:2%}
-.apple-lab-room .apple-photo{background-image:url('./assets/story/apple-cutout-comparison.png');border-radius:0;filter:drop-shadow(0 6px 3px #15353e38)}
-/* Change the same specimen's colour, keeping its silhouette fixed throughout. */
-.apple-lab-room .lab-control .apple-photo{filter:sepia(calc(var(--apple-browning,0) * .9)) saturate(calc(1 + var(--apple-browning,0) * .8)) hue-rotate(calc(var(--apple-browning,0) * -18deg)) brightness(calc(1 - var(--apple-browning,0) * .25)) drop-shadow(0 6px 3px #15353e38)}
-.apple-comparison .apple-groups figure{background:none;border:0;border-radius:0;overflow:visible}
-.apple-comparison .lab-specimen-groups figcaption{padding:10px 3px;color:#fffdf0;font-size:14px}.apple-comparison .lab-specimen-groups figcaption b{font-size:14px}.apple-comparison .lab-specimen-groups figcaption span{font-size:12px;color:#eaf1e9}
-@keyframes gas-delivery{0%,100%{opacity:0;transform:translate(-100%,100%)}25%,75%{opacity:1;transform:translate(0,0)}}
-@media(prefers-reduced-motion:reduce){.life-manual-reaction[data-phase=running] .lab-reagent-transfer{animation:none;display:none}}
-@media(max-width:650px){.apple-comparison .lab-specimen-groups figcaption{padding:5px 0}.apple-comparison .lab-specimen-groups figcaption b{font-size:11px}.apple-comparison .lab-specimen-groups figcaption span{font-size:9px}}
+.life-bleach-workbench .life-reactor-art:has(.life-lab-room) .life-reactor-drop {
+ left:24%;
+ top:26%;
+ width:34.5%;
+ height:53%;
+ border:0;
+ border-radius:8px;
+ background:transparent;
+ box-shadow:none;
+}
+.life-reactor-art:has(.life-lab-room) .life-zone-name {display:none}
+.life-bleach-workbench .life-reactor-art:has(.life-lab-room) .life-drop-hint {
+ top:-14%;
+ bottom:auto;
+ font-size:clamp(9px,.98vw,12px);
+ padding:4px 8px;
+ background:#fbf5dfec;
+ color:#315348;
+}
+.life-manual-reaction:is([data-phase=running],[data-phase=complete]) .life-reactor-art:has(.life-lab-room) .life-drop-hint {visibility:hidden}
+.life-reactor-art:has(.life-drop-hover) .lab-experimental :is(.lab-specimen-photo,.apple-photo) {
+ filter:drop-shadow(0 0 4px #ffe2a3) drop-shadow(1px 5px 4px #10252c70);
+}
+.life-bleach-workbench .life-reactor-art:has(.life-lab-room) .bleach-bench-reagent {
+ top:49%;
+ left:1.5%;
+ width:16%;
+}
+.life-bleach-workbench .life-reactor-sulfur:has(.life-lab-room) .bleach-bench-reagent {
+ top:44%;
+ left:1%;
+ width:22%;
+}
+.life-reactor-art:has(.life-lab-room) .bleach-bench-reagent :is(strong,[data-input-state]) {
+ color:#fffaf0;
+ text-shadow:0 1px 3px #10252c,0 0 4px #10252c;
+}
+.life-reactor-art:has(.life-lab-room) .bleach-bench-reagent [data-input-state] {color:#f4db9f}
+.life-reactor-art[data-transferring] .bleach-bench-reagent {visibility:hidden}
+.bleach-bench-reagent .beaker-fill {transform:translateY(calc(27px * var(--reagent-used,0)))}
+.bleach-bench-reagent[aria-pressed=true] .bleach-supply {filter:drop-shadow(0 0 4px #e2c175)}
+.life-bleach-workbench .life-reactor-art>.lab-reagent-transfer,.lab-gas-chamber {
+ position:absolute;
+ inset:0;
+ display:block;
+ width:100%;
+ height:100%;
+ overflow:hidden;
+ pointer-events:none;
+}
+.life-bleach-workbench .life-reactor-art>.lab-reagent-transfer {z-index:7}
+.lab-reagent-transfer .syringe-plunger {transform:translateX(calc(28px * var(--transfer-plunger,0)))}
+.lab-gas-chamber {z-index:2}
+.lab-chamber-label {
+ position:absolute;
+ z-index:3;
+ left:41.5%;
+ top:30%;
+ transform:translateX(-50%);
+ font-size:clamp(9px,1vw,12px);
+ color:#fffdef;
+ text-shadow:0 1px 4px #1a3437,0 0 5px #1a3437;
+}
+@media(max-width:650px) {
+ .life-lab-room .lab-specimen-groups figcaption {gap:1px;line-height:1.2}
+ .life-bleach-workbench .life-reactor-art:has(.life-lab-room) .bleach-bench-reagent {top:43%;line-height:1.16}
+ .life-bleach-workbench .life-reactor-sulfur:has(.life-lab-room) .bleach-bench-reagent {top:39%}
+ .life-bleach-workbench .life-reactor-art:has(.life-lab-room) .bleach-bench-reagent [data-input-state] {font-size:8px}
+ .life-bleach-workbench .life-reactor-art:has(.life-lab-room) .life-drop-hint {padding:2px 5px}
+ .life-lab-phase {padding:2px 6px}
+}
 /* Move only metal reaction labels to the right of the spoon. */
 .combustion-workbench:is([data-element="Cu"],[data-element="Mg"],[data-element="Zn"],[data-element="Na"]) .specimen-reaction-live{left:57%;right:auto;top:44%;width:40%}
 
@@ -208,9 +376,10 @@
 
 /* A larger gas syringe remains part of the bench, rather than a supply card. */
 .life-reactor-sulfur .bleach-bench-reagent{left:.2%;top:39%;width:19%}
-.life-reactor-sulfur .gas-syringe{width:100%;max-width:none;height:auto;filter:drop-shadow(0 4px 3px #244a4c40)}
+.life-reactor-sulfur .bleach-bench-reagent .gas-syringe{width:100%;max-width:none;height:auto;filter:drop-shadow(0 4px 3px #244a4c40)}
 .life-reactor-sulfur .bleach-bench-reagent[aria-pressed]{background:none;border:0;box-shadow:none}
-.life-reactor-sulfur .gas-transfer{width:19%}
+.life-auto-observation .bleach-bench-reagent { cursor: default; pointer-events: none; }
+.life-auto-observation .bio-molecule-rest > svg { width: 100%; height: auto; }
 
 .combustion-workbench .combustion-observation-continue.primary{bottom:12%;right:3%;padding:13px 19px;min-height:46px;background:linear-gradient(#f6d98b,#d8af54);color:#283e34;border:2px solid #fff5cb;border-radius:9px;box-shadow:0 4px 12px #173b3850;font-size:14px;font-weight:750}
 .combustion-workbench .combustion-observation-continue.primary:hover{background:#ffe5a0}
@@ -222,25 +391,31 @@
 .life-reactor-sulfur .lab-specimen-photo{width:80%;margin-inline:auto}
 
 /* Visible rounded powder grains and an underwater plume. */
-.bench-addition:not(.gas-bubbles){left:16.5%;top:64%;width:6%;height:20%;z-index:8}
-.bench-addition:not(.gas-bubbles) i{top:0;opacity:0;background:var(--sample-colour);box-shadow:0 0 1px #263d48aa;animation:bench-powder-sink 1.6s linear infinite;animation-delay:calc(var(--i)*-.029s)}
-@keyframes bench-powder-sink{0%{translate:0 -7px;opacity:0}12%{opacity:1}56%{opacity:1}86%{translate:3px 70px;opacity:.8}100%{translate:-3px 90px;opacity:0}}
-.bench-addition:not(.gas-bubbles)::after{content:"";position:absolute;left:-30%;top:40%;width:160%;height:54%;background:radial-gradient(ellipse,#fbf7e6aa,transparent 70%);filter:blur(4px);opacity:0;animation:bench-powder-cloud 2.3s ease-out both}
-[data-element=Cu] .bench-addition:not(.gas-bubbles)::after{background:radial-gradient(ellipse,#25352c88,transparent 70%)}
-@keyframes bench-powder-cloud{25%{opacity:0;scale:.3}60%{opacity:.7}100%{opacity:.3;scale:1.4}}
-@media(prefers-reduced-motion:reduce){.bench-addition:not(.gas-bubbles) i{animation:none;opacity:1;top:calc(var(--i) * 1%)}.bench-addition:not(.gas-bubbles)::after{animation:none;opacity:.35}}
+.bench-addition:not(.gas-bubbles){left:14.8%;top:64%;width:9%;height:19%;z-index:8}
+.bench-addition:not(.gas-bubbles) i{
+ top:0;opacity:0;width:clamp(1.5px,.43cqw,var(--grain-size));height:auto;aspect-ratio:1.25;
+ background:radial-gradient(ellipse at 30% 25%,#fff8 0%,transparent 52%),var(--sample-colour);
+ box-shadow:0 .6px 1px #263d4870;animation:bench-powder-sink 1.22s linear both;
+ animation-delay:calc(.26s + var(--i) * .0075s);
+}
+@keyframes bench-powder-sink{
+ 0%{left:calc(50% + (var(--grain-x) - 50%) * .16);top:0;opacity:0;rotate:0deg}
+ 14%{opacity:1}
+ 37%{left:calc(50% + (var(--grain-x) - 50%) * .32);top:44%;opacity:1;rotate:45deg}
+ 82%{opacity:.82}
+ 100%{left:var(--grain-x);top:98%;opacity:0;rotate:135deg}
+}
+.bench-addition:not(.gas-bubbles)::before,.bench-addition:not(.gas-bubbles)::after{
+ content:"";position:absolute;left:-30%;top:42%;width:160%;height:58%;
+ background:radial-gradient(ellipse at 50% 49%,var(--powder-cloud,#fff8deba),transparent 72%);
+ filter:blur(2px);opacity:0;transform-origin:center 20%;animation:bench-powder-cloud 2.05s ease-out .24s both;
+}
+.bench-addition:not(.gas-bubbles)::after{left:0;top:56%;width:100%;height:46%;animation-delay:.41s;animation-duration:1.8s}
+[data-element=Cu] .bench-addition{--powder-cloud:#2d3c3678}
+@keyframes bench-powder-cloud{22%{opacity:0;transform:scale(.2,.45)}53%{opacity:.84}100%{opacity:.14;transform:translateY(14%) scale(1.15,1.22)}}
+@media(prefers-reduced-motion:reduce){.bench-addition:not(.gas-bubbles) i{animation:none;opacity:.8;top:calc(50% + var(--i) * .5%)}.bench-addition:not(.gas-bubbles)::before,.bench-addition:not(.gas-bubbles)::after{animation:none;opacity:.35}}
 
-/* Keep the organelle and gas syringe clear of instructional overlays. */
 .life-biology-lab[data-life-reaction=photo][data-bio-step="0"] .bio-stage-drop>span{bottom:20%}
-.life-reactor-sulfur .lab-specimen-groups{left:26%;right:3%;top:23%}
-.life-reactor-sulfur .lab-specimen-photo{width:76%}
-.life-reactor-sulfur .lab-gas-chamber{left:26%;width:34%;top:22%;height:59%}
-.life-bleach-workbench .life-reactor-sulfur .life-reactor-drop{left:26%;width:34%;top:23%;height:58%}
-.life-manual-reaction[data-phase=running] .life-reactor-sulfur .gas-transfer{left:40%}
-/* Keep the specimens smaller while retaining aligned comparison labels. */
-.life-bleach-workbench .lab-specimen-photo{width:85%;margin-inline:auto}
-.life-reactor-sulfur .lab-specimen-photo{width:65%}
-.apple-lab-room .apple-photo{width:85%;margin-inline:auto}
 
 /* Readable character dialogue throughout this chapter. */
 .story-speech,.with-forge-scene .story-speech,.dialogue-stack .story-speech{grid-template-columns:64px minmax(0,1fr);padding:16px 18px;gap:16px}
@@ -251,17 +426,15 @@
 .interaction-reset-bar{display:flex;justify-content:flex-end;align-items:center;flex-wrap:wrap;gap:10px;padding:10px 14px;background:#f3f5eb;border:1px solid #d8dfce;border-radius:10px 10px 0 0}
 .interactive-lab-frame{margin-top:14px}
 .prep-studio>.interaction-reset-bar{margin-bottom:16px}
-.ore-viewer>.interaction-reset-bar{border:0;border-bottom:1px solid #d8dfce}
-.ore-viewer>.interaction-reset-bar .ore-hammer-reset{margin:0}
 .bottle-analysis .analysis-wash.analysis-next-tool:before{white-space:pre-line;min-width:145px;text-align:center;top:-54px;border-radius:10px;padding:5px 10px;line-height:1.5}
 .sulfur-gas-flow{position:absolute;inset:0;width:100%;height:100%;z-index:5;pointer-events:none;display:none;overflow:visible}
 [data-gas-producing=true]>.sulfur-gas-flow{display:block}
 .sulfur-gas-caption{font-size:11px;font-weight:700;fill:#315c67;paint-order:stroke;stroke:#f0f7f3;stroke-width:3px}
-.sulfur-gas-marker{animation:sulfur-gas-fall 3.6s linear var(--gas-delay) infinite}
+.sulfur-gas-marker{animation:sulfur-gas-fall 3.6s ease-in-out var(--gas-delay) infinite}
 .sulfur-gas-marker ellipse{fill:#f6ffff;fill-opacity:.72;stroke:#6f9aa5;stroke-width:.8}
 .sulfur-gas-marker text{fill:#315c67;font-size:11px;font-weight:700}
 .sulfur-gas-arrow{stroke:#7398a1;stroke-width:1.5;fill:none;stroke-dasharray:4 4}
-@keyframes sulfur-gas-fall{0%{transform:translateY(0);opacity:0}15%{opacity:.9}85%{opacity:.9}100%{transform:translateY(88px);opacity:0}}
+@keyframes sulfur-gas-fall{0%{transform:translate(0,-6px) scale(.8);opacity:0}18%{opacity:.9}46%{transform:translate(var(--gas-sway),33px) scale(1)}83%{opacity:.85}100%{transform:translate(0,88px) scale(.89);opacity:0}}
 @media(prefers-reduced-motion:reduce){.sulfur-gas-marker{animation:none;transform:translateY(52px);opacity:.85}}
 @media(max-width:700px){.interaction-reset-bar{padding:8px 10px}.bottle-analysis .analysis-wash.analysis-next-tool:before{font-size:10px;min-width:125px;top:-48px}}
 @media(max-width:700px){
@@ -288,3 +461,59 @@
 @media(max-width:600px){.practice .quiz-option,.prep-quiz .prep-answers button,.life-role-choices button{font-size:17px;padding:13px 14px}}
 
 .iron-candidate-label{padding:0 3px 6px;text-align:center;color:#375e50}.iron-candidate-label b{display:block}.iron-candidate-label small{display:block;margin-top:8px;color:#748166}.iron-cup-target{cursor:default}
+
+.factory-feed-rack .factory-feed {
+ width: max(63px,var(--feed-size,85px));
+ height: calc(max(63px,var(--feed-size,85px)) * .84 + 12px);
+ flex-basis: max(63px,var(--feed-size,85px));
+ font-family: inherit;
+ color: #2b514a;
+}
+.factory-feed-rack .factory-feed .factory-feed-state {
+ min-height: 1.2em;
+ color: #355d4d;
+ font-size: 10px;
+ font-weight: 650;
+}
+.factory-feed-rack .factory-feed.feed-loaded { opacity: .72; }
+.factory-feed-rack .factory-feed.feed-loading {
+ opacity: 1;
+ border-color: #ae8745;
+ background: #fff4d6;
+}
+.charging .factory-charge-target:disabled { opacity: 1; cursor: wait; }
+.charging .factory-charge-target > span {
+ width: max-content;
+ min-width: 100%;
+ left: 50%;
+ transform: translateX(-50%);
+ padding: 2px 5px;
+ border-color: #96713d;
+ background: #fff0c7;
+ color: #68491f;
+ font-weight: 750;
+}
+@media (max-width: 600px) {
+ .factory-feed-rack .factory-feed .factory-feed-state { font-size: 9px; }
+}
+
+/* Keep playback discoverable while the real apparatus remains the visual focus. */
+.life-auto-observation .text-button[data-life-retry]{flex-shrink:0;min-height:44px;padding:10px 17px;border:1px solid #315d50;border-radius:7px;background:#315d50;color:#fffdf1;font-size:16px;font-weight:650;text-decoration:none;line-height:1.4;cursor:pointer}
+.life-auto-observation .text-button[data-life-retry]:hover{background:#244c41}
+.life-auto-observation .text-button[data-life-retry]:focus-visible{outline:3px solid #d6ad58;outline-offset:3px}
+.life-auto-observation[data-phase=running] .text-button[data-life-retry],.life-auto-observation[data-phase=complete] .text-button[data-life-retry]{background:#f5f4e9;color:#315d50}
+.life-auto-observation .reaction-heading,.life-auto-observation>header{gap:16px;align-items:flex-start}
+.lab-photographic-glass{pointer-events:none}
+@media(max-width:600px){.life-auto-observation .text-button[data-life-retry]{font-size:14px;padding:9px 12px}.life-auto-observation .reaction-heading,.life-auto-observation>header{flex-wrap:wrap}}
+
+/* Keep real material specimens visible and touchable at phone widths. */
+#card-5 .factory-feed-rack{gap:14px;padding:12px 18px}
+#card-5 .factory-feed-rack .factory-feed{width:88px;height:99px;flex:0 0 88px;padding:4px 6px}
+#card-5 .factory-feed>svg.factory-material-photo{width:100%;height:58px;min-height:58px;flex:0 0 58px}
+#card-5 .factory-feed-rack .factory-feed>span{font-size:12px}
+@media(max-width:600px){
+ #card-5 .factory-feed-rack{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:10px;gap:8px}
+ #card-5 .factory-feed-rack .factory-feed{width:100%;height:98px;min-width:0;flex-basis:auto}
+ #card-5 .factory-feed-rack .factory-feed>span{font-size:11px}
+ .life-auto-observation .life-mix-workbench{margin-inline:0}
+}

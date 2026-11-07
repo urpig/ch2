@@ -52,15 +52,16 @@ export function combustionArtwork(key,stage,isMetal,cool=true,spoonOrigin=null){
  ${finished?`<text class="combustion-product-note" x="${x}" y="${y+42}" text-anchor="middle" fill="#465f50" font-size="13">${{Cu:'紅棕銅片 → 黑色表層',Mg:'留下白色氧化鎂',Zn:cool?'白色氧化鋅':'熱的氧化鋅：黃色',Na:'淡黃色氧化產物',S:'SO₂ 留在瓶內；氣體無色',P:'白煙逐漸沉降為白色固體',C:'CO₂ 留在瓶內；氣體無色',CO:'可能含 CO、CO₂ 及剩餘碳'}[key]}</text>`:''}</svg>`;
 }
 
-export function mountCombustion(root,{key,isMetal,autoLoad=false,spoonOrigin=null,onCleanup=()=>{},completed=false,cool=true,token,name,delay,notice,onStart,onComplete,onWetComplete,onCool}){
+export function mountCombustion(root,{key,isMetal,autoLoad=false,spoonOrigin=null,onCleanup=()=>{},completed=false,cool=true,token,name,delay,notice,onStart,onComplete,onWetComplete,onCool,onProcessChange=()=>{}}){
  const owner=root.closest('.interactive-lab');let atmosphere=atmospherePool.get(owner);if(!atmosphere){atmosphere=createCombustionAtmosphere();if(atmosphere){atmospherePool.set(owner,atmosphere);onCleanup(()=>{atmosphere.dispose();atmospherePool.delete(owner);});}}
  const condition=(isMetal?(key==='Cu'?'空氣中加熱；銅片形成黑色表層，通常沒有自身火焰。':'空氣中加熱，觀察樣本的燃燒與產物。'):key==='CO'?'氧不足案例可能有混合產物；CO 不以有色煙呈現。':'瓶內預先充氧，用來觀察燃燒及保留產物；無色氣體不染色；移入路徑簡化示意。')+(key==='Na'||key==='P'||key==='CO'?' 此案例僅虛擬操作。':'');
  root.innerHTML=scopeMarkup(`<div class="combustion-workbench ${completed?'':'mobile-combustion'}" data-combustion-stage="${completed?'done':autoLoad?'loaded':'load'}" data-element="${key}" data-bottle-covered="${!isMetal&&completed?'true':'false'}">${combustionArtwork(key,completed?'done':'load',isMetal,cool,spoonOrigin)}<div data-shelf-target class="shelf-load-target drop-target"><span>放到燃燒匙凹槽 ↓</span></div>${completed?'':`<div class="heat-contact-zone" data-heat-zone aria-hidden="true"></div><div class="combustion-spoon" data-spoon aria-label="${autoLoad?'裝有'+name:'空的'}燃燒匙">${spoonIllustration(key,{empty:!autoLoad,progress:autoLoad})}${mobileSpecimenFallback(key)}<span>按住匙柄拖動 · 可移開</span></div>${isMetal?'':'<div class="drop-target jar-body-zone" data-jar-target><span>點燃後，拖進瓶內 ↓</span></div>'}<div class="spoon-heat-readout"><b data-heat-label></b><span data-heat-detail></span><div class="spoon-heat-progress" role="progressbar" aria-label="樣本受熱或觀察進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i></i></div></div>`}</div><p class="combustion-step" aria-live="polite"></p>`,'combustion-'+key);
  const board=root.querySelector('.combustion-workbench'),step=root.querySelector('.combustion-step');
+ const feedback=document.createElement('p');feedback.className='instrument-feedback';feedback.setAttribute('role','status');feedback.hidden=true;board.append(feedback);onProcessChange(completed?'water':'burn');
  if(key==='S'&&!completed)board.insertAdjacentHTML('beforeend',sulfurGasFlow());
  const updateReaction=mountReactionObservations(board,key,{completed});updateReaction();
  if(atmosphere){board.append(atmosphere.canvas);board.classList.add('atmosphere-ready');atmosphere.update({key,stage:completed?'done':'load',isMetal,mobile:completed,bowl:spoonOrigin||[320,224],specimenActive:false});}
- mountBenchWater(board,{key,completed,cool,spoonOrigin,delay,onCleanup,notice,onCool,onWaterAdded:()=>updateReaction({waterAdded:true}),onComplete:onWetComplete});
+ mountBenchWater(board,{key,completed,cool,spoonOrigin,delay,onCleanup,notice,onCool,onWaterAdded:()=>updateReaction({waterAdded:true}),onPhaseChange:onProcessChange,onComplete:onWetComplete});
  if(completed){shelfTarget(board);step.textContent=['S','C','CO'].includes(key)?'燃燒結束並示意冷卻後，直接加水、輕搖；玻璃片自動開合。再用滴管取液，滴在桌面的紅、藍石蕊試紙上。':'觀察完成。可直接把產物加入水中，或從架上取下一份樣本。';return;}
  let state=newSpoonHeating(key,isMetal,autoLoad),point=spoonOrigin?[...spoonOrigin]:[320,224],inJar=false,held=false,alive=true,started=false,last=performance.now(),timer=0,previousMessage='';
  const spoon=board.querySelector('[data-spoon]'),label=board.querySelector('[data-heat-label]'),detail=board.querySelector('[data-heat-detail]'),meter=board.querySelector('[role="progressbar"]');
@@ -97,7 +98,7 @@ export function mountCombustion(root,{key,isMetal,autoLoad=false,spoonOrigin=nul
   if(['heatMs','burnMs','observationMs','externalHeating','complete','ignited'].some(k=>state[k]!==before[k]))show();
   if(state.complete)return;if(state.loaded)timer=setTimeout(tick,40);
  }
- const releaseDrag=bindFreeSpoon(spoon,board,{position:point,onGrab:()=>{held=true;},onMove:(next,grabbing)=>{point=next;held=grabbing;inJar=!isMetal&&state.ignited&&spoonInJar(point);show();},onRelease:p=>{const placed=spoonBottlePlacement(p,state);inJar=!!placed;if(placed)return placed;}});
+ const releaseDrag=bindFreeSpoon(spoon,board,{position:point,onGrab:()=>{held=true;feedback.hidden=true;},onMove:(next,grabbing)=>{point=next;held=grabbing;inJar=!isMetal&&state.ignited&&spoonInJar(point);show();},onRelease:p=>{const placed=spoonBottlePlacement(p,state);inJar=!!placed;if(placed)return placed;if(state.ignited&&!isMetal){feedback.textContent='把匙端移進玻璃瓶裡，再放手。';feedback.hidden=false;}}});
  function dispose(){if(!alive)return;alive=false;clearTimeout(timer);releaseDrag();}
  onCleanup(dispose);show();tick();
 }

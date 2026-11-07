@@ -42,22 +42,27 @@ vec4 alcoholFlame(vec2 p,vec2 base,vec2 size,float t){
  return flameOver(flame,vec4(.25,.5,1.,halo));
 }
 vec4 luminousFlame(vec2 p,vec2 base,vec2 size,vec3 tint,float t,float whiteHot){
- vec2 q=(base-p)/size;float h=q.y;if(h<-.08||h>1.25||abs(q.x)>1.65)return vec4(0.);
- float rise=t*(1.3+h*.7),curl=flameFbm(vec2(q.x*1.8,h*2.2-rise*.45));
- float centre=q.x+(curl-.5)*(.22+h*.48)+sin(h*5.-t*1.4)*h*.055;
- float width=max(.025,.61-h*.46),alpha=0.;vec3 light=vec3(0.);
+ vec2 q=(base-p)/size;if(q.y<-.08||q.y>1.35||abs(q.x)>1.65)return vec4(0.);
+ float tip=flameNoise(vec2(t*2.1,6.4))-.5;
+ float h=q.y/(1.+tip*.32*smoothstep(.2,1.,q.y));
+ float rise=t*2.7, curl=flameFbm(vec2(q.x*2.4,h*3.1-rise*.58));
+ float centre=q.x+(curl-.5)*(.07+h*.66)*smoothstep(0.,.28,h);
+ float width=max(.028,(.53+.23*smoothstep(0.,.26,h))*(1.-smoothstep(.22,1.24,h))),alpha=0.;
+ vec3 light=vec3(0.);
  for(int i=0;i<5;i++){
-  float z=(float(i)-2.)*.23,rad=sqrt(centre*centre+z*z*.65);
-  float n=flameFbm(vec2(centre*4.8+z*4.,h*5.6-rise*2.3+z*7.));
-  float detail=flameNoise(vec2(centre*21.+z*17.,h*18.-rise*6.));
-  float density=smoothstep(.19,.66,(1.-rad/width)*.73+n*.58-h*.31+(detail-.5)*.08);
-  density*=smoothstep(-.06,.06,h)*(1.-smoothstep(.81,1.18,h));
-  float temperature=clamp(density*.7+n*.4+.2*(1.-h),0.,1.);
-  vec3 emission=mix(tint*.35,tint*1.2,temperature);
-  emission=mix(emission,mix(vec3(1.,.92,.67),vec3(1.,1.,.97),whiteHot),pow(temperature,3.)*(.55+whiteHot*.4));
-  float opacity=1.-exp(-density*.46);light+=emission*opacity*(1.-alpha);alpha+=opacity*(1.-alpha);
+  float z=(float(i)-2.)*.2, rad=length(vec2(centre,z*.72));
+  float folds=flameFbm(vec2(centre*5.7+z*5.,h*5.7-rise+z*6.));
+  float detail=flameNoise(vec2(centre*20.+z*17.,h*16.-rise*3.));
+  float profile=1.-rad/width+(folds-.5)*(.55+h*.4)+(detail-.5)*.07;
+  float density=smoothstep(.015,.56,profile)*smoothstep(-.06,.025,h)*(1.-smoothstep(.74,1.16,h));
+  float core=smoothstep(.23,.92,profile)*exp(-1.7*max(0.,h));
+  vec3 colour=mix(tint*.62,tint,clamp(folds+.26,0.,1.));
+  vec3 hot=mix(mix(tint,vec3(1.,.94,.75),.54),vec3(1.,1.,.97),whiteHot);
+  vec3 emission=mix(colour,hot,core);
+  float opacity=1.-exp(-density*.72);light+=emission*opacity*(1.-alpha);alpha+=opacity*(1.-alpha);
  }
- float halo=exp(-dot(q/vec2(.74,.85),q/vec2(.74,.85))*3.2)*.035*smoothstep(0.,.09,h);
+ vec2 glow=vec2(q.x/.91,(q.y-.19)/.66);
+ float halo=exp(-dot(glow,glow)*3.2)*(.095+whiteHot*.09)*smoothstep(-.08,.075,h);
  vec4 f=vec4(light/max(alpha,.001),alpha);return flameOver(f,vec4(tint,halo));
 }
 vec4 oxidePlume(vec2 p,vec2 base,vec2 size,float t,float strength){

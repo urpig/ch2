@@ -1,15 +1,172 @@
-.ore-hammer-tools{display:flex;align-items:center;gap:14px;padding:14px 16px;border-top:1px solid #d8dfcc;background:#f3f0e4}.ore-hammer-tool{flex:none;display:flex;align-items:center;gap:4px;border:1px solid #a98a56;border-radius:8px;background:#fffaf0;padding:3px 12px 3px 3px;color:#59452b;font-size:12px;font-weight:650;touch-action:none}.ore-hammer-tool img{width:54px;height:54px;pointer-events:none}.ore-hammer-tool span{pointer-events:none}.ore-hammer-tool[aria-pressed=true]{background:#eadcb8}.ore-hammer-tools>div{flex:1}.ore-hammer-tools b{font-size:13px}.ore-hammer-tools p{font-size:12px;line-height:1.8;margin:4px 0 0;color:#637868}.ore-hammer-reset{flex:none;background:transparent;border:0;border-bottom:1px solid #a6ad91;padding:4px;font-size:11px;color:#68785c}.ore-fracture-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.ore-fracture-canvas[hidden],.ore-strike-target[hidden],.ore-hammer-swing[hidden],.ore-crush-result[hidden]{display:none}.ore-strike-target{position:absolute;left:24%;top:14%;width:52%;height:64%;border:0;background:transparent;cursor:crosshair;z-index:3}.ore-strike-target:focus-visible{outline:2px dashed #a37b38;outline-offset:-12px;border-radius:40%}.ore-hammer-drop{position:absolute;left:24%;top:14%;width:52%;height:64%;pointer-events:none}.ore-hammer-swing{position:absolute;left:51%;top:10%;width:120px;height:120px;z-index:4;pointer-events:none;transform-origin:80% 90%}.ore-hammer-swing img{width:100%;height:100%}.ore-hammer-swing.swinging{animation:ore-strike .4s ease-out}.ore-crush-result{padding:16px 20px;background:#e6eddb;border-top:1px solid #c3d0b4}.ore-crush-result b{font-size:15px;color:#345949}.ore-crush-result p{font-size:12px;line-height:1.8;margin:6px 0 0;color:#526b5e}@keyframes ore-strike{0%{transform:rotate(25deg)}45%{transform:rotate(-60deg)}100%{transform:rotate(-35deg)}}@media(prefers-reduced-motion:reduce){.ore-hammer-swing.swinging{animation:none}}@media(max-width:650px){.ore-hammer-tools{flex-wrap:wrap;padding:10px;gap:9px}.ore-hammer-tools>div{min-width:150px}.ore-hammer-tool{font-size:11px}.ore-hammer-tool img{width:42px;height:42px}.ore-hammer-reset{margin-left:auto}.ore-hammer-swing{width:85px;height:85px}}
+.ore-render-stage {
+ container-type: inline-size;
+}
+.ore-viewer .ore-render-stage {
+ background: linear-gradient(#fff8eb33,#fff8eb33),#6a5840 url('./assets/story/ore-forge-floor.png') center/cover no-repeat;
+}
+.ore-fracture-canvas {
+ position: absolute;
+ inset: 0;
+ width: 100%;
+ height: 100%;
+ pointer-events: none;
+}
+.ore-fracture-canvas[hidden],.ore-strike-target[hidden],.ore-hammer-swing[hidden],.ore-crush-result[hidden] {
+ display: none;
+}
+.ore-render-stage .ore-realistic-pile {
+ inset: auto auto 12% 16%;
+ width: 61%;
+ height: auto;
+ max-height: 59%;
+ object-fit: contain;
+ object-position: center bottom;
+ transform-origin: center bottom;
+ filter: drop-shadow(0 5px 3px #21150f44);
+ animation: ore-pile-settle .48s ease-out both;
+}
+.ore-render-stage .ore-gesture-hint {
+ color: #fff6dd;
+ text-shadow: 0 1px 4px #2c1c0b;
+ background: #362814a6;
+ border-radius: 12px;
+ left: 15%;
+ right: 15%;
+ padding: 5px 8px;
+ bottom: 10px;
+ letter-spacing: 0;
+}
+.ore-strike-target,.ore-hammer-drop {
+ position: absolute;
+ left: 24%;
+ top: 14%;
+ width: 52%;
+ height: 64%;
+}
+.ore-strike-target {
+ z-index: 3;
+ border: 0;
+ background: transparent;
+ cursor: crosshair;
+}
+.ore-strike-target:focus-visible {
+ outline: 2px dashed #a37b38;
+ outline-offset: -12px;
+ border-radius: 40%;
+}
+.ore-hammer-drop { pointer-events: none; }
+.ore-render-stage>.ore-hammer-tool {
+ position: absolute;
+ right: 3%;
+ bottom: 10%;
+ z-index: 5;
+ width: 24%;
+ max-width: 150px;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 4px;
+ border: 0;
+ background: transparent;
+ padding: 0;
+ box-shadow: none;
+ cursor: grab;
+ color: #59452b;
+ font-weight: 650;
+ touch-action: none;
+ filter: drop-shadow(3px 7px 4px #27372b4d);
+}
+.ore-hammer-tool img,.ore-hammer-swing img {
+ width: 100%;
+ object-fit: contain;
+ user-select: none;
+ -webkit-user-drag: none;
+ pointer-events: none;
+}
+.ore-render-stage>.ore-hammer-tool span {
+ padding: 3px 10px;
+ background: #fffae6d9;
+ border-radius: 20px;
+ font-size: 12px;
+ pointer-events: none;
+}
+.ore-render-stage>.ore-hammer-tool[aria-pressed=true] { filter: drop-shadow(0 0 5px #bc9e63); }
+.ore-render-stage>.ore-hammer-tool:disabled { opacity: .65; cursor: default; }
+.ore-render-stage>.ore-hammer-tool:focus-visible { outline: 2px dashed #947239; outline-offset: 2px; }
+.ore-render-stage:has(.ore-hammer-swing:not([hidden]))>.ore-hammer-tool { visibility:hidden; }
 
-.ore-render-stage>.ore-hammer-tool{position:absolute;right:3%;bottom:10%;z-index:5;width:24%;max-width:150px;display:flex;flex-direction:column;border:0;background:transparent;padding:0;box-shadow:none;cursor:grab;filter:drop-shadow(3px 7px 4px #27372b4d)}
-.ore-render-stage>.ore-hammer-tool img{width:100%;height:auto;pointer-events:none}
-.ore-render-stage>.ore-hammer-tool span{padding:3px 10px;background:#fffae6d9;border-radius:20px;font-size:12px}
-.ore-render-stage>.ore-hammer-tool[aria-pressed=true]{background:transparent;filter:drop-shadow(0 0 5px #bc9e63)}
-.ore-render-stage>.ore-hammer-tool:disabled{opacity:.65;cursor:default}
-.ore-render-stage>.ore-hammer-tool:focus-visible{outline:2px dashed #947239;outline-offset:2px}
-.ore-hammer-tools{padding:10px 16px;justify-content:flex-end}.ore-hammer-tools>div{flex:1}
+.ore-hammer-swing {
+ position: absolute;
+ left: 48%;
+ top: 26%;
+ width: 25%;
+ z-index: 6;
+ pointer-events: none;
+ transform-origin: 74% 87%;
+ filter: drop-shadow(2px 6px 4px #2a1d1459);
+ animation: ore-strike .63s both;
+}
+.ore-strike-debris {
+ position: absolute;
+ inset: 0;
+ z-index: 2;
+ pointer-events: none;
+}
+.ore-strike-debris i {
+ position: absolute;
+ left: 46%;
+ top: 57%;
+ width: var(--chip-size);
+ aspect-ratio: 1.23;
+ opacity: 0;
+ clip-path: polygon(22% 7%,69% 0,100% 44%,77% 94%,25% 100%,0 59%);
+ background:
+  linear-gradient(143deg,#ecd4ae66,transparent 39%,#2f1f1890 79%),
+  url('./assets/story/hematite-pile-realistic.png') center / 1100% auto #8c4b32;
+ filter: brightness(var(--chip-shade));
+ animation: ore-chip .58s var(--chip-delay) both;
+}
+.ore-strike-debris span {
+ position: absolute;
+ left: 26%;
+ top: 59%;
+ width: 42%;
+ height: 26%;
+ background: radial-gradient(ellipse at 52% 79%,#ac8969bd 4%,#bd98724d 39%,transparent 68%);
+ filter: blur(3px);
+ transform-origin: 50% 81%;
+ animation: ore-dust .65s ease-out both;
+}
+.ore-strike-debris span + span { left: 35%; width: 36%; animation-delay: .09s; }
+.ore-crush-result { padding: 16px 20px; background: #e6eddb; border-top: 1px solid #c3d0b4; }
+.ore-crush-result b { font-size: 15px; color: #345949; }
+.ore-crush-result p { font-size: 12px; line-height: 1.8; margin: 6px 0 0; color: #526b5e; }
 
-.ore-hammer-tool img,.ore-hammer-swing img{object-fit:contain;user-select:none;-webkit-user-drag:none}
-/* Intact ore and crushed gravel share the same workshop floor. */
-.ore-viewer .ore-render-stage{background:linear-gradient(#fff8eb33,#fff8eb33),#6a5840 url('./assets/story/ore-forge-floor.png') center/cover no-repeat}
-.ore-render-stage .ore-realistic-pile{inset:auto auto 12% 16%;width:61%;height:auto;max-height:59%;object-fit:contain;object-position:center bottom;transform-origin:center bottom;filter:drop-shadow(0 5px 3px #21150f44)}
-.ore-render-stage .ore-gesture-hint{color:#fff6dd;text-shadow:0 1px 4px #2c1c0b;background:#362814a6;border-radius:12px;left:15%;right:15%;padding:5px 8px;bottom:10px;letter-spacing:0}
+@keyframes ore-strike {
+ 0% { opacity: 0; transform: translate(38%,3%) rotate(13deg); }
+ 12% { opacity: 1; transform: translate(17%,-11%) rotate(27deg); }
+ 38% { opacity: 1; transform: translate(-8%,24%) rotate(-25deg); }
+ 60% { opacity: .97; transform: translate(-2%,14%) rotate(-13deg); }
+ 100% { opacity: 0; transform: translate(38%,30%) rotate(10deg); }
+}
+@keyframes ore-pile-settle {
+ 0% { opacity: .3; transform: translateY(-5%) scale(1.05,1.11); }
+ 56% { opacity: 1; transform: translateY(.7%) scale(1.02,.96); }
+ 100% { opacity: 1; transform: none; }
+}
+@keyframes ore-chip {
+ 0% { opacity: 0; transform: translate(0,0) rotate(0); }
+ 8% { opacity: 1; }
+ 39% { transform: translate(clamp(-16cqi,calc(var(--chip-x) * .62),16cqi),var(--chip-apex)) rotate(calc(var(--chip-turn) * .55)); }
+ 76% { opacity: .85; transform: translate(clamp(-25cqi,var(--chip-x),25cqi),10cqi) rotate(var(--chip-turn)); }
+ 86% { transform: translate(clamp(-26cqi,calc(var(--chip-x) * 1.08),26cqi),8cqi) rotate(var(--chip-turn)); }
+ 100% { opacity: 0; transform: translate(clamp(-29cqi,calc(var(--chip-x) * 1.12),29cqi),11cqi) rotate(var(--chip-turn)); }
+}
+@keyframes ore-dust {
+ 0% { opacity: 0; transform: scale(.26,.27); }
+ 26% { opacity: .8; }
+ 100% { opacity: 0; transform: translateY(-10%) scale(1.6,1.13); }
+}
+@media(prefers-reduced-motion:reduce) {
+ .ore-render-stage .ore-realistic-pile,.ore-hammer-swing,.ore-strike-debris * { animation:none; }
+}

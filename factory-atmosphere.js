@@ -6,9 +6,9 @@ export function createFactoryAtmosphere(canvas){
  const fs=`precision highp float;varying vec2 uv;uniform float time;uniform float hot;
  ${flameGLSL}
  void main(){vec2 p=vec2(uv.x*900.,(1.-uv.y)*650.);
-  vec4 f=luminousFlame(p,vec2(450.,486.),vec2(108.,155.),vec3(1.,.34,.026),time,.22);
-  for(int i=0;i<2;i++){float side=i==0?1.:-1.;vec2 delta=p-vec2(i==0?389.:511.,456.);vec2 jet=vec2(delta.y,-side*delta.x);f=flameOver(luminousFlame(jet,vec2(0.),vec2(11.,36.),vec3(1.,.66,.2),time+float(i)*3.,.65),f);}
-  if(p.y>489.||p.y<312.||p.x<384.||p.x>516.)f.a=0.;gl_FragColor=vec4(f.rgb,f.a*hot);
+  vec4 f=luminousFlame(p,vec2(450.,519.),vec2(121.,158.),vec3(1.,.34,.026),time,.22);
+  for(int i=0;i<2;i++){float side=i==0?1.:-1.;vec2 delta=p-vec2(i==0?378.:516.,469.);vec2 jet=vec2(delta.y,-side*delta.x);f=flameOver(luminousFlame(jet,vec2(0.),vec2(11.,36.),vec3(1.,.66,.2),time+float(i)*3.,.65),f);}
+  if(p.y>518.||p.y<348.||p.x<366.||p.x>530.)f.a=0.;gl_FragColor=vec4(f.rgb,f.a*hot);
  }`;
  const compile=(t,s)=>{const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);if(!gl.getShaderParameter(sh,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(sh));return sh;};let program;
  try{program=gl.createProgram();for(const [t,s] of [[gl.VERTEX_SHADER,vs],[gl.FRAGMENT_SHADER,fs]]){const sh=compile(t,s);gl.attachShader(program,sh);gl.deleteShader(sh);}gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));}catch{gl.getExtension('WEBGL_lose_context')?.loseContext();return null;}

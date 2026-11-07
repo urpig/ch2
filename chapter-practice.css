@@ -1,0 +1,20 @@
+.chapter-practice .practice-list {
+ display: grid;
+ gap: 18px;
+}
+.practice-question { margin: 0; scroll-margin-top: 16px; }
+.practice-question header {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: space-between;
+ align-items: baseline;
+ gap: 4px 16px;
+}
+.practice-question header h3 { margin: 0; }
+.practice-question header a { color: var(--green); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
+.practice-question h4 { margin: 13px 0 10px; font-size: 18px; line-height: 1.55; }
+.practice-question .prep-answers button { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.practice-question .prep-answers button span:first-child { flex: 0 0 1em; font-weight: 700; }
+.practice-question .prep-answers button span:last-child { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.practice-question .prep-feedback:empty { margin: 0; }
+.practice-locked { margin: 10px 0 0; color: var(--muted); }

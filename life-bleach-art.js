@@ -1,5 +1,22 @@
-import {laboratoryBackdrop} from './life-laboratory-scene.js';
+import {laboratoryBackdrop,gasChamber} from './life-laboratory-scene.js';
 import {laboratoryReagent} from './lab-reagent-art.js';
-const items={peroxide:{name:'豆干',formula:'H₂O₂',agent:'過氧化氫'},chlorine:{name:'衣服',formula:'NaClO',agent:'次氯酸鈉'},sulfur:{name:'竹筷',formula:'SO₂',agent:'二氧化硫'}};
+
+const items={
+ peroxide:{name:'豆干',agent:'過氧化氫'},
+ chlorine:{name:'衣服布料',agent:'次氯酸鈉'},
+ sulfur:{name:'竹筷',agent:'二氧化硫'}
+};
+
 export function bleachSupply(key){return laboratoryReagent(key);}
-export function bleachLabArt(key){const d=items[key],asset={peroxide:'tofu-cutout-comparison',chlorine:'cloth-cutout-comparison',sulfur:'chopsticks-cutout-comparison'}[key];return `<div class="life-lab-room bleach-lab-room" role="img" aria-label="實驗室中${d.agent}作用於${d.name}的對照實驗">${laboratoryBackdrop()}${key==='sulfur'?'<div class="lab-gas-chamber" aria-hidden="true"><span>密閉罩</span></div>':''}<div class="lab-specimen-groups">${[true,false].map(treated=>`<figure class="${treated?'lab-experimental':'lab-control'}"><div class="lab-specimen-photo" style="--specimen-image:url('./assets/story/${asset}.png')">${treated?'<div class="lab-specimen-treated"></div>':''}</div><figcaption><b>${treated?'實驗組':'對照組'}</b><span>${treated?'加入'+d.agent:'未加漂白劑'}</span></figcaption></figure>`).join('')}</div></div>`;}
+
+export function bleachLabArt(key,complete){
+ const {name,agent}=items[key];
+ return `<div class="life-lab-room bleach-lab-room" role="img" aria-label="實驗室中${agent}作用於${name}的對照實驗">
+  ${laboratoryBackdrop(complete)}
+  <div class="lab-specimen-groups">${[true,false].map(treated=>`<figure class="${treated?'lab-experimental':'lab-control'}">
+   <div class="lab-specimen-photo"><div class="lab-specimen-original"></div>${treated&&key!=='sulfur'?'<div class="lab-specimen-treated"></div>':''}</div>
+   <figcaption><b>${treated?'實驗組':'對照組'}</b><span>${treated?'加入'+agent:'未加漂白劑'}</span></figcaption>
+  </figure>`).join('')}</div>
+  ${key==='sulfur'?gasChamber():''}
+ </div>`;
+}

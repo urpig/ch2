@@ -1,1 +1,25 @@
-export function laboratoryBackdrop(){return `<svg class="life-lab-backdrop" viewBox="0 0 760 460" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="life-lab-wall" x2="0" y2="1"><stop stop-color="#edf4f5"/><stop offset="1" stop-color="#ccdde1"/></linearGradient><linearGradient id="life-lab-table" x2="0" y2="1"><stop stop-color="#9db8bb"/><stop offset=".1" stop-color="#5b777e"/><stop offset="1" stop-color="#294b55"/></linearGradient><pattern id="life-lab-tiles" width="76" height="64" patternUnits="userSpaceOnUse"><path d="M76 0H0V64" fill="none" stroke="#a8c3cc" stroke-width="1" opacity=".5"/></pattern></defs><rect width="760" height="460" fill="url(#life-lab-wall)"/><rect width="760" height="335" fill="url(#life-lab-tiles)"/><rect x="22" y="22" width="141" height="91" rx="3" fill="#d3e8ee" fill-opacity=".7" stroke="#aac4cd" stroke-width="4"/><path d="M92 23V113M23 67H163" stroke="#afc8d1" stroke-width="3"/><rect x="281" y="18" width="199" height="24" rx="2" fill="#e4edef" stroke="#b0c6cc"/><path d="M293 25H468M293 33H468" stroke="#9fb9c2"/><rect y="334" width="760" height="126" fill="url(#life-lab-table)"/><path d="M0 334H760M0 342H760M0 446H760" stroke="#b9d0cf" stroke-opacity=".7" stroke-width="3"/></svg>`;}
+export function laboratoryBackdrop(complete=false){
+ return `<div class="life-lab-backdrop" aria-hidden="true"></div><span class="life-lab-phase" data-lab-phase aria-hidden="true">${complete?'觀察後':'反應前'}</span>`;
+}
+
+export function gasChamber(){
+ return `<svg class="lab-gas-chamber" viewBox="0 0 760 460" preserveAspectRatio="none" aria-hidden="true">
+ <defs>
+  <linearGradient id="lab-chamber-glass">
+   <stop stop-color="#e6f8f8" stop-opacity=".48"/><stop offset=".09" stop-color="#d7eff2" stop-opacity=".14"/>
+   <stop offset=".64" stop-color="#e6f8f8" stop-opacity=".05"/><stop offset=".94" stop-color="#aec8ca" stop-opacity=".17"/>
+   <stop offset="1" stop-color="#e6f8f8" stop-opacity=".43"/>
+  </linearGradient>
+  <linearGradient id="lab-chamber-port" x2="0" y2="1">
+   <stop stop-color="#f1fbfa"/><stop offset=".34" stop-color="#96afb0"/><stop offset=".54" stop-color="#526a70"/><stop offset=".79" stop-color="#a7bec0"/><stop offset="1" stop-color="#41575a"/>
+  </linearGradient>
+ </defs>
+ <path d="M185 352V228C185 153 237 119 315 119S440 157 440 228V352Q440 365 422 365H204Q185 365 185 352Z" fill="url(#lab-chamber-glass)" stroke="#d1e5e7" stroke-width="1.7"/>
+ <path d="M194 339V230Q194 167 251 140" fill="none" stroke="#fbffff" stroke-opacity=".62" stroke-width="3" stroke-linecap="round"/>
+ <path d="M423 184Q431 204 431 231V338" fill="none" stroke="#e1f6f8" stroke-opacity=".5" stroke-width="2"/>
+ <ellipse cx="313" cy="353" rx="128" ry="15" fill="none" stroke="#a6c4ca" stroke-opacity=".72"/>
+ <path d="M185 352Q314 383 440 352" fill="none" stroke="#e6f6f5" stroke-opacity=".72" stroke-width="3"/>
+ <path d="M174 218H197V232H174Q169 225 174 218Z" fill="url(#lab-chamber-port)" stroke="#658184"/>
+ <ellipse cx="173" cy="225" rx="3" ry="6" fill="#223c44" stroke="#b1d0d2"/>
+ </svg><span class="lab-chamber-label" aria-hidden="true">密閉罩</span>`;
+}

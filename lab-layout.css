@@ -139,3 +139,20 @@
 .specimen-burning .mobile-specimen-fallback{display:block}
 .atmosphere-ready .mobile-specimen-fallback{display:none}
 @media(max-width:800px){.spoon-heat-readout{padding:6px 8px;width:29%}.spoon-heat-readout b{font-size:10px}.spoon-heat-readout>span{font-size:9px;margin-top:2px}#card-2 .free-spoon>span{font-size:9px}.spoon-heat-progress{margin-top:5px}}
+/* On phones each material group gets a full-width rack and finger-sized samples. */
+@media(max-width:600px){
+ #card-2 .integrated-studio .specimen-shelf{grid-template-columns:minmax(0,1fr);row-gap:12px;padding:12px 10px 14px}
+ #card-2 .integrated-studio .shelf-heading{flex-wrap:wrap;gap:3px 10px;font-size:12px;margin-bottom:0}
+ #card-2 .integrated-studio .shelf-heading span{font-size:10px}
+ #card-2 .integrated-studio .specimen-group{grid-column:1;margin:0}
+ #card-2 .integrated-studio .specimen-group h4{font-size:12px;margin:0 0 22px;padding:4px 7px}
+ #card-2 .integrated-studio .specimen-group.metals .shelf-rail{grid-template-columns:repeat(4,minmax(44px,1fr))}
+ #card-2 .integrated-studio .specimen-group.nonmetals .shelf-rail{grid-template-columns:repeat(3,minmax(44px,1fr))}
+ #card-2 .integrated-studio .shelf-rail{gap:7px;padding:0 2px 6px}
+ #card-2 .integrated-studio .shelf-specimen{min-width:44px;min-height:84px;box-sizing:border-box}
+ #card-2 .integrated-studio .specimen-vial{height:52px;margin:0 2px 5px}
+ #card-2 .integrated-studio .shelf-specimen>b{font-size:12px;line-height:1.4;min-height:17px}
+ #card-2 .integrated-studio .shelf-specimen>small{display:block;font-size:10px;line-height:1.4}
+ #card-2 .integrated-studio .combustion-observation-continue{min-height:44px}
+}
+@media(max-width:340px){#card-2 .integrated-studio .specimen-group.metals .shelf-rail{grid-template-columns:repeat(2,minmax(44px,1fr))}}

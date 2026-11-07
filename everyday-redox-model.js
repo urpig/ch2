@@ -5,11 +5,11 @@ export const lifeBiology={
 export const lifeBleaches={
  peroxide:{name:'過氧化氫',formula:'H₂O₂',kind:'氧系漂白',role:'reduction',dye:'色素被氧化',reason:'在這類漂白中，過氧化氫使色素被氧化，自己被還原，因此扮演氧化劑。'},
  chlorine:{name:'次氯酸鈉',formula:'NaClO',kind:'含氯漂白',role:'reduction',dye:'色素被氧化',reason:'次氯酸鈉在這類漂白中是氧化劑：讓色素被氧化，自己被還原。'},
- sulfur:{name:'二氧化硫',formula:'SO₂',kind:'還原漂白',role:'oxidation',dye:'色素被還原',reason:'二氧化硫可使某些有色物質被還原而褪色，自己被氧化，因此扮演還原劑。'}
+ sulfur:{name:'二氧化硫',formula:'SO₂',kind:'還原漂白',role:'oxidation',dye:'色素被還原',reason:'二氧化硫可使某些色素被還原而褪色，自己被氧化，因此扮演還原劑。'}
 };
 export const lifeEvidence=['photo','resp','peroxide','chlorine','sulfur','food'];
 export const lifeQuiz={question:'小葵想整理「日常生活中的氧化還原」，哪一句最合理？',options:['光合作用放出氧氣，所以只有還原、沒有氧化。','漂白劑使衣物褪色，所以所有漂白劑都被還原。','維生素 C 可先被氧化，延緩食物氧化；它的保護作用有限。','加了抗氧化劑，就能永久保鮮，也不必留意微生物。'],answer:2,reason:'維生素 C 自己先被氧化，能延緩食物氧化；它會被消耗，不能永久保鮮。'};
-export function freshLife(){return {tab:0,bio:'photo',bleach:'peroxide',time:0,seen:[],evidence:[],answer:null};}
+export function freshLife(){return {tab:0,bio:'photo',bleach:'peroxide',time:0,seen:[],evidence:[],bioRoles:{},answer:null};}
 export function lifeReady(s){return lifeEvidence.every(k=>s.evidence.includes(k));}
 export function lifeMastered(s){return lifeReady(s)&&s.answer===lifeQuiz.answer;}
 export function restoreLife(raw){const s=freshLife();if(!raw||typeof raw!=='object')return s;
@@ -17,6 +17,7 @@ export function restoreLife(raw){const s=freshLife();if(!raw||typeof raw!=='obje
  if(Number.isFinite(raw.time))s.time=Math.max(0,Math.min(4,Math.round(raw.time)));
  s.seen=[...new Set((Array.isArray(raw.seen)?raw.seen:[]).filter(k=>(Object.hasOwn(lifeBleaches,k)||Object.hasOwn(lifeBiology,k))))];
  s.evidence=[...new Set((Array.isArray(raw.evidence)?raw.evidence:[]).filter(k=>lifeEvidence.includes(k)))];
+ for(const key of ['photo','resp']){if(raw.bioRoles?.[key]){s.bioRoles[key]={};for(const i of [0,1])if(['oxidation','reduction'].includes(raw.bioRoles[key][i]))s.bioRoles[key][i]=raw.bioRoles[key][i];}}
  if([0,1,2,3].includes(raw.answer))s.answer=raw.answer;return s;
 }
 export function lifeRecord(s,key,role){
