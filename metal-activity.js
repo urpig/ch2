@@ -106,9 +106,8 @@ export function metalActivityMarkup(s){
  const phase=trial?'after':'ready';
  const safety=safetyNote(condition,trial?.symbol);
  return `<div class="metal-activity">
-  <div class="inquiry-question"><h3>什麼是活性？</h3><p><strong>活性</strong>是物質起化學反應的傾向。用相同條件比較兩種樣本，觀察誰比較容易反應。</p></div>
+  <div class="inquiry-question"><p><strong>活性</strong>是物質起化學反應的傾向。用相同條件比較兩種樣本，觀察誰比較容易反應。</p></div>
   <section class="activity-bench" aria-label="元素活性比較實驗">
-   <header class="activity-lab-head"><div><small>僅限螢幕模擬</small><h4>比較元素活性</h4></div></header>
 
    <div class="activity-controls">
     <h5><span>1</span> 選反應條件</h5>
