@@ -18,7 +18,7 @@ export function mountOreHammer(host,{onCrushed=()=>{}}={}){
  const target=document.createElement('button');target.type='button';target.className='ore-strike-target';target.setAttribute('aria-label','用槌子敲擊鐵礦');target.hidden=true;stage.append(target);
  const swing=document.createElement('div');swing.className='ore-hammer-swing';swing.innerHTML=hammerArt;swing.hidden=true;swing.setAttribute('aria-hidden','true');stage.append(swing);
  const debris=document.createElement('div');debris.className='ore-strike-debris';debris.innerHTML=`<span></span><span></span>${fragments}`;debris.hidden=true;debris.setAttribute('aria-hidden','true');stage.append(debris);
- const result=document.createElement('div');result.className='ore-crush-result';result.hidden=true;result.innerHTML='<b>碎成小塊，仍是氧化鐵 Fe₂O₃。</b><p>敲碎只改變大小，沒有把氧移走；還不能直接拿來鍛劍。</p>';host.append(result);
+ const result=document.createElement('div');result.className='ore-crush-result';result.hidden=true;result.innerHTML='<b>碎成小塊，仍是氧化鐵 Fe₂O₃。</b>';host.append(result);
  stage.append(tool);
  let frame=0,hit=false,alive=true;
  host.dataset.oreHits='0';
