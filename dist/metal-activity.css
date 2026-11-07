@@ -1,0 +1,66 @@
+.activity-lesson-tabs {
+ display:grid;
+ grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:6px;
+ padding:12px 16px 0;
+}
+.activity-lesson-tabs button,.activity-compare-next {
+ min-height:40px;
+ padding:8px 12px;
+ border:1px solid #adc3b9;
+ border-radius:7px;
+ background:#fffdf4;
+ color:#254d43;
+ font:inherit;
+ font-weight:700;
+ cursor:pointer;
+}
+.activity-lesson-tabs button[aria-pressed=true],.activity-compare-next {
+ background:#2f554c;
+ border-color:#2f554c;
+ color:#fffdf4;
+}
+.activity-lesson-tabs button:focus-visible,.activity-compare-next:focus-visible {
+ outline:3px solid #b57b30;
+ outline-offset:2px;
+}
+.activity-comparison {
+ margin:10px 16px 0;
+ padding:12px;
+ border:1px solid #c4d2c3;
+ border-radius:9px;
+ background:#fffcf1;
+}
+.activity-comparison header {
+ display:flex;
+ align-items:start;
+ justify-content:space-between;
+ gap:12px;
+}
+.activity-comparison header h5 { margin:0; font-size:17px; }
+.activity-comparison header > span { color:#61766a; font-size:12px; white-space:nowrap; }
+.activity-comparison p { margin:5px 0 0; color:#496257; font-size:14px; line-height:1.5; }
+.activity-comparison-variables { display:flex; flex-wrap:wrap; gap:8px; margin:9px 0; font-size:13px; }
+.activity-comparison-variables span,.activity-comparison-variables strong { padding:3px 8px; border-radius:4px; background:#e9eee2; color:#3e5c4d; }
+.activity-comparison-variables strong { background:#f5e5c7; color:#86501e; }
+.activity-comparison-pair { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.activity-record { min-width:0; padding:10px; background:#f5f6ef; border:1px dashed #becbbb; border-radius:7px; }
+.activity-record b { display:block; color:#244d43; font-size:15px; }
+.activity-record > span { display:block; margin-top:4px; color:#6a776b; font-size:13px; }
+.activity-record.is-observed { border-style:solid; background:#edf3e7; }
+.activity-record.is-observed > span { color:#315c45; font-weight:700; }
+.activity-record p { margin-top:5px; font-size:13px; }
+.activity-comparison .activity-comparison-next { margin-top:10px; font-weight:700; }
+.activity-compare-next { margin-top:10px; }
+.activity-pick-help { margin:0 0 8px; color:#526c5d; font-size:12px; line-height:1.5; }
+@media(max-width:600px) {
+ .activity-lesson-tabs { padding:10px 8px 0; }
+ .activity-lesson-tabs button { padding:7px 3px; font-size:13px; }
+ .activity-comparison { margin:8px 8px 0; padding:10px; }
+ .activity-comparison header { flex-wrap:wrap; gap:4px; }
+ .activity-comparison header h5 { font-size:16px; }
+ .activity-comparison-pair { gap:6px; }
+ .activity-record { padding:8px; }
+ .activity-record b { font-size:13px; }
+ .activity-record p { font-size:12px; }
+}

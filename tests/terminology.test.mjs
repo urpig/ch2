@@ -42,7 +42,8 @@ test('key distinctions remain explicit instead of teaching a misleading shortcut
 });
 
 test('dictionary navigation uses current visible lesson numbers without removed-card links',()=>{
- assert.deepEqual(dictionaryChapters.filter(c=>!['ore','life'].includes(c.id)).map(c=>c.label.slice(0,2)),['01','02','03','04','05']);
+ assert.deepEqual(dictionaryChapters.map(c=>c.label.split(' · ')[0]),['序章','01','02','03','03A','03B','04','05','06']);
+ assert.deepEqual(dictionaryChapters.slice(2,6).map(c=>c.target),['metal-activity','card-2','forge-prep-c','life-redox']);
  assert.ok(!dictionaryChapters.some(c=>['card-4','epilogue-antioxidants'].includes(c.target)));
  assert.equal(dictionaryChapters.find(c=>c.id==='furnace').target,'card-5');
  assert.equal(dictionaryChapters.find(c=>c.id==='blade').target,'card-6');

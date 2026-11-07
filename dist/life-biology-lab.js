@@ -1,23 +1,61 @@
-import {biologyStages,freshBiology,addBiologyReactant,finishBiologyStage} from './life-biology-model.js';
-import {bindReactantPickup} from './life-reactant-drag.js';
-import {createFoodPlayback} from './food-playback.js';
+import {biologyStages} from './life-biology-model.js';
+import {lifeBiology} from './everyday-redox-model.js';
 import {photosynthesisArt} from './photosynthesis-art.js';
 import {respirationArt} from './respiration-art.js';
 import {moleculeModel} from './bio-molecule-art.js';
+import {observationTimeline} from './observation-timeline.js';
+import {bindLifePlayback} from './life-autoplay.js';
 const biologyArt=key=>key==='photo'?photosynthesisArt():respirationArt();
-export function biologyMarkup(key,complete=false){const photo=key==='photo',steps=biologyStages[key];return `<section class="life-paired-reaction life-biology-lab" data-glossary-skip data-life-observation data-life-reaction="${key}" data-phase="${complete?'complete':'ready'}" data-bio-step="${complete?2:0}"><div class="reaction-heading"><div><small>${photo?'葉片裡的化學':'細胞裡的化學'} · 分子觀察室</small><h4>${photo?'光合作用：誰被氧化、誰被還原？':'有氧呼吸：誰被氧化、誰被還原？'}</h4></div><button type="button" class="text-button" data-life-retry>↺ 重新取用</button></div><p class="life-mix-instruction">${photo?'加入水和二氧化碳，看看誰被氧化、誰被還原。':'先加入葡萄糖，再加入氧氣，看看最後形成哪些產物。'}<span>抓住分子模型，放進圖中的反應區；把分子拖進去才會反應。</span></p>
-<div class="bio-stage-steps">${steps.map((s,i)=>`<span data-bio-step-label="${i}"><i>${i+1}</i><b>${s.name}</b><small data-bio-step-state>待加入</small></span>`).join('')}</div>
-<div class="life-mix-workbench"><div class="life-reactant-rack bio-molecule-rack"><small>拿取分子</small>${steps.map((s,i)=>`<div class="bio-supply-item" data-bio-supply><div class="bio-molecule-rest"><button type="button" class="bio-molecule-handle" data-life-input="${s.id}" aria-label="拿取${s.label}分子模型" aria-pressed="false">${moleculeModel(s.id,`supply-${key}-${s.id}`)}</button></div><strong>${s.label}</strong><span data-input-state>${i?'等前一步完成':'抓住分子，放入 →'}</span></div>`).join('')}</div><div class="life-reactor-panel"><div class="life-reactor-condition"><span>${photo?'陽光與葉綠素參與':'有氧條件'}</span><small>胞器放大示意</small></div><div class="bio-stage-art">${biologyArt(key)}<div class="bio-art-labels" aria-hidden="true"><b class="bio-organelle-title">${photo?'葉綠體':'粒線體'}<small>${photo?'葉片內部':'細胞內部'}</small></b><div class="bio-art-pair"><span class="bio-art-oxidation">① ${photo?'水':'葡萄糖'}被氧化</span><span class="bio-art-reduction">② ${photo?'二氧化碳':'氧氣'}被還原</span></div>${photo?'<span class="bio-sun-label">太陽光</span>':''}</div><button type="button" data-life-drop tabindex="-1" class="bio-stage-drop" aria-label="將反應物拖入此處"><span data-life-drop-hint>水放入這裡</span></button></div><div class="life-mix-slots"><b data-life-mix-count>0 / 2 段</b><span data-bio-next></span></div></div></div>
-<p class="life-observe-status" data-life-animation-status role="status"></p><div class="life-manual-results"><div class="life-result-path oxidation" data-bio-result="0"><b>${photo?'水 → 氧氣':'葡萄糖 → 二氧化碳'}</b><p><strong data-life-pair-label>${photo?'水被氧化':'葡萄糖被氧化'}</strong></p></div><div class="life-result-path reduction" data-bio-result="1"><b>${photo?'二氧化碳 → 養分':'氧氣 → 水'}</b><p><strong data-life-pair-label>${photo?'二氧化碳被還原':'氧氣被還原'}</strong></p></div></div>
-<div class="life-paired-equation"><small>多步反應的總反應式</small><b>${photo?'6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂':'C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O ＋ 能量'}</b></div></section>`;}
-export function bindBiologyLab(scene,onComplete){const key=scene.dataset.lifeReaction,steps=biologyStages[key],zone=scene.querySelector('[data-life-drop]'),status=scene.querySelector('[data-life-animation-status]'),retry=scene.querySelector('[data-life-retry]');let state=freshBiology(key,scene.dataset.phase==='complete'),playback=null,alive=true;const disposers=[],progress=[state.step>0?1:0,state.step>1?1:0];
-const usable=()=>alive&&!scene.closest('[inert]');
-function paint(){scene.style.setProperty('--bio-progress',String(Math.min(1,(progress[0]+progress[1])/2)));const [a,b]=progress,show=(selector,opacity,transform)=>{const el=scene.querySelector(selector);if(!el)return;el.setAttribute('opacity',String(Math.max(0,Math.min(1,opacity))));if(transform)el.setAttribute('transform',transform);};
-show('[data-bio-input-one]',(state.step>0||state.phase==='running'?1:0)*(1-Math.max(0,(a-.3)/.3)),`translate(${Math.min(a/.35,1)*(key==='photo'?180:90)} 0)`);show('[data-bio-oxygen-out]',(a-.38)*4,`translate(0 ${-Math.max(0,(a-.6)/.4)*(32)})`);show('[data-bio-input-two]',b>0&&b<.6?1:0,`translate(${-Math.min(b/.5,1)*219} 0)`);show('[data-bio-intermediate]',b<.78?(b-.35)*5:1-(b-.78)/.22);show('[data-bio-product]',(b-.7)/.3,`translate(${-25*(1-b)} 0)`);
-scene.querySelectorAll('[data-bio-result]').forEach((el,i)=>{const done=progress[i]>=.45;el.classList.toggle('revealed',done);el.setAttribute('aria-hidden',String(!done));});}
-function refresh(){scene.dataset.phase=state.phase;scene.dataset.bioStep=String(state.step);scene.querySelectorAll('[data-life-input]').forEach((el,i)=>{const active=state.phase==='ready'&&i===state.step;el.disabled=!active;el.setAttribute('aria-pressed','false');el.closest('[data-bio-supply]').querySelector('[data-input-state]').textContent=i<state.step?'✓ 已觀察':state.phase==='running'&&i===state.step?'反應進行中…':active?'抓住分子，放入 →':'等前一步完成';});scene.querySelectorAll('[data-bio-step-label]').forEach((el,i)=>{el.classList.toggle('active',i===state.step);el.classList.toggle('complete',i<state.step);el.setAttribute('aria-current',i===state.step?'step':'false');el.querySelector('[data-bio-step-state]').textContent=i<state.step?'已觀察':i===state.step?(state.phase==='running'?'觀察中':'拖入分子'):'稍後加入';});zone.disabled=state.phase!=='ready';scene.querySelector('[data-life-drop-hint]').textContent=state.phase==='complete'?'✓ 兩段觀察完成':state.phase==='running'?'反應進行中…':steps[state.step].label+' 放入這裡 ↓';scene.querySelector('[data-life-mix-count]').textContent=state.step+' / 2 段';scene.querySelector('[data-bio-next]').textContent=state.step<2?steps[state.step].name:'兩邊一起理解';paint();}
-const visible=()=>{const r=scene.getBoundingClientRect();playback?.setActive(alive&&state.phase==='running'&&!document.hidden&&!document.querySelector('dialog[open]')&&r.bottom>0&&r.top<innerHeight);};
-const add=id=>{if(!usable()||!addBiologyReactant(state,id))return;const n=state.step;refresh();status.textContent=steps[n].running;playback=createFoodPlayback({duration:matchMedia('(prefers-reduced-motion:reduce)').matches?1:5200,onTime:t=>{progress[n]=t/4;paint();},onState:s=>{if(!alive||!s.complete||!finishBiologyStage(state))return;refresh();status.textContent=steps[n].done;if(state.phase==='complete')onComplete();else scene.querySelector('[data-life-input="'+steps[state.step].id+'"]')?.focus({preventScroll:true});}});visible();};
-for(const el of scene.querySelectorAll('[data-life-input]'))disposers.push(bindReactantPickup(el,zone,{disabled:()=>!usable()||el.disabled,onDrop:()=>add(el.dataset.lifeInput),onMiss:()=>{refresh();status.textContent='還沒進入反應區，請再放一次。';},onCancel:()=>{refresh();status.textContent='已放回，可以重新拿取。';}}));
-retry.onclick=()=>{if(!usable())return;disposers.forEach(f=>f.cancel());playback?.dispose();playback=null;state=freshBiology(key);progress.fill(0);refresh();status.textContent=steps[0].instruction;};refresh();status.textContent=state.phase==='complete'?steps[1].done:steps[0].instruction;
-window.addEventListener('scroll',visible,{passive:true,capture:true});window.addEventListener('resize',visible);document.addEventListener('visibilitychange',visible);const observer=new MutationObserver(visible);observer.observe(document.body,{attributes:true,subtree:true,attributeFilter:['open']});return ()=>{alive=false;playback?.dispose();disposers.forEach(f=>f());observer.disconnect();window.removeEventListener('scroll',visible,true);window.removeEventListener('resize',visible);document.removeEventListener('visibilitychange',visible);retry.onclick=null;};}
+
+function biologyEquation(key,complete){
+ const {equation,paths}=lifeBiology[key];
+ return `<div class="life-paired-equation"><small>多步反應的總反應式</small><b>${equation}${key==='resp'?' ＋ 能量':''}</b>
+ <ul class="bio-equation-paths" data-bio-equation-paths aria-label="氧化還原的物質去向" ${complete?'':'hidden'}>${paths.map(({from,to,role})=>`<li class="is-${role}"><span>${from}</span> <strong>${role==='oxidation'?'被氧化成':'被還原成'}</strong> <span>${to}</span></li>`).join('')}</ul></div>`;
+}
+
+export function biologyMarkup(key,complete=false){
+ const photo=key==='photo',steps=biologyStages[key];
+ return `<section class="life-paired-reaction life-biology-lab bio-whole life-auto-observation" data-glossary-skip data-life-observation data-life-reaction="${key}" data-phase="${complete?'complete':'ready'}" data-bio-step="${complete?2:0}" aria-label="${photo?'光合作用':'有氧呼吸'}整體反應觀察">
+ <div class="reaction-heading"><div><small>觀看整體反應</small><h4>${photo?'光合作用：水與二氧化碳變成什麼？':'有氧呼吸：養分與氧氣變成什麼？'}</h4></div><button type="button" class="text-button" data-life-retry>${complete?'↻ 重播動畫':'▶ 播放動畫'}</button></div>
+ <div class="life-mix-workbench">
+  <div class="life-reactant-rack bio-molecule-rack"><small>反應物</small>${steps.map(s=>`<div class="bio-supply-item"><div class="bio-molecule-rest">${moleculeModel(s.id,`supply-${key}-${s.id}`)}</div><strong>${s.label}</strong></div>`).join('')}</div>
+  <div class="life-reactor-panel">
+   <div class="life-reactor-condition"><span>${photo?'光照、葉綠素參與':'有氧條件'}</span><small>立體放大示意</small></div>
+   <div class="bio-stage-art">${biologyArt(key)}
+    <div class="bio-art-labels" aria-hidden="true"><span class="bio-display-phase" data-bio-display-phase>${complete?'觀察後':'反應前'}</span>
+    <b class="bio-organelle-title">${photo?'葉綠體':'粒線體'}<small>${photo?'葉片內部':'細胞內部'}</small></b>
+    <div class="bio-model-products" hidden data-bio-model-products><span>${photo?'氧氣 O₂':'二氧化碳 CO₂'}</span><span>${photo?'葡萄糖 C₆H₁₂O₆':'水 H₂O'}</span></div></div>
+   </div>${observationTimeline()}
+  </div>
+ </div>
+ <p class="life-observe-status" data-life-animation-status role="status"></p>${biologyEquation(key,complete)}</section>`;
+}
+
+export function bindBiologyLab(scene,onComplete){
+ const key=scene.dataset.lifeReaction,photo=key==='photo';
+ const status=scene.querySelector('[data-life-animation-status]'),retry=scene.querySelector('[data-life-retry]');
+ const equationPaths=scene.querySelector('[data-bio-equation-paths]');
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const art=scene.querySelector('.bio-stage-art'),particles=[...art.querySelectorAll('[data-bio-molecule]')];
+ const organelle=art.querySelector('[data-bio-organelle]'),light=art.querySelector('[data-bio-light]'),beam=art.querySelector('[data-bio-beam]');
+ const phaseLabel=art.querySelector('[data-bio-display-phase]'),productLabels=art.querySelector('[data-bio-model-products]');
+ const fraction=(p,from,to)=>Math.max(0,Math.min(1,(p-from)/(to-from))),ease=p=>p*p*(3-2*p);
+ function paint(p){
+  scene.style.setProperty('--bio-progress',String(p));
+  phaseLabel.textContent=p===0?'反應前':p===1?'觀察後':'縮時觀察';
+  const show=(index,opacity,x,y)=>{particles[index].setAttribute('opacity',String(opacity));particles[index].setAttribute('transform',`translate(${x} ${y})`);};
+  const approach=reduced?0:ease(fraction(p,.03,.49)),arc=Math.sin(approach*Math.PI),remaining=1-ease(fraction(p,.29,.52));
+  show(0,remaining,237*approach,-175*approach-31*arc);
+  show(1,remaining,-224*approach,-167*approach-27*arc);
+  const emerging=ease(fraction(p,.54,.9)),settling=reduced?0:1-emerging;
+  show(2,emerging,176*settling,-117*settling);show(3,emerging,-171*settling,-122*settling);
+  const illumination=reduced?0:ease(fraction(p,.12,.41))*(1-ease(fraction(p,.6,.93))),scale=1+.052*illumination;
+  organelle.setAttribute('transform',`translate(480 254) scale(${scale}) translate(-480 -254)`);
+  light.setAttribute('opacity',String(illumination*.72));beam?.setAttribute('opacity',String(.25+illumination*.75));
+  productLabels.hidden=emerging<.24;productLabels.style.opacity=String(fraction(emerging,.24,.88));
+  equationPaths.hidden=p<1;
+  status.textContent=p===1?(photo?'水被氧化成氧氣；二氧化碳被還原，用來合成養分。':'葡萄糖被氧化成二氧化碳；氧氣被還原成水。'):p===0?'':photo?'觀察水、二氧化碳與產物的變化。':'觀察養分、氧氣與產物的變化。';
+ }
+ const dispose=bindLifePlayback(scene,{seconds:5.6,paint,initialComplete:scene.dataset.phase==='complete',onStart:()=>onComplete('start'),onComplete:()=>onComplete('complete')});
+ return dispose;
+}

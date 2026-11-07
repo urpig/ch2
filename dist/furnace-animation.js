@@ -7,7 +7,7 @@ export function furnaceAnimationSteps({result:r,recipe:p,air}){
   {name:'生成還原氣體',zone:'gas',enabled:hot,formula:'CO₂ + C → 2CO',products:['CO'],text:hot?'高溫下，CO₂ 與焦炭反應，生成向上流動的 CO。CO 接著會帶走氧化鐵中的氧。':'缺少焦炭或熱空氣，無法提供這個模型所需的高溫與碳源。'},
   {name:'還原鐵礦',zone:'reduce',enabled:r.reduced>0,formula:'Fe₂O₃ + 3CO → 2Fe + 3CO₂',products:['Fe','CO₂'],text:r.reduced>0?'Fe₂O₃ 失去氧，生成鐵；CO 得到氧，形成 CO₂。鐵繼續下降，在更熱的下部熔化成鐵水。'+(r.unreduced?'這份配方仍有部分礦石未還原。':''):'這一爐沒有還原出鐵。需要鐵礦石、焦炭與熱空氣，請檢查配方。'},
   {name:'石灰石分解',zone:'lime',enabled:hot&&p.lime>0,formula:'CaCO₃ → CaO + CO₂',products:['CaO','CO₂'],condition:'加熱',text:hot&&p.lime>0?'石灰石受熱分解，留下 CaO，同時放出 CO₂。CaO 接著會與礦石中的雜質反應。':!p.lime?'這一爐沒有石灰石，因此不會產生用來除雜質的 CaO。加入石灰石後再試。':'沒有足夠的加熱條件，石灰石尚未在本模型中分解。'},
-  {name:'形成爐渣',zone:'slag',enabled:r.slag>0,formula:'CaO + SiO₂ → CaSiO₃',products:['CaSiO₃'],text:r.slag>0?'CaO 和礦石中的 SiO₂ 雜質反應，形成爐渣。爐渣密度較小，浮在鐵水上面。':'沒有形成爐渣。需要含雜質的礦石、石灰石，以及焦炭和熱空氣提供的加熱條件。'},
+  {name:'形成爐渣',zone:'slag',enabled:r.slag>0,formula:'CaO + SiO₂ → CaSiO₃',products:['CaSiO₃'],text:r.slag>0?'鐵礦石夾帶二氧化矽 SiO₂ 等雜質。CaO 與 SiO₂ 反應形成爐渣，浮在鐵水上面。':'沒有形成爐渣。需要含雜質的礦石、石灰石，以及焦炭和熱空氣提供的加熱條件。'},
   {name:'打開出渣口',zone:'slagTap',enabled:r.slag>0,formula:'CaO + SiO₂ → CaSiO₃',products:['CaSiO₃'],label:'爐渣的來源反應；排出本身不是化學反應',text:r.slag>0?'上層爐渣從較高的出渣口流出，把雜質帶走。這裡用 CaSiO₃ 代表爐渣，實際成分更複雜。':'這一爐沒有可排出的爐渣。檢查石灰石、礦石與加熱條件後，再點出渣口。'},
   {name:'打開出鐵口',zone:'ironTap',enabled:r.reduced>0,formula:'Fe₂O₃ + 3CO → 2Fe + 3CO₂',products:['Fe'],label:'鐵的來源反應；流出本身不是化學反應',text:r.reduced>0?'下層鐵水從較低的出鐵口流出。它是含碳與其他雜質的生鐵，並不是純鐵。':'這一爐沒有可流出的鐵水。加入鐵礦石、焦炭並鼓入熱空氣後，再點出鐵口。'}
  ];

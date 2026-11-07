@@ -15,3 +15,12 @@ test('repeated replay cannot stack frame loops, and reset/disposal invalidates e
 test('continuous comparison stays bounded and protection remains limited between labelled stages',()=>{
  let previous=appleComparison(0);for(let i=1;i<=80;i++){const x=appleComparison(i/20);assert.ok(x.plain>=previous.plain&&x.protected>=previous.protected);assert.ok(x.protected<=x.plain);assert.ok(x.reserve>=0&&x.reserve<=1);previous=x;}assert.ok(appleComparison(1.5).plain>appleComparison(1).plain);assert.ok(appleComparison(1.5).plain<appleComparison(2).plain);
 });
+
+test('seeking while paused preserves review time and invalidates the previous pending frame',()=>{
+ const c=clock();c.playback.setActive(true);c.step();const stale=[...c.frames.values()][0];
+ c.playback.pause();c.playback.seek(2);assert.equal(c.last(),2);assert.equal(c.frames.size,0);
+ stale(99999);assert.equal(c.last(),2);c.step(60000);assert.equal(c.last(),2);
+ c.playback.resume();c.step();assert.ok(c.last()>2&&c.last()<2.1);
+ c.playback.pause();c.playback.seek(-10);assert.equal(c.last(),0);
+ c.playback.seek(100);assert.equal(c.last(),4);assert.equal(c.states.at(-1).complete,true);
+});

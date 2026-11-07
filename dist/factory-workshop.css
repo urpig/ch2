@@ -5,5 +5,64 @@
 .factory-simulator{scroll-margin-top:12px}@media(min-width:901px){.factory-visual{width:min(100%,calc((100svh - 280px)*1.384615));margin:auto}.factory-panel{padding-top:18px;padding-bottom:15px}.factory-panel h3{font-size:23px;margin:9px 0 14px}.factory-equation{min-height:70px;font-size:21px;padding-block:10px}.factory-next-hint{margin-top:10px}.factory-product-status{padding-top:10px}}
 @media(prefers-reduced-motion:reduce){.factory-flow,.factory-gas-arrows>path,.factory-air-trace>path,.factory-liquid-sheen,.charging .factory-skip{animation:none!important}.factory-heat-bed,.factory-charge-layers,.factory-lime-layers,.factory-iron-stream,.factory-slag-stream{transition:none}}
 .factory-atmosphere{clip-path:polygon(46.9% 18.9%,53.1% 18.9%,53.8% 33.5%,57.3% 59.5%,55% 81.4%,44.9% 81.4%,42.6% 59.5%,46.2% 33.5%)}
+.factory-skip-load,.factory-falling-charge{display:none}
+.charging .factory-skip{transform-origin:133px 296px;animation:factory-hoist 1.9s ease-in-out both}
+[data-furnace-loading=ore] [data-charge-material=ore],
+[data-furnace-loading=coke] [data-charge-material=coke],
+[data-furnace-loading=lime] [data-charge-material=lime]{display:block}
+.factory-skip-load{animation:factory-cart-empty .18s linear 1.35s forwards}
+.factory-falling-charge>g{opacity:0;animation:factory-chunk-fall .43s ease-in both;animation-delay:calc(1.36s + var(--chunk)*.012s)}
+@keyframes factory-hoist{
+ 0%{transform:translate(0,0)}
+ 68%{transform:translate(308px,-216px)}
+ 83%,100%{transform:translate(308px,-216px) rotate(36deg)}
+}
+@keyframes factory-cart-empty{to{opacity:0}}
+@keyframes factory-chunk-fall{
+ 0%{opacity:0;transform:none}
+ 18%{opacity:1}
+ 75%{opacity:.96}
+ 100%{opacity:0;transform:translate(var(--fall-sway),var(--fall-length))}
+}
+@media(prefers-reduced-motion:reduce){.factory-skip-load{animation:none}.factory-falling-charge>g{animation:none}}
 
 .factory-coke-layers{opacity:0;transition:opacity 1s}.factory-simulator[data-has-coke=true] .factory-coke-layers{opacity:1}@media(prefers-reduced-motion:reduce){.factory-coke-layers{transition:none}}
+.factory-motion-controls {
+ display:grid;
+ grid-template-columns:repeat(4,minmax(0,1fr));
+ gap:8px;
+ padding:12px;
+}
+.factory-motion-controls button {
+ min-height:44px;
+ padding:8px 10px;
+ color:#fff9e5;
+ font-size:14px;
+ font-weight:650;
+ cursor:pointer;
+}
+.factory-motion-controls [data-factory-next] {
+ background:#ecd08e;
+ border-color:#f9e5ac;
+ color:#293f37;
+}
+.factory-motion-controls button:disabled { opacity:.45; cursor:default; }
+.factory-motion-controls button:focus-visible { outline:3px solid #ffe4a0; outline-offset:2px; }
+.factory-hotspot.is-done:not([aria-pressed=true]) { border-color:#829c75; }
+@media(max-width:550px) {
+ .factory-motion-controls { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .factory-motion-controls button { font-size:14px; }
+}
+
+/* Calibrated cutaway: the heat field stays inside the real brick lining. */
+.factory-atmosphere{clip-path:polygon(46.1% 19.4%,52.7% 19.4%,52.7% 27.4%,54.3% 41.1%,58.9% 60.8%,56.2% 75.4%,55.8% 85.1%,44.6% 85.1%,44.3% 76.1%,40.6% 61.4%,44.7% 38%,46.1% 27.4%)}
+.factory-photographic-plant{pointer-events:none}
+.factory-reduced-burden{opacity:0;transition:opacity 1.2s;filter:drop-shadow(0 2px 1px #271b18a0)}
+.factory-simulator[data-has-iron=true] .factory-reduced-burden{opacity:1}
+.factory-charge-layers,.factory-coke-layers,.factory-lime-layers{filter:none}
+.factory-burden-mask-lower{transition:stop-color 1.8s}
+.factory-simulator[data-has-heat=true] .factory-burden-mask-lower{stop-color:black}
+.factory-hearth-floor{opacity:.95}
+.factory-skip-photo{filter:drop-shadow(0 1px 1px #101b2090)}
+.factory-hotspot{backdrop-filter:blur(7px);border-color:#e0e2ce90;box-shadow:0 3px 10px #09171e61}
+@media(prefers-reduced-motion:reduce){.factory-burden-mask-lower{transition:none}.factory-reduced-burden{transition:none}}

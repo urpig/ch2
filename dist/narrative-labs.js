@@ -16,7 +16,7 @@ const txt=(x,y,t,size=16)=>`<text x="${x}" y="${y}" text-anchor="middle" font-si
 export function mountNarrative(root,c,ctx){
  const {s,has,record,notice,delay,onCleanup}=ctx;
  if(c.type==='ore'){
- root.innerHTML='<section class="ore-viewer ore-solo" aria-label="赤鐵礦三維觀察台"><div class="specimen-view-heading"><b>赤鐵礦 · 岩面觀察</b><span data-ore-status>3D</span></div><div class="ore-render-stage"><canvas class="ore-canvas" tabindex="0" role="img" aria-label="立體赤鐵礦；拖曳旋轉、滾輪縮放，方向鍵亦可轉動"></canvas><span class="ore-gesture-hint">拖曳旋轉 · 滾輪縮放</span></div></section>';
+ root.innerHTML='<section class="ore-viewer ore-solo" aria-label="赤鐵礦三維觀察台"><div class="ore-render-stage"><canvas class="ore-canvas" tabindex="0" role="img" aria-label="立體赤鐵礦；拖曳旋轉、滾輪縮放，方向鍵亦可轉動"></canvas><span class="ore-gesture-hint">拖曳旋轉 · 滾輪縮放</span></div></section>';
  onCleanup(mountOre(root.querySelector('canvas'),()=>{record('ore');}));onCleanup(mountOreHammer(root.querySelector('.ore-viewer'),{onCrushed:()=>{record('ore-crushed');}}));return;
  }
  if(c.type==='redox')return mountRedox(root,c,ctx);

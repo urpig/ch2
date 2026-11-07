@@ -1,3 +1,4 @@
+import {restoreCombustionDemo} from './combustion-demo-model.js';
 export const lessons=[
  {
   "id": 1,
@@ -6,7 +7,7 @@ export const lessons=[
   "type": "ore",
   "title": "打造一把削鐵如泥的神兵",
   "question": "現在有了鐵礦，然後呢？",
-  "opening": "皇帝沒收時空裝置，命人把兩人關進鍛刀房。阿公拿起礦石，和小葵一起找線索。一箱鐵礦石從小門送來：「造出神兵，才能離開。」",
+  "opening": "",
   "task": "把鐵鎚拖到礦石上，敲碎後能直接取出金屬鐵嗎？",
   "required": [
    "ore-crushed"
@@ -50,7 +51,7 @@ export const lessons=[
    ],
    [
     "grandpa",
-    "先看看它的表面，再查查裡面有什麼。"
+    "要打成寶劍，得先從礦石裡取出鐵。把鐵鎚拖到礦石上，看看敲碎後能不能直接找到金屬鐵。"
    ]
   ],
   "portraits": {
@@ -63,8 +64,9 @@ export const lessons=[
   "act": "第一章｜跟著氧找線索",
   "day": "隨身實驗箱",
   "type": "combustion",
+  "coreRequired": ["Na:burn","Na:wet","S:burn","S:ph"],
   "title": "燃燒之後，產物都一樣嗎？",
-  "question": "收集產物，加水後用石蕊試紙比較。",
+  "question": "燃燒的樣子、形成的氧化物和遇水後的性質，都一樣嗎？",
   "opening": "",
   "task": "取樣加熱 → 產物加水 → 測試紅、藍石蕊。跟著實驗台的箭頭提示操作。",
   "required": [
@@ -147,11 +149,11 @@ export const lessons=[
   "dialogue": [
    [
     "kui",
-    "阿公，所有物質的氧化，都像鐵生鏽一樣慢慢發生嗎？"
+    "我剛剛看到鉀加到水裡面會有紫色的火焰耶！不同物質燃燒時的火焰顏色也不一樣嗎？"
    ],
    [
     "grandpa",
-    "不一樣喔！有些物質會燃燒，火焰顏色和形成的氧化物也不同。我們來觀察、比較吧！"
+    "不只火焰的顏色，燃燒後的產物加水後，酸鹼性也會有所不同喔！我先操作鈉跟硫的實驗給你看看，其他的給你自己操作！"
    ]
   ],
   "portraits": {
@@ -166,7 +168,7 @@ export const lessons=[
   "type": "redox",
   "title": "誰能把氧化鐵的氧拿走？",
   "question": "碳、鋅、錫、銅，誰能還原氧化鐵？",
-  "opening": "氧化鐵已放上加熱架。誰能幫它把氧拿走？",
+  "opening": "回到鍛刀房，鐵匠已經把加熱架準備好了。",
   "task": "拖一份材料到坩堝，觀察能否得到金屬鐵。",
   "required": [
    "iron-C",
@@ -214,11 +216,11 @@ export const lessons=[
   "dialogue": [
    [
     "kui",
-    "阿公，那我們可以用什麼物質，把氧化鐵變回鐵呢？"
+    "這四種材料都要加熱，怎麼比才公平？"
    ],
    [
     "grandpa",
-    "比較它們和鐵的對氧活性，再動手試試看。"
+    "每次用新的氧化鐵和相同的加熱條件，只換材料才比得出差別。從樣本架拖一種材料進坩堝，看看加熱後有沒有留下金屬鐵。"
    ]
   ],
   "portraits": {
@@ -343,11 +345,11 @@ export const lessons=[
   "dialogue": [
    [
     "kui",
-    "爐子裡這麼忙，每種原料都在做什麼？"
+    "知道誰能幫鐵拿走氧了，怎麼煉出足夠做劍的鐵？雜質又怎麼辦？"
    ],
    [
     "grandpa",
-    "一樣一樣加，看看氣體和熔渣往哪走。"
+    "可以把取氧的工作交給一氧化碳 CO。高爐裡的焦炭一面供熱，一面幫忙產生 CO。把三種原料送進去，再一步一步看：氧被誰帶走、雜質又去了哪裡。"
    ]
   ],
   "portraits": {
@@ -407,11 +409,11 @@ export const lessons=[
   "dialogue": [
    [
     "kui",
-    "就要交劍了，哪種刀材才撐得住？"
+    "鐵取回來了！怎麼選一把受力後不會裂、也不會彎著回不來的刀？"
    ],
    [
     "grandpa",
-    "拉一拉，再放手。結果會幫我們選。"
+    "先把生鐵減碳、除雜，再配合鍛造和熱處理，才能做出合用的鋼刀。這裡有三種刀材，輪流放上支點，都拉到同一條標線再鬆手。小葵，你來看看哪一把最適合。"
    ]
   ],
   "portraits": {
@@ -420,11 +422,11 @@ export const lessons=[
   }
  }
 ];
-export const materialCases={"metals":[["Cu","銅片"],["Mg","鎂帶"],["Zn","鋅粉"],["Na","鈉"]],"nonmetals":[["S","硫"],["P","紅磷"],["C","碳"]],"redox":[["alone","只有 CuO"],["carbon","CuO ＋ 碳"],["ZnCu","Zn ＋ CuO"],["CuZn","Cu ＋ ZnO"]],"steel":[["pig","① 生鐵 · 3.5% C"],["steel","② 鋼 · 0.8% C"],["wrought","③ 熟鐵 · 0.01% C"]],"combustion":[["Cu","銅片"],["Mg","鎂帶"],["Zn","鋅粉"],["Na","鈉"],["S","硫"],["P","紅磷"],["C","碳"]]};
-export function freshState(c){return {selected:materialCases[c.type]?.[0][0]||'',evidence:[],quizOpen:false,quizRevision:c.quiz.revision||1,answer:null,tab:'burn'};}
-export function isReady(c,s){return c.required.every(key=>s.evidence.includes(key));}
+export const materialCases={"metals":[["Na","鈉"],["Mg","鎂帶"],["Zn","鋅粉"],["Cu","銅片"]],"nonmetals":[["S","硫"],["P","紅磷"],["C","碳"]],"redox":[["alone","只有 CuO"],["carbon","CuO ＋ 碳"],["ZnCu","Zn ＋ CuO"],["CuZn","Cu ＋ ZnO"]],"steel":[["pig","① 生鐵 · 3.5% C"],["steel","② 鋼 · 0.8% C"],["wrought","③ 熟鐵 · 0.01% C"]],"combustion":[["Na","鈉"],["Mg","鎂帶"],["Zn","鋅粉"],["Cu","銅片"],["S","硫"],["P","紅磷"],["C","碳"]]};
+export function freshState(c){return {selected:materialCases[c.type]?.[0][0]||'',evidence:[],quizOpen:false,quizRevision:c.quiz.revision||1,answer:null,tab:'burn',...(c.type==='combustion'?restoreCombustionDemo():{})};}
+export function isReady(c,s){return (c.coreRequired||c.required).every(key=>s.evidence.includes(key));}
 export function isMastered(c,s){return isReady(c,s)&&s.answer===c.quiz.answer;}
-export function restoreState(c,raw){const s=freshState(c);if(!raw||typeof raw!=='object')return s;s.evidence=[...new Set((Array.isArray(raw.evidence)?raw.evidence:[]).filter(k=>c.required.includes(k)))];if(materialCases[c.type]?.some(([key])=>key===raw.selected))s.selected=raw.selected;s.answer=(raw.quizRevision??1)===s.quizRevision&&Number.isInteger(raw.answer)&&raw.answer>=0&&raw.answer<c.quiz.options.length?raw.answer:null;s.quizOpen=raw.quizOpen===true||s.answer!==null;return s;}
+export function restoreState(c,raw){const s=freshState(c);if(!raw||typeof raw!=='object')return s;s.evidence=[...new Set((Array.isArray(raw.evidence)?raw.evidence:[]).filter(k=>c.required.includes(k)))];if(materialCases[c.type]?.some(([key])=>key===raw.selected))s.selected=raw.selected;s.answer=(raw.quizRevision??1)===s.quizRevision&&Number.isInteger(raw.answer)&&raw.answer>=0&&raw.answer<c.quiz.options.length?raw.answer:null;s.quizOpen=raw.quizOpen===true||s.answer!==null;if(c.type==='combustion')Object.assign(s,restoreCombustionDemo(raw));return s;}
 export function massBalance(key){return key==='Mg'?{solidBefore:24,oxygen:16,solidAfter:40,gas:0}:{solidBefore:12,oxygen:32,solidAfter:0,gas:44};}
 export function litmusResult(type,paper){return type==='acid'?'#c46579':type==='base'?'#526eb9':paper==='red'?'#c46579':'#526eb9';}
 

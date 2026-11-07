@@ -5,7 +5,16 @@ import {buildForgeScene} from '../dist/forge-scenes.js';
 import {labMesh} from '../dist/lab-geometry.js';
 import {productEvidence} from '../dist/product-evidence.js';
 test('migration keeps redox evidence by original ID without transferring cell or obsolete blade completion',()=>{const redox=lessons.find(c=>c.type==='redox');const old={5:{evidence:redox.required,quizOpen:true,answer:redox.quiz.answer},8:{evidence:['pure','pig','steel'],quizOpen:true,answer:3},9:{evidence:['normal','stress','defense'],quizOpen:true,answer:1}};assert.ok(isReady(redox,migrateLegacy(redox,old)));for(const type of ['steel'])assert.deepEqual(migrateLegacy(lessons.find(c=>c.type===type),old).evidence,[]);});
-test('existing burn observations cannot bypass the new oxygen-activity exploration',()=>{const c=lessons[1],s=migrateLegacy(c,{2:{evidence:c.required.filter(k=>!k.startsWith('rank:')),quizOpen:true,answer:c.quiz.answer}});assert.equal(isReady(c,s),false);assert.equal(s.quizOpen,true);assert.equal(s.answer,null);});
+test('saved solid and gas observations unlock the core route while an old question answer is cleared',()=>{
+ const c=lessons[1],evidence=c.required.filter(k=>!k.startsWith('rank:'));
+ const s=migrateLegacy(c,{2:{evidence,quizOpen:true,answer:c.quiz.answer}});
+ assert.equal(isReady(c,s),true);
+ assert.equal(s.quizOpen,true);
+ assert.equal(s.answer,null);
+ assert.deepEqual(s.evidence,evidence);
+ const partial=migrateLegacy(c,{2:{evidence:evidence.filter(k=>k!=='S:ph'),quizOpen:true,answer:c.quiz.answer}});
+ assert.equal(isReady(c,partial),false);
+});
 test('three carbon cases yield distinct retained blade geometry after unloading',()=>{assert.deepEqual(materialCases.steel.map(x=>x[0]),['pig','steel','wrought']);const shapes=k=>buildForgeScene({type:'steel',key:k,mounted:true,phase:'after'}).objects.filter(o=>o.shape.startsWith('blade:')).map(o=>o.shape);assert.equal(shapes('pig').length,2);assert.deepEqual(shapes('steel'),['blade:0.00']);assert.deepEqual(shapes('wrought'),['blade:0.31']);for(const key of ['blade:0.00','blade:0.31','blade:0.00:left','blade:0.00:right']){const m=labMesh(key);assert.equal(m.positions.length,m.normals.length);assert.ok([...m.positions,...m.normals].every(Number.isFinite));}});
 test('only damp unprotected iron develops visible rust and waiting time has an endpoint',()=>{const make=(key,p)=>buildForgeScene({type:'rust',key,phase:p===1?'after':'waiting',rustProgress:p});assert.ok(make('damp',1).objects.length>make('damp',0).objects.length+50);assert.equal(make('dry',1).objects.length,make('dry',0).objects.length);assert.equal(make('oil',1).objects.length,make('oil',0).objects.length);assert.equal(make('damp',1).animate,false);});
 test('all burn products have differentiated visible explanations including oxide versus peroxide',()=>{assert.equal(Object.keys(productEvidence).length,8);assert.match(productEvidence.Na.detail,/沿用這次燃燒的 Na₂O₂/);assert.match(productEvidence.Zn.after,/熱黃，冷白/);assert.match(productEvidence.P.detail,/不是白色氣體/);for(const k of ['S','C'])assert.match(productEvidence[k].state,/無色氣體/);});

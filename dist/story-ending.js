@@ -20,7 +20,7 @@ export function mountStoryEnding(lesson){
  </div>
  <div class="story-ending-invitation"><span>下一個單元 · 電解質與酸鹼鹽</span><h3>從一把寶劍，走向一場製鹽調查。</h3><p>看起來都是透明的水，裡面藏著的物質也一樣嗎？</p><a class="next-unit-link" href="${nextUnitUrl}">接下皇帝的製鹽委託 <span aria-hidden="true">→</span></a></div>
  </div>
- <footer class="chapter-footer"><a class="previous" href="#card-6">← 回看刀材的比較</a><a href="#chapter-top">回到故事起點 ↑</a></footer>`;
+ <footer class="chapter-footer"><a class="previous" href="#card-6">← 回看刀材的比較</a><a class="next" href="#chapter-practice">前往小試身手 <b>→</b></a></footer>`;
  lesson.append(section);
  return section;
 }

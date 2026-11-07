@@ -34,21 +34,86 @@
 .life-biology-lab .life-reactor-condition>small{font-size:10px;letter-spacing:.04em;color:#97a08b}
 .life-biology-lab .bio-stage-art{isolation:isolate;overflow:hidden;background:#edf2df}
 .life-biology-lab .bio-stage-art>svg{display:block;width:100%;height:auto;aspect-ratio:12/7;overflow:hidden}
-.life-biology-lab .bio-organelle{filter:drop-shadow(0 8px 6px #32492b25);transition:filter .25s}
-.life-biology-lab .bio-stage-art:has(.life-drop-hover) .bio-organelle{filter:drop-shadow(0 0 7px #beac65aa)}
-.life-biology-lab .bio-art-labels{position:absolute;inset:0;pointer-events:none;z-index:1;color:var(--bio-ink)}
-.life-biology-lab .bio-organelle-title{position:absolute;top:5%;left:25%;right:25%;width:fit-content;max-width:50%;margin:auto;display:flex;align-items:center;gap:10px;font-size:16px;letter-spacing:.18em;line-height:1.4;text-shadow:0 1px #fff9}
-.life-biology-lab .bio-organelle-title small{font-size:10px;font-weight:400;letter-spacing:.04em;padding-left:10px;border-left:1px solid #93a58088;white-space:nowrap;color:#748467}
-.life-biology-lab .bio-art-pair{position:absolute;top:17%;left:13%;right:8%;display:grid;grid-template-columns:1fr 1fr;gap:21%}
-.life-biology-lab .bio-art-pair>span{font-size:12px;font-weight:650;line-height:1.5;white-space:nowrap;padding:5px 8px;text-align:center;border-radius:7px;background:#fffef3e8;box-shadow:0 1px 5px #4c633c09;border-bottom:2px solid #c9d1b9}
-.life-biology-lab .bio-art-pair>.bio-art-oxidation{color:#975328;border-color:#d7b98b}
-.life-biology-lab .bio-art-pair>.bio-art-reduction{color:#346c68;border-color:#98beb2}
-.life-biology-lab .bio-sun-label{position:absolute;top:11%;left:13%;font-size:10px;color:#a08b53}
-.life-biology-lab .bio-particle-caption{font-size:18px;text-anchor:middle;fill:#284f43;paint-order:stroke;stroke:#fffbed;stroke-width:4px;stroke-linejoin:round;font-weight:600}
-.life-biology-lab .bio-stage-drop,.life-biology-lab[data-life-reaction=resp] .bio-stage-drop{inset:27% 5% 11%;border:0;border-radius:36%;padding:0;background:transparent;cursor:default;box-shadow:none}
-.life-biology-lab .bio-stage-drop.life-drop-hover{border:0;background:transparent;box-shadow:none}
-.life-biology-lab .bio-stage-drop>span,.life-biology-lab[data-life-reaction=resp] .bio-stage-drop>span,.life-biology-lab[data-life-reaction=photo][data-bio-step="0"] .bio-stage-drop>span{top:auto;bottom:5%;left:20%;right:20%;transform:none;padding:7px 12px;color:#375e45;font-size:12px;line-height:1.5;font-weight:500;white-space:normal;background:#fffdf0e8;border:1px solid #d0d9bd;border-radius:24px;text-shadow:none;box-shadow:0 3px 12px #3f5c3210}
-.life-biology-lab[data-bio-step="1"] .bio-stage-drop>span,.life-biology-lab[data-life-reaction=resp][data-bio-step="1"] .bio-stage-drop>span{top:auto;bottom:5%;left:36%;right:8%}
+.life-biology-lab .bio-organelle {
+ filter:drop-shadow(0 13px 12px #0a231b64);
+}
+.life-biology-lab .bio-stage-art:has(.life-drop-hover) .bio-organelle {
+ filter:drop-shadow(0 0 8px #fcf1a7bd) drop-shadow(0 13px 12px #0a231b64);
+}
+.life-biology-lab .bio-art-labels {
+ position:absolute;
+ inset:0;
+ pointer-events:none;
+ z-index:1;
+ color:#fffbe9;
+}
+.life-biology-lab .bio-organelle-title {
+ position:absolute;
+ top:5%;
+ left:50%;
+ transform:translateX(-50%);
+ display:flex;
+ align-items:baseline;
+ gap:9px;
+ font-size:clamp(13px,1.25vw,17px);
+ letter-spacing:.08em;
+ white-space:nowrap;
+ text-shadow:0 1px 3px #102b2a;
+}
+.life-biology-lab .bio-organelle-title small {
+ padding-left:9px;
+ border-left:1px solid #f7fce987;
+ font-size:11px;
+ font-weight:400;
+ color:#eef2db;
+}
+.bio-display-phase {
+ position:absolute;
+ top:4%;
+ left:3%;
+ padding:4px 8px;
+ border:1px solid #eff5da4d;
+ border-radius:5px;
+ background:#193532d9;
+ font-size:clamp(9px,1vw,12px);
+}
+.bio-model-products>span {
+ position:absolute;
+ bottom:2.8%;
+ left:18%;
+ transform:translateX(-50%);
+ font-size:clamp(10px,1.08vw,14px);
+ font-weight:650;
+ white-space:nowrap;
+ text-shadow:0 1px 4px #102a2a,0 0 3px #102a2a;
+}
+.bio-model-products>span+span {left:82%}
+.life-biology-lab[data-life-reaction] .bio-stage-drop {
+ inset:20% 9% 12%;
+ width:auto;
+ height:auto;
+ border:0;
+ background:transparent;
+ box-shadow:none;
+ cursor:default;
+}
+.life-biology-lab[data-life-reaction][data-bio-step] .bio-stage-drop>span {
+ inset:auto 5% 0;
+ transform:none;
+ padding:3px 0;
+ border:0;
+ border-radius:0;
+ background:none;
+ color:#fffbe9;
+ box-shadow:none;
+ text-shadow:0 1px 4px #0b2826,0 0 3px #0b2826;
+ font-size:clamp(11px,1.1vw,15px);
+ font-weight:650;
+}
+@media(max-width:650px) {
+ .life-biology-lab .bio-organelle-title small {display:none}
+ .bio-display-phase {padding:2px 5px}
+}
 .life-biology-lab .life-mix-slots{position:relative;overflow:hidden;padding:10px 14px;border:0;border-radius:0 0 12px 12px;background:#f4f6eb;min-height:20px;font-size:10px;color:#6d7f5b}
 .life-biology-lab .life-mix-slots:before{content:"";position:absolute;top:0;left:0;width:calc(var(--bio-progress)*100%);height:3px;background:linear-gradient(90deg,#9dae68,#4c7a5b);transition:width .1s linear}
 .life-biology-lab .life-mix-slots>span{border:0;padding:0;background:transparent;color:#78886b}
@@ -61,6 +126,28 @@
 .life-biology-lab .life-paired-equation{margin:0 26px 22px;padding:17px 12px;background:#fffdf3;border-color:#e1dfc9;border-radius:10px}
 .life-biology-lab .life-paired-equation small{font-size:10px;color:#8a8f72;letter-spacing:.08em}
 .life-biology-lab .life-paired-equation>b{font-size:clamp(16px,1.65vw,23px);line-height:1.6;color:#2f5548;font-weight:500}
+.bio-equation-paths {
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
+ gap:8px;
+ list-style:none;
+ margin:12px 0 0;
+ padding:0;
+ font-size:clamp(13px,1.1vw,16px);
+ line-height:1.6;
+}
+.bio-equation-paths li {
+ display:flex;
+ flex-wrap:wrap;
+ align-items:baseline;
+ justify-content:center;
+ gap:0 6px;
+ padding:7px 8px;
+ border:1px solid;
+ border-radius:7px;
+}
+.bio-equation-paths .is-oxidation { background:#faeedc; border-color:#e3c9a6; color:#743e20; }
+.bio-equation-paths .is-reduction { background:#e8f1eb; border-color:#c1d5c9; color:#225c51; }
 @media(max-width:1050px){.life-biology-lab .life-mix-workbench{grid-template-columns:138px minmax(0,1fr);margin-inline:18px;gap:12px}.life-biology-lab .bio-stage-steps,.life-biology-lab .life-manual-results{margin-inline:18px}.life-biology-lab .bio-organelle-title{font-size:14px}.life-biology-lab .bio-art-pair>span{font-size:10px;padding:4px}.life-biology-lab .bio-stage-drop>span,.life-biology-lab[data-life-reaction=resp] .bio-stage-drop>span{font-size:10px;padding:5px 8px}.life-biology-lab .bio-stage-steps small{font-size:9px}.life-biology-lab .bio-stage-steps>span{padding:10px;gap:8px}}
 @media(max-width:650px){
  .life-biology-lab{border-radius:12px}.life-biology-lab .reaction-heading{padding:16px 15px 8px;display:flex;align-items:flex-start}.life-biology-lab .reaction-heading>button{position:static;font-size:10px;padding:7px 8px}.life-biology-lab .reaction-heading h4{font-size:18px;line-height:1.55}.life-biology-lab .reaction-heading small{font-size:9px;letter-spacing:.06em}
