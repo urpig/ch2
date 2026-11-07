@@ -1,4 +1,4 @@
-import {freshAffinityLab,ironComparisonEvidence} from './affinity-free-model.js';
+import {ironComparisonEvidence} from './affinity-free-model.js';
 import {mountTermDemo,loadTermReview} from './term-demo.js';
 import {storySpeech,storyDialogue,definitionDialogue,notebookMarkup} from './story-dialogue.js';
 import {mountEverydayRedox,loadLifeReview} from './everyday-redox.js';
@@ -6,7 +6,6 @@ import {lifeQuiz,lifeReady} from './everyday-redox-model.js';
 import {prepQuizzes} from './forge-prep-model.js';
 import {freshInquiry,restoreInquiry,inquiryReady,oxidationQuiz} from './inquiry-model.js';
 import {evidenceStudio,bindEvidence} from './inquiry-studios.js';
-import {freeAffinityMarkup,bindFreeAffinity} from './affinity-free-lab.js';
 import {activityQuiz,activityComparisonsComplete} from './metal-activity-model.js';
 import {metalActivityMarkup,bindMetalActivity} from './metal-activity.js';
 
@@ -27,7 +26,7 @@ export function mountForgePrep({intro,activityRoot,transfer,lifeRoot},addQuestio
  let termExampleReady=false;
  const transferReady=()=>termExampleReady;
  const transferQuiz=prepQuizzes[2];
- let saved=true,disposeLife=()=>{},disposeAffinity=null,disposeIntro=null,disposeActivity=null;
+ let saved=true,disposeLife=()=>{},disposeIntro=null,disposeActivity=null;
 
  function save(){
   try{localStorage.setItem(key,JSON.stringify(s));}catch{saved=false;}
@@ -129,10 +128,6 @@ export function mountForgePrep({intro,activityRoot,transfer,lifeRoot},addQuestio
 
  transfer.innerHTML=`
   ${definitionDialogue()}
-  <details class="inquiry-reference" id="affinity-lab" hidden><summary>延伸比較 · 固定氧化鐵，換鋅和銅</summary>
-   <div class="interaction-reset-bar"><button type="button" class="card-reset" data-affinity-reset>↺ 重設配對實驗</button></div>
-   <div class="inquiry-studio" data-affinity-content></div>
-  </details>
   <div data-transfer-notes hidden>
    ${notebookMarkup('C')}
   </div>`;
@@ -140,37 +135,12 @@ export function mountForgePrep({intro,activityRoot,transfer,lifeRoot},addQuestio
  transfer.addEventListener('term-example-progress',event=>{
   const ready=event.detail.ready;
   termExampleReady=ready;
-  transfer.querySelector('#affinity-lab').hidden=!ready;
   transferNotes.hidden=!transferReady();
   save();
  });
  mountTermDemo(transfer.querySelector('[data-term-demo]'),{review:termReview});
 
- const affinity=transfer.querySelector('#affinity-lab'),affinityContent=affinity.querySelector('[data-affinity-content]');
- function renderAffinity(selector){
-  disposeAffinity?.();
-  affinityContent.innerHTML=freeAffinityMarkup(s);
-  disposeAffinity=bindFreeAffinity(affinityContent,s,renderAffinity);
-  save();
-  if(selector)focus(affinity,selector);
- }
- affinity.addEventListener('toggle',()=>{
-  if(affinity.open){if(!disposeAffinity)renderAffinity();}
-  else {disposeAffinity?.();disposeAffinity=null;}
- });
- affinity.querySelector('[data-affinity-reset]').onclick=()=>{
-  s.affinityLab=freshAffinityLab();
-  renderAffinity('[data-affinity-reset]');
- };
- function routeAffinity(){
-  if(location.hash!=='#affinity-lab')return;
-  affinity.open=true;
-  if(!disposeAffinity)renderAffinity();
- }
- routeAffinity();
- window.addEventListener('hashchange',routeAffinity);
-
- const lifeTabs=[['biology','葉子與細胞'],['bleach','實驗室漂白'],['food','蘋果保鮮']];
+ const lifeTabs=[['biology','光合作用與呼吸作用'],['bleach','實驗室漂白'],['food','蘋果保鮮']];
  const lifeIntroductions={
   photo:['<span data-glossary-skip>「氧化還原反應真神奇，生活中哪裡也能看到氧化還原反應呀？」</span>','「生活中到處都是喔，我們來看看下面的這些例子。」'],
   resp:['「我們的身體也像葉子一樣，會做氧化還原反應嗎？」','「會呀。細胞靠有氧呼吸利用養分。我們看動畫，比較葡萄糖和氧氣最後形成了什麼。」'],
