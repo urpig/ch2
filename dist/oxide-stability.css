@@ -19,9 +19,9 @@
 .stability-shared-bench>figcaption{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:10px 12px;background:#edf2e6;min-height:4.5em}
 .stability-shared-bench>figcaption p{margin:0;font-size:18px;font-weight:550;line-height:1.75;color:#294f47;letter-spacing:.025em}
 .stability-detail-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.stability-shared-view .stability-case{min-width:0;border:1px solid #c4d0bc;border-radius:8px;overflow:hidden;background:#fbfcf4}
+.stability-shared-view .stability-case{min-width:0;border:1px solid #c4d0bc;border-radius:8px;overflow:hidden;background:#fbfcf4;display:flex;flex-direction:column}
 .stability-shared-view .stability-case>h4{margin:0;padding:9px 4px;text-align:center;background:#e8eee1;font-size:17px;line-height:1.5}
-.stability-shared-view .stability-before-after{margin:8px;padding:6px;background:#f5f6ea}
+.stability-shared-view .stability-before-after{margin:8px;padding:6px;background:#f5f6ea;flex:1}
 .stability-shared-view .stability-before-after>h4{margin:0 0 5px;font-size:13px}
 .stability-shared-view .stability-before-after>div{gap:4px}
 .stability-shared-view .stability-dish .free-specimen-dish{aspect-ratio:1.4}
@@ -30,7 +30,9 @@
 .stability-shared-view .stability-oxygen-card>h4{font-size:13px;margin:0 0 5px;line-height:1.5}
 .stability-shared-view .stability-oxygen-card>h4 small{display:none}
 .stability-shared-view .stability-oxygen{display:block;width:100%;height:auto;max-height:145px}
-.stability-shared-view .stability-case-equation{margin:0;padding:12px 8px;text-align:center;font:650 20px/1.65 'Noto Sans TC',sans-serif;background:#e7efdf;border-top:1px solid #cdd7c4;min-height:4.2em;color:#254f48;letter-spacing:.02em;overflow-wrap:anywhere}
+.stability-shared-view .stability-case-equation{margin:0;padding:12px 8px;text-align:center;font:650 17px/1.65 'Noto Sans TC',sans-serif;background:#e7efdf;border-top:1px solid #cdd7c4;min-height:100px;box-sizing:border-box;color:#254f48;letter-spacing:.02em;overflow-wrap:anywhere;display:grid;grid-template-rows:34px auto;align-content:center;align-items:center;justify-items:center}
+.stability-case-equation .stability-equation-text{grid-row:2}
+.stability-case-equation .stability-equation-text:only-child{grid-row:1 / 3}
 .stability-shared-view.is-paused .stability-shared-flame img{animation-play-state:paused}
 @keyframes stability-blue-flame{from{transform:scaleX(.9) scaleY(.96)}to{transform:scaleX(1.04) scaleY(1.02)}}
 @media(max-width:1050px){.stability-shared-layout{grid-template-columns:1fr}.stability-shared-view .stability-oxygen{max-height:155px}.stability-shared-view .stability-dish .free-specimen-dish{max-height:100px}}
@@ -47,6 +49,12 @@
  .stability-detail-pair{gap:6px}.stability-shared-view .stability-case>h4{font-size:15px}
  .stability-shared-view .stability-before-after,.stability-shared-view .stability-oxygen-card{margin:5px;padding:4px}
  .stability-shared-view .stability-dish figcaption{font-size:10px}.stability-shared-view .stability-before-after>h4{font-size:11px}
- .stability-shared-view .stability-oxygen-card>h4{font-size:12px}.stability-shared-view .stability-case-equation{font-size:17px;min-height:4.5em}
+ .stability-shared-view .stability-oxygen-card>h4{font-size:12px}.stability-shared-view .stability-case-equation{font-size:15px;min-height:95px}
 }
 @media(prefers-reduced-motion:reduce){.stability-shared-flame img{animation:none}}
+
+.stability-case-equation .stability-reaction-label{display:block;font:800 23px/1.5 'Noto Sans TC',sans-serif;color:#ab4520;margin:0;letter-spacing:.08em}
+.stability-case-equation .stability-no-reaction{display:block;font:800 23px/1.5 'Noto Sans TC',sans-serif;color:#246997;letter-spacing:.08em}
+.stability-conclusion .stability-key-unstable{color:#a34325}.stability-conclusion .stability-key-stable{color:#236c68}.stability-conclusion .stability-key-change{color:inherit;font-weight:400}
+.stability-conclusion table thead th{background:#e3ebdc;color:#294f48}.stability-conclusion tbody th{color:#70502c}.stability-conclusion tbody td{line-height:1.9}
+@media(max-width:600px){.stability-case-equation .stability-reaction-label,.stability-case-equation .stability-no-reaction{font-size:20px}}

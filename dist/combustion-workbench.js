@@ -65,7 +65,7 @@ export function mountCombustion(root,{key,isMetal,autoLoad=false,spoonOrigin=nul
  if(completed){shelfTarget(board);step.textContent=['S','C','CO'].includes(key)?'燃燒結束並示意冷卻後，直接加水、輕搖；玻璃片自動開合。再用滴管取液，滴在桌面的紅、藍石蕊試紙上。':'觀察完成。可直接把產物加入水中，或從架上取下一份樣本。';return {board,water};}
  let state=newSpoonHeating(key,isMetal,autoLoad),point=spoonOrigin?[...spoonOrigin]:[320,224],inJar=false,held=false,alive=true,started=false,last=performance.now(),timer=0,previousMessage='',clock=0;
  const spoon=board.querySelector('[data-spoon]'),label=board.querySelector('[data-heat-label]'),detail=board.querySelector('[data-heat-detail]'),meter=board.querySelector('[role="progressbar"]');
- const continueButton=document.createElement('button');continueButton.type='button';continueButton.className='combustion-observation-continue primary';continueButton.textContent='觀察完成，查看產物 →';continueButton.hidden=true;board.before(continueButton);
+ const continueButton=document.createElement('button');continueButton.type='button';continueButton.className='combustion-observation-continue primary';continueButton.textContent='觀察完成，查看產物 →';continueButton.hidden=true;board.append(continueButton);
  function finish(){if(!alive||!state.complete||held)return false;dispose();onComplete([...point]);return true;}
  continueButton.onclick=finish;
  function show(){ onProcessChange(state.loaded?'burn':'load');
@@ -85,6 +85,7 @@ export function mountCombustion(root,{key,isMetal,autoLoad=false,spoonOrigin=nul
   else if(!state.ignited){label.textContent=heating?'正在加熱':'已移開 · 停止加熱';detail.textContent=(key==='Cu'?'受熱示意':'點燃準備')+' '+Math.round(ratio*100)+'%';message=heating?'匙端正靠近火焰，正在加熱；拖開就停止。':'匙端已離開火焰，停止加熱；移回可接續。';}
   else{label.textContent=heating?'外部加熱中 · 樣本已點燃':'已停止加熱 · 樣本仍燃燒';detail.textContent=isMetal?'燃燒後比較產物':inJar?'瓶內觀察 '+Math.round(ratio*100)+'%':'拖進瓶身範圍即可';message=isMetal?(heating?'樣本已點燃；可以移離酒精燈，觀察持續燃燒。':'已移離酒精燈，停止外部加熱；樣本已點燃，仍在燃燒。'):inJar?'燃燒匙已在瓶內，觀察並保留產物；仍可抓住匙柄移出。':'樣本已點燃。把燃燒匙直接拖進瓶內，鬆開後觀察產物。';}
   if(state.complete){label.textContent='停留觀察';detail.textContent=demonstration?'接著移開、冷卻':'看清楚後，再查看產物';message=demonstration?'觀察火焰顏色與反應式，接著移開器材。':'觀察火焰顏色與反應式；看完後按「觀察完成，查看產物」。';}continueButton.hidden=demonstration||!state.complete;continueButton.disabled=held;
+  continueButton.style.left=(Math.min(535,point[0]+55)/760*100)+'%';continueButton.style.top=(Math.max(110,Math.min(225,point[1]-45))/430*100)+'%';
   meter.setAttribute('aria-valuenow',String(Math.round(ratio*100)));meter.querySelector('i').style.width=(ratio*100)+'%';
   const jarTarget=board.querySelector('[data-jar-target]');if(jarTarget)jarTarget.hidden=!state.ignited||inJar;
   const next=combustionNextAction({...state,isMetal,inJar,near});highlightNext(board,next);if(next.instruction)message=next.instruction;

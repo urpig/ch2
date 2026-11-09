@@ -3,7 +3,7 @@ import {mountTermDemo,loadTermReview} from './term-demo.js';
 import {storySpeech,storyDialogue,definitionDialogue,notebookMarkup} from './story-dialogue.js';
 import {mountEverydayRedox,loadLifeReview} from './everyday-redox.js';
 import {lifeQuiz,lifeReady,lifeCaseGroups} from './everyday-redox-model.js';
-import {oxygenExamples,oxygenExampleQuiz,carbonOxygenQuiz,oxygenExampleReady,oxygenExamplesReady} from './oxygen-examples-model.js';
+import {oxygenExamples,oxygenExampleQuiz,carbonOxygenQuiz,oxygenExampleReady} from './oxygen-examples-model.js';
 import {freshInquiry,restoreInquiry,inquiryReady,oxidationQuiz} from './inquiry-model.js';
 import {evidenceStudio,bindEvidence} from './inquiry-studios.js';
 import {activityQuiz,activityComparisonsComplete} from './metal-activity-model.js';
@@ -123,14 +123,14 @@ export function mountForgePrep({intro,activityRoot,transfer,magnesiumRoot,lifeRo
    ${notebookMarkup('Ccarbon')}
   </div>`;
  const transferNotes=transfer.querySelector('[data-transfer-notes]');
- magnesiumRoot.innerHTML=storySpeech('grandpa','「我們剛剛看到碳能拿走氧化銀中的氧，那麼鎂的活性比碳大，來猜猜看他能不能在二氧化碳裡面燃燒，把二氧化碳的氧搶走！」')+'<div data-magnesium-demo></div><div data-oxygen-comparison hidden></div><div data-magnesium-notes hidden>'+notebookMarkup('Cmagnesium')+'</div>';
+ magnesiumRoot.innerHTML=storySpeech('grandpa','「我們剛剛看到碳能拿走氧化銀中的氧，那麼鎂的活性比碳大，來猜猜看他能不能在二氧化碳裡面燃燒，把二氧化碳的氧搶走！」')+'<div data-magnesium-demo></div><div data-oxygen-comparison></div><div data-magnesium-notes>'+notebookMarkup('Cmagnesium')+'</div>';
  const magnesiumNotes=magnesiumRoot.querySelector('[data-magnesium-notes]');
  const comparison=magnesiumRoot.querySelector('[data-oxygen-comparison]');
  comparison.innerHTML=`<section class="oxygen-summary"><h3>把兩組反應放在一起看</h3><p class="oxygen-activity-order">對氧活性：鎂 ＞ 碳 ＞ 銀</p><p>較容易得氧的元素，能在合適條件下取走另一種氧化物的氧；它形成的氧化物，通常較難用這類奪氧方式還原。</p><div class="oxygen-summary-table"><table><thead><tr><th>代表反應</th><th>被氧化</th><th>被還原</th></tr></thead><tbody>${Object.values(oxygenExamples).map(d=>`<tr><th>${d.equation}</th><td>${d.oxidized}</td><td>${d.reduced}</td></tr>`).join('')}</tbody></table></div></section>`;
  function syncOxygenLessons(){
   transferNotes.hidden=!transferReady();
-  magnesiumNotes.hidden=!magnesiumReady();
-  comparison.hidden=!oxygenExamplesReady(termReview.state);
+  magnesiumNotes.hidden=false;
+  comparison.hidden=false;
   save();
  }
  transfer.addEventListener('term-example-progress',syncOxygenLessons);

@@ -8,19 +8,21 @@ export function mountCombustionDemo(root,c,ctx,{onSample,onPractice}){
  const seen=s.combustionDemoSeen.includes(key);
  const nextMarkup=()=>samples.length===2&&key==='Na'?'<button type="button" class="primary" data-demo-next>接著看硫的示範 →</button>':combustionDemoReady(s.combustionDemoSeen,c.sampleGroup)?'<button type="button" class="primary" data-demo-practice>換你動手，選一份'+(c.sampleGroup==='metals'?'金屬':c.sampleGroup==='nonmetals'?'非金屬':'')+'樣本 →</button>':'';
  root.innerHTML=`<section class="combustion-demonstration" aria-label="阿公示範${samples.length===1?name:'鈉與硫'}的實驗">
-  <div class="combustion-demo-tools"><button type="button" class="primary" data-combustion-demo-play>${seen?'↻ 重播':'▶ 播放'}${name}的完整示範</button><button type="button" class="secondary" data-combustion-demo-pause disabled>暫停</button><span data-demo-step>準備樣本</span></div>
+  <div class="combustion-demo-tools"><button type="button" class="primary" data-combustion-demo-play>${seen?'↻ 重播':'▶ 播放'}${name}的完整示範</button><button type="button" class="secondary" data-combustion-demo-pause disabled>暫停</button></div>
   <div class="combustion-demo-bench" data-demo-bench></div>
   <div class="combustion-demo-next" ${seen?'':'hidden'}>${nextMarkup()}</div>
  </section>`;
  const stage=root.querySelector('[data-demo-bench]'),play=root.querySelector('[data-combustion-demo-play]'),pause=root.querySelector('[data-combustion-demo-pause]');
+ const step=document.createElement('span');step.className='combustion-demo-step';step.dataset.demoStep='';step.setAttribute('role','status');step.textContent='準備樣本';
  let player=null,alive=true,phase='',inView=false,committed=new Set(),completed=false,bench=null;
  updateCombustionProcedure(root,key);
  function mountBench(){bench?.dispose();bench=mountDemonstrationBench(stage,c,key,evidence=>{if(!committed.has(evidence)){committed.add(evidence);record(evidence);}});}
  mountBench();
  function paint(time){
   const frame=combustionDemoFrame(key,time);bench.paint(time);
+  const scene=stage.querySelector('.combustion-workbench');if(step.parentElement!==scene)scene.append(step);
   if(phase!==frame.phase){
-   phase=frame.phase;root.querySelector('[data-demo-step]').textContent=frame.label;
+   phase=frame.phase;step.textContent=frame.label;
    const instruction=root.closest('article')?.querySelector('[data-demo-instruction]');
    if(instruction)instruction.textContent=`${name} · ${frame.label}：${frame.caption}`;
   }

@@ -27,11 +27,11 @@ export function lifeRecord(s,key,role){
  else if(key==='food')correct=s.time>=3&&role==='oxidation';
  if(correct&&!s.evidence.includes(key))s.evidence.push(key);return correct;
 }
-// Guided examples count after playback; respiration still requires the learner's judgement.
+// Each observation is recorded after playback; the chapter practice remains separate.
 export function recordLifeDemonstration(s,key){
- if(!['food','photo'].includes(key))return false;
+ if(!lifeEvidence.includes(key))return false;
  if(key==='food'&&s.time<4)return false;
- return lifeRecord(s,key,'oxidation');
+ return lifeRecord(s,key,lifeBleaches[key]?.role||'oxidation');
 }
 export function appleComparison(time){const t=Number.isFinite(time)?Math.max(0,Math.min(4,time)):0,i=Math.floor(t),blend=values=>values[i]+((values[Math.min(4,i+1)]-values[i])*(t-i));return {plain:blend([0,.24,.52,.8,1]),protected:blend([0,.01,.04,.12,.46]),reserve:Math.max(0,1-t/3)};}
 export const lifeCaseGroups=[

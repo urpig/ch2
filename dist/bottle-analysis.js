@@ -7,7 +7,7 @@ import {newBottleLitmus,bottleLitmusStep,bottleLitmusResult,bottleNextAction,lit
 export function mountBottleAnalysis(board,{key,completed,delay,onCleanup=()=>{},notice,onWaterAdded=()=>{},onPhaseChange=()=>{},onComplete}){
  if(!completed)return;
  board.dataset.bottleAnalysis=key;
- let state=newBottleLitmus(),alive=true,committed=false,lastShake=560,shakingHeld=false,dropping=false;
+ let state=newBottleLitmus(),alive=true,committed=false,lastShake=560,shakingHeld=false,dropping=false,lidReady=false,lidOpening=false;
  const releases=[];
  const station=document.createElement('div');station.className='bottle-analysis';
  station.innerHTML=scopeMarkup(`<svg class="bottle-analysis-art" viewBox="0 0 760 430" aria-hidden="true"><defs><linearGradient id="control-glass"><stop stop-color="#86a9b4" stop-opacity=".5"/><stop offset=".15" stop-color="#fff" stop-opacity=".5"/><stop offset=".4" stop-color="#e3f6f9" stop-opacity=".04"/><stop offset=".85" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#779da9" stop-opacity=".5"/></linearGradient></defs>
@@ -28,7 +28,7 @@ export function mountBottleAnalysis(board,{key,completed,delay,onCleanup=()=>{},
  <div class="analysis-wash" data-analysis-wash aria-label="蒸餾水洗瓶；把細口拖到集氣瓶瓶口">${photographicWash()}</div>
  <div class="analysis-shaker" data-analysis-shaker aria-label="玻璃片已扶穩；按住瓶身左右搖晃"></div>
  <div class="analysis-source sample-source" data-analysis-source="sample"></div>
- ${['sample'].map(src=>`<div class="analysis-pipette" data-pipette="${src}" aria-label="教師取液滴管；瓶內溶液">${photographicPipette()}<span>取瓶內液的滴管</span></div>`).join('')}
+ ${['sample'].map(src=>`<div class="analysis-pipette" data-pipette="${src}" aria-label="教師取液滴管；瓶內溶液">${photographicPipette()}</div>`).join('')}
  <div class="ph-paper-tray bottle-litmus-tray"><b>瓶內液體 · 紅、藍石蕊試紙</b>${['red','blue'].map(paper=>`<div class="ph-paper-cell"><span>${paper==='red'?'紅色':'藍色'}石蕊試紙</span><div class="ph-paper bottle-litmus-strip" data-litmus-paper="${paper}" role="img" aria-label="${paper==='red'?'紅色':'藍色'}石蕊試紙，尚未滴液"><i></i></div></div>`).join('')}</div>
  <p class="bottle-analysis-status" role="status" hidden></p>`,'bottle-litmus-'+key);
  board.append(station);
@@ -44,7 +44,8 @@ export function mountBottleAnalysis(board,{key,completed,delay,onCleanup=()=>{},
   onWaterAddedIfReady();
   onPhaseChange(state.phase==='test'?'litmus':state.phase==='complete'?'complete':'water');station.dataset.phase=state.phase;station.dataset.shake=String(Math.round(state.shake));water.setAttribute('visibility',state.water?'visible':'hidden');
   lid.classList.toggle('is-covered',state.phase==='shake'||shakingHeld);lid.tabIndex=-1;enable(wash,state.phase==='pour');enable(shaker,state.phase==='shake'||shakingHeld);mouth.hidden=state.phase!=='pour';
-  const tool=station.querySelector('[data-pipette=sample]');enable(tool,state.phase==='test');tool.classList.toggle('charged',state.loaded);tool.dataset.loaded=String(state.loaded);
+  if(state.phase==='test'&&!shakingHeld&&!lidOpening){lidOpening=true;delay(()=>{if(!alive||!board.isConnected)return;lidReady=true;show();},500);}
+  const tool=station.querySelector('[data-pipette=sample]');enable(tool,state.phase==='test'&&lidReady);tool.classList.toggle('charged',state.loaded);tool.dataset.loaded=String(state.loaded);
   for(const paper of ['red','blue']){
    const strip=station.querySelector('[data-litmus-paper='+paper+']'),name=paper==='red'?'紅色':'藍色';
    const result=bottleLitmusResult(key,paper),resultName=result==='red'?'紅色':'藍色';
@@ -55,7 +56,7 @@ export function mountBottleAnalysis(board,{key,completed,delay,onCleanup=()=>{},
   }
   const next=bottleNextAction(state);station.dataset.next=next.id;
   station.querySelectorAll('.analysis-next-tool,.analysis-next-target').forEach(el=>{el.classList.remove('analysis-next-tool','analysis-next-target');el.removeAttribute('data-next-label');});
-  if(next.tool){const el=station.querySelector(next.tool);el.classList.add('analysis-next-tool');el.dataset.nextLabel=next.id==='water'?'拿洗瓶 · 加水讓氣體溶解':next.label;}
+  if(next.tool&&(state.phase!=='test'||lidReady)){const el=station.querySelector(next.tool);el.classList.add('analysis-next-tool');el.dataset.nextLabel=next.id==='water'?'拿洗瓶 · 加水讓氣體溶解':next.label;}
   if(next.target)station.querySelector(next.target).classList.add('analysis-next-target');
   say(next.instruction||messages[state.phase]);
   if(state.phase==='complete'&&!committed){committed=true;onComplete();}
@@ -80,7 +81,7 @@ export function mountBottleAnalysis(board,{key,completed,delay,onCleanup=()=>{},
  releases.push(bindFreeInstrument(shaker,board,{position:[560,215],offset:[84,135],bounds:[535,585,215,215],instrumentClass:'free-bottle-shaker',onMove:moveShaker,onRelease:()=>[560,215]}));
  const tool=station.querySelector('[data-pipette=sample]');
  releases.push(bindFreeInstrument(tool,board,{position:[180,300],offset:[22,291],bounds:[30,720,300,415],instrumentClass:'free-pipette',onRelease:p=>{
-  if(state.phase!=='test'||dropping)return;
+  if(state.phase!=='test'||!lidReady||dropping)return;
   const r=station.getBoundingClientRect(),point={x:r.left+p[0]/760*r.width,y:r.top+p[1]/430*r.height};
   if(!state.loaded){
    if(inside(point,station.querySelector('[data-analysis-source=sample]').getBoundingClientRect())){dispatch({type:'take'});say('已取瓶內液體。把滴管尖端移到一張尚未滴液的石蕊試紙上方。');}
@@ -94,7 +95,7 @@ export function mountBottleAnalysis(board,{key,completed,delay,onCleanup=()=>{},
   spot(paper);
  }}));
  onCleanup(()=>{alive=false;for(const f of releases)f();baseJar.removeAttribute('transform');});show();
- return {addWater,shake:x=>moveShaker([x,215],true),stopShaking:()=>moveShaker([560,215],false),take:()=>dispatch({type:'take'}),spot,
+ return {addWater,shake:x=>moveShaker([x,215],true),stopShaking:()=>moveShaker([560,215],false),take:()=>{if(lidReady)dispatch({type:'take'});},spot,
   moveWash([x,y]){wash.style.left=((x-89)/760*100)+'%';wash.style.top=((y-16)/430*100)+'%';wash.style.transform='';},
   movePipette([x,y]){tool.style.left=((x-22)/760*100)+'%';tool.style.top=((y-291)/430*100)+'%';},
   get state(){return {...state,spotted:{...state.spotted}};}};

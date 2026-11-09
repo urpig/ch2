@@ -50,6 +50,7 @@
 #life-redox [data-life-observation]>[data-life-redox-equation][hidden] { display:block!important; visibility:hidden; }
 #life-redox [data-life-observation] .bio-equation-art { height:155px; width:100%; max-width:none; }
 #life-redox [data-life-observation] .bio-equation-energy { margin:0; font-size:12px; line-height:1.5; }
+#life-redox .life-biology-lab { --life-stage-height:clamp(240px,44dvh,350px); }
 #life-redox .life-biology-lab .life-mix-workbench { grid-template-columns:125px minmax(0,1fr); width:min(100%,calc(var(--life-stage-height) * 12 / 7 + 139px)); margin-inline:auto; }
 #life-redox .life-biology-lab .bio-stage-art { height:var(--life-stage-height); }
 #life-redox .life-biology-lab .bio-stage-art>svg { width:100%; height:100%; aspect-ratio:auto; }

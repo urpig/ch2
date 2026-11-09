@@ -69,7 +69,9 @@ export function mountDemonstrationBench(root,c,key,onEvidence){
    if(phase==='take'||phase==='retake'){
     const paper=root.querySelector('[data-litmus-paper="red"]'),r=bench.apparatus.board.getBoundingClientRect(),target=paper.getBoundingClientRect();
     const from=phase==='take'?[180,300]:[(target.x+target.width/2-r.x)/r.width*760,(target.y+target.height/2-r.y)/r.height*430];
-    water.movePipette(enterCollectionJar(from,326,p/.9));if(p>.92)once(phase,()=>water.take());
+    // Finish sliding the cover aside before lifting the pipette from its stand.
+    const travel=phase==='take'?Math.max(0,(p-.25)/.75):p;
+    water.movePipette(enterCollectionJar(from,326,travel/.9));if(travel>.92)once(phase,()=>water.take());
    }
    if(phase==='red'||phase==='blue'){
     const paper=root.querySelector('[data-litmus-paper="'+phase+'"]'),r=bench.apparatus.board.getBoundingClientRect(),target=paper.getBoundingClientRect();
