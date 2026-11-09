@@ -50,7 +50,7 @@ function paintOxygen(panel,trial,frame,reduced){
  panel.querySelector('[data-stability-oxygen-note]').textContent=frame.complete?trial.oxygenAfter:frame.progress>=.32?trial.oxygenDuring:trial.oxygenBefore;
 }
 export function stabilityMarkup(){
- return `${storyDialogue('「阿公，我們剛剛看到活性大的鎂很容易就燒起來了，那氧化鎂也一樣嗎？」','「元素和它的氧化物，是不同的物質喔！<br>活性大的物質，氧化之後會變安定，例如鎂。<br>活性小的物質，氧化之後反而會變不安定，例如銀。<br>我們來用鎂跟銀做比較看看。」')}
+ return `${storyDialogue('「阿公，我們剛剛看到活性大的鎂很容易就燒起來了，那氧化鎂也一樣嗎？」','「元素和它的氧化物，是不同的物質喔！活性大的物質，氧化之後會變安定，例如鎂。活性小的物質，氧化之後反而會變不安定，例如銀。我們來用鎂跟銀做比較看看。」')}
  <section class="stability-studio" aria-label="比較鎂、氧化鎂、銀與氧化銀的加熱結果" data-glossary-skip>
  <header class="stability-toolbar"><b>對氧活性：鎂 Mg ＞ 銀 Ag</b><button type="button" class="card-reset" data-stability-reset>↺ 重設本卡</button></header>
  <div id="stability-panel" class="stability-shared-view" data-stability-panel>
