@@ -51,7 +51,7 @@ export const lessons=[
    ],
    [
     "grandpa",
-    "這是鐵礦石，也就是氧化鐵，你把它敲碎，看看能不能找到金屬鐵。"
+    "這是鐵礦石，你把它敲碎，看看能不能找到金屬鐵。"
    ]
   ],
   "portraits": {
@@ -64,9 +64,10 @@ export const lessons=[
   "act": "第一章｜跟著氧找線索",
   "day": "隨身實驗箱",
   "type": "combustion",
-  "coreRequired": ["Na:burn","Na:wet","S:burn","S:ph"],
-  "title": "燃燒之後，產物都一樣嗎？",
-  "question": "燃燒的樣子、形成的氧化物和遇水後的性質，都一樣嗎？",
+  "sampleGroup": "metals",
+  "coreRequired": ["Na:burn","Na:wet"],
+  "title": "金屬燃燒，產物都一樣嗎？",
+  "question": "比較鈉、鎂、鋅和銅：加熱後的產物遇水會怎麼變？",
   "opening": "",
   "task": "取樣加熱 → 產物加水 → 測試紅、藍石蕊。跟著實驗台的箭頭提示操作。",
   "required": [
@@ -82,13 +83,7 @@ export const lessons=[
    "rank:Na",
    "rank:Mg",
    "rank:Zn",
-   "rank:Cu",
-   "S:burn",
-   "S:ph",
-   "P:burn",
-   "P:wet",
-   "C:burn",
-   "C:ph"
+   "rank:Cu"
   ],
   "labels": [
    "銅：加熱",
@@ -103,13 +98,7 @@ export const lessons=[
    "活性階梯：鈉",
    "活性階梯：鎂",
    "活性階梯：鋅",
-   "活性階梯：銅",
-   "硫：燃燒",
-   "硫：瓶內取液，紅、藍石蕊試紙",
-   "紅磷：燃燒",
-   "紅磷：兩張試紙",
-   "碳：燃燒",
-   "CO₂：瓶內取液，紅、藍石蕊試紙"
+   "活性階梯：銅"
   ],
   "finding": "金屬留下不同固體；磷的白煙是微粒，碳完全燃燒後生成無色的 CO₂。",
   "explanation": "得到氧叫氧化；沒有明顯火焰的銅片也會氧化。Na ＞ Mg ＞ Zn ＞ Cu，不能只按火焰亮度排列。 鈉燃燒產物與水作用生成 NaOH，呈鹼性；MgO 較慢與水作用。CuO 是鹼性氧化物、ZnO 是兩性氧化物，兩者難溶於水，試紙不變色不代表氧化物中性。 硫、磷與碳完全燃燒的產物，與水作用後可使水呈酸性。",
@@ -153,7 +142,7 @@ export const lessons=[
    ],
    [
     "grandpa",
-    "不只火焰的顏色，燃燒後的產物加水後，酸鹼性也會有所不同喔！我先操作鈉跟硫的實驗給你看看，其他的給你自己操作！"
+    "不只火焰的顏色，燃燒後的產物也不同喔！先看我用鈉示範：加熱、讓產物冷卻後加入水，再測酸鹼性。接著換你試試其他金屬！"
    ]
   ],
   "portraits": {
@@ -345,11 +334,11 @@ export const lessons=[
   "dialogue": [
    [
     "kui",
-    "阿公！既然鋅可以把氧化銅還原成銅，那我們是不是也可以拿活性比鐵大的物質，來還原氧化鐵呢？"
+    "阿公！碳能把氧化銀還原成銀，那我們也能用碳，把鐵礦裡的氧化鐵變回鐵嗎？"
    ],
    [
     "grandpa",
-    "答對了！碳的對氧活性比鐵大。煉鐵時用焦炭，產生的一氧化碳能還原氧化鐵；鐵礦裡的雜質則用石灰石協助去除。我們來看看煉鐵爐裡發生哪些化學反應吧！"
+    "可以！碳的活性比鐵大。我們可以利用焦炭來還原氧化鐵；鐵礦裡的雜質則可以用石灰石協助去除。我們來看看煉鐵爐裡發生哪些化學反應吧！"
    ]
   ],
   "portraits": {
@@ -420,17 +409,53 @@ export const lessons=[
    "kui": "determined",
    "grandpa": "encourage"
   }
+ },
+ {
+  id:7,act:'第三章｜守住寶劍',day:'交劍之前',type:'rust',
+  title:'讓寶劍遠離鐵鏽',question:'同一把鐵劍，怎麼讓它不容易生鏽？',opening:'',
+  task:'播放對照動畫，比較相同時間後，一般環境、上油與加水的寶劍有什麼不同。',
+  required:['normal','oil','wet'],
+  labels:['一般環境','塗油','加水'],
+  finding:'未保護且潮濕的鐵劍，逐漸出現鏽斑；油膜、漆膜與乾燥能減緩生鏽。',
+  explanation:'水和氧氣共同存在時，鐵容易生鏽。酸會加速鐵的腐蝕。保持乾燥、完整塗油或塗漆，可減少鐵和水、氧氣接觸。',
+  equation:'鐵 ＋ 氧氣 ＋ 水 → 鐵鏽',
+  quiz:{question:'想讓鐵劍不容易生鏽，哪種做法最合理？',options:['放在潮濕處，讓水留在表面','加酸清洗後，讓酸水留在劍上','擦乾並保持乾燥，或用完整油膜、漆膜保護','只隔開陽光，仍讓水和空氣接觸鐵'],answer:2,explanations:['水與氧氣一起接觸鐵，容易生鏽。','酸會加速鐵的腐蝕，不能把酸水留在表面。','減少水分，或以完整油膜、漆膜隔開水和氧氣，都能減緩生鏽。','生鏽的關鍵是水與氧氣；遮光不能代替防鏽。']},
+  dialogue:[['kui','阿公，寶劍做好了！要是放久了生鏽，不就白忙一場？'],['grandpa','鐵遇到水和氧氣，就容易生鏽。我們用一樣的寶劍，一把保持原樣、一把上油、一把加水，放一樣久，看看劍身會怎麼變。']],
+  portraits:{kui:'wonder',grandpa:'gentle'},
+  bridge:'保護好寶劍，兩人準備獻給皇帝。',points:['水和氧氣一起接觸鐵，容易生鏽。','酸會加速腐蝕；乾燥、完整油膜與漆膜能減緩生鏽。']
+ },
+ {
+  id:8,act:'第一章｜跟著氧找線索',day:'非金屬實驗',type:'combustion',sampleGroup:'nonmetals',
+  title:'非金屬燃燒，產物有什麼不同？',question:'硫、紅磷和碳燃燒後，產物遇水會呈現什麼性質？',opening:'',
+  task:'先看硫的示範，再取用紅磷或碳；觀察燃燒、產物遇水與石蕊變色。',
+  coreRequired:['S:burn','S:ph'],
+  required:['S:burn','S:ph','P:burn','P:wet','C:burn','C:ph'],
+  labels:['硫：燃燒','硫：瓶內取液，測紅、藍石蕊','紅磷：燃燒','紅磷：兩張試紙','碳：燃燒','二氧化碳：瓶內取液，測紅、藍石蕊'],
+  finding:'硫生成二氧化硫，碳完全燃燒生成二氧化碳；氣體溶於水後可測試酸鹼性。',
+  explanation:'硫、紅磷與碳燃燒時得到氧，形成氧化物。這些產物與水作用後，可使藍色石蕊變紅。',
+  bridge:'知道物質得到氧會氧化，接著追蹤氧能不能從氧化物移到另一種物質。',
+  equation:'S + O₂ → SO₂　｜　C + O₂ → CO₂　｜　4P + 5O₂ → P₄O₁₀',
+  dialogue:[['kui','阿公，金屬燃燒的顏色、產物加水後的酸鹼性都不同，那非金屬呢？'],['grandpa','它們也會跟氧結合，不過產物和遇水後的性質不同。一樣我先做示範，再換你自己試試！']],
+  portraits:{kui:'curious',grandpa:'gentle'},
+  quiz:{revision:1,question:'硫燃燒的產物溶於水後，使藍色石蕊變紅、紅色石蕊不變。可以判斷什麼？',options:['溶液呈鹼性','溶液呈酸性','只要沒有顏色，就是中性','藍色石蕊變紅，代表硫沒有和氧反應'],answer:1,explanations:['鹼性溶液會使紅色石蕊變藍。','藍變紅、紅不變，表示溶液呈酸性。','無色溶液也可能呈酸性或鹼性，要用試紙判斷。','硫燃燒已與氧結合，形成二氧化硫。']}
  }
 ];
 export const materialCases={"metals":[["Na","鈉"],["Mg","鎂帶"],["Zn","鋅粉"],["Cu","銅片"]],"nonmetals":[["S","硫"],["P","紅磷"],["C","碳"]],"redox":[["alone","只有 CuO"],["carbon","CuO ＋ 碳"],["ZnCu","Zn ＋ CuO"],["CuZn","Cu ＋ ZnO"]],"steel":[["pig","① 生鐵 · 3.5% C"],["steel","② 鋼 · 0.8% C"],["wrought","③ 熟鐵 · 0.01% C"]],"combustion":[["Na","鈉"],["Mg","鎂帶"],["Zn","鋅粉"],["Cu","銅片"],["S","硫"],["P","紅磷"],["C","碳"]]};
-export function freshState(c){return {selected:materialCases[c.type]?.[0][0]||'',evidence:[],quizOpen:false,quizRevision:c.quiz.revision||1,answer:null,tab:'burn',...(c.type==='combustion'?restoreCombustionDemo():{})};}
+export const casesForLesson=c=>materialCases[c.sampleGroup||c.type]||[];
+export function freshState(c){return {selected:casesForLesson(c)[0]?.[0]||'',evidence:[],quizOpen:false,quizRevision:c.quiz.revision||1,answer:null,tab:'burn',...(c.type==='combustion'?restoreCombustionDemo({},c.sampleGroup):{})};}
 export function isReady(c,s){return (c.coreRequired||c.required).every(key=>s.evidence.includes(key));}
 export function isMastered(c,s){return isReady(c,s)&&s.answer===c.quiz.answer;}
-export function restoreState(c,raw){const s=freshState(c);if(!raw||typeof raw!=='object')return s;s.evidence=[...new Set((Array.isArray(raw.evidence)?raw.evidence:[]).filter(k=>c.required.includes(k)))];if(materialCases[c.type]?.some(([key])=>key===raw.selected))s.selected=raw.selected;s.answer=(raw.quizRevision??1)===s.quizRevision&&Number.isInteger(raw.answer)&&raw.answer>=0&&raw.answer<c.quiz.options.length?raw.answer:null;s.quizOpen=raw.quizOpen===true||s.answer!==null;if(c.type==='combustion')Object.assign(s,restoreCombustionDemo(raw));return s;}
+export function restoreState(c,raw){const s=freshState(c);if(!raw||typeof raw!=='object')return s;s.evidence=[...new Set((Array.isArray(raw.evidence)?raw.evidence:[]).filter(k=>c.required.includes(k)))];if(casesForLesson(c).some(([key])=>key===raw.selected))s.selected=raw.selected;s.answer=(raw.quizRevision??1)===s.quizRevision&&Number.isInteger(raw.answer)&&raw.answer>=0&&raw.answer<c.quiz.options.length?raw.answer:null;s.quizOpen=raw.quizOpen===true||s.answer!==null;if(c.type==='combustion')Object.assign(s,restoreCombustionDemo(raw,c.sampleGroup));return s;}
+// Stable storage IDs keep old observations while the two experiments become independent cards.
+export function restoreLessonState(c,raw){
+ if(raw[c.id])return restoreState(c,raw[c.id]);
+ if(c.sampleGroup==='nonmetals'&&raw[2])return restoreState(c,{...raw[2],answer:null,quizOpen:false});
+ return null;
+}
 export function massBalance(key){return key==='Mg'?{solidBefore:24,oxygen:16,solidAfter:40,gas:0}:{solidBefore:12,oxygen:32,solidAfter:0,gas:44};}
 export function litmusResult(type,paper){return type==='acid'?'#c46579':type==='base'?'#526eb9':paper==='red'?'#c46579':'#526eb9';}
 
 export function migrateLegacy(c,raw){if(!raw||['steel','rust'].includes(c.type))return freshState(c);const s=restoreState(c,raw[c.sourceId]);if(c.type==='ore'){s.answer=null;s.quizOpen=false;}return s;}
 
 
-export function migrateEight(c,raw){if(c.type!=='combustion')return restoreState(c,raw[c.previousId]);const a=raw[2]||{},b=raw[3]||{};return restoreState(c,{evidence:[...(Array.isArray(a.evidence)?a.evidence:[]),...(Array.isArray(b.evidence)?b.evidence:[])],selected:a.selected});}
+export function migrateEight(c,raw){if(c.type==='rust')return freshState(c);if(c.type!=='combustion')return restoreState(c,raw[c.previousId]);const a=raw[2]||{},b=raw[3]||{};return restoreState(c,{evidence:[...(Array.isArray(a.evidence)?a.evidence:[]),...(Array.isArray(b.evidence)?b.evidence:[])],selected:a.selected});}

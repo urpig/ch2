@@ -75,6 +75,8 @@ export function mountFurnace(root,c,{record,notice,delay,onCleanup}){
   root.querySelector('[data-zone-title]').textContent=z.name;root.querySelector('[data-zone-equation]').textContent=z.formula;root.querySelector('[data-zone-description]').textContent=z.text;
   const req=root.querySelector('[data-zone-requirement]');req.textContent=index===6||index===7?'分層排出，沒有新的化學反應。':'';req.hidden=!req.textContent;req.classList.add('ready');
   visual.dataset.zone=z.id;const [x,y]=z.at,[sx,sy]=[z.pos[0]*9,z.pos[1]*6.5];leader.setAttribute('d',index===0?'M'+sx+' '+sy+'V'+(y-35)+'L'+x+' '+y:'M'+sx+' '+sy+'H630L'+x+' '+y);point.setAttribute('cx',x);point.setAttribute('cy',y);
+  const showLocation=![2,3,4].includes(index);
+  guide.style.visibility=showLocation?'':'hidden';ring.parentElement.style.visibility=showLocation?'':'hidden';
   for(const [k,v] of Object.entries({cx:x,cy:y,rx:index===0?62:index>5?36:63,ry:index>5?21:43}))ring.setAttribute(k,v);
   panel.classList.remove('step-arriving');void panel.offsetWidth;panel.classList.add('step-arriving');
  }

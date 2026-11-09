@@ -1,0 +1,131 @@
+/* Shared dialogue dimensions, including explanations added after an experiment. */
+:root {
+ --dialogue-avatar:56px;
+ --dialogue-padding:12px 14px;
+ --dialogue-gap:12px;
+ --dialogue-space:12px;
+}
+
+body .story-dialogue.story-dialogue {
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:var(--dialogue-space);
+ align-items:start;
+ margin-block:0 var(--dialogue-space);
+}
+
+body .story-dialogue.dialogue-stack,
+body .with-forge-scene .story-dialogue {
+ grid-template-columns:minmax(0,1fr);
+}
+
+body .story-dialogue > .story-speech.story-speech {
+ margin-inline:0;
+}
+
+body .story-speech.story-speech {
+ display:grid;
+ grid-template-columns:var(--dialogue-avatar) minmax(0,1fr);
+ align-items:center;
+ align-self:start;
+ flex-shrink:0;
+ gap:var(--dialogue-gap);
+ width:100%;
+ max-width:none;
+ min-width:0;
+ min-height:0;
+ height:var(--dialogue-height,auto);
+ box-sizing:border-box;
+ margin:0 auto;
+ padding:var(--dialogue-padding);
+ border:1px solid #d9dfcf;
+ border-radius:10px;
+ background:#f8f8ef;
+ box-shadow:none;
+}
+
+body .story-speech.story-speech > .story-portrait {
+ width:var(--dialogue-avatar);
+ height:var(--dialogue-avatar);
+ flex-basis:var(--dialogue-avatar);
+ box-sizing:border-box;
+ margin:0;
+ align-self:center;
+ border:1px solid #dedccb;
+ border-radius:50%;
+ box-shadow:0 2px 6px #504a2510;
+}
+
+body .story-speech.story-speech > p {
+ min-width:0;
+ margin:0;
+ padding:0;
+ font-size:16px;
+ line-height:1.65;
+ color:#4c6050;
+ text-align:start;
+ overflow-wrap:break-word;
+}
+
+body .story-speech.story-speech > p > b {
+ display:block;
+ margin:0 0 3px;
+ font-size:13px;
+ line-height:1.3;
+ font-weight:700;
+ letter-spacing:.06em;
+ color:#426652;
+}
+
+/* Character colours share the same dimensions and typography. */
+body .story-speech.story-speech--kui {
+ background:#fff0e5;
+ border-color:#dfb99b;
+}
+body .story-speech.story-speech--grandpa {
+ background:#eaf3fa;
+ border-color:#a9c5d9;
+}
+body .story-speech.story-speech--emperor {
+ background:#fff4d6;
+ border-color:#d8bd70;
+}
+body .story-speech.story-speech--kui > p > b { color:#92502a; }
+body .story-speech.story-speech--grandpa > p > b { color:#315e7a; }
+body .story-speech.story-speech--emperor > p > b { color:#806018; }
+
+body :not(.story-dialogue) > .story-speech.story-speech + .story-speech {
+ margin-block-start:var(--dialogue-space);
+}
+
+body .prep-conversation.story-speech {
+ margin:var(--dialogue-space) auto;
+}
+
+/* Hidden text copies determine one shared height without changing any dialogue. */
+.dialogue-size-probe {
+ position:fixed;
+ left:-10000px;
+ top:0;
+ visibility:hidden;
+ pointer-events:none;
+}
+
+body .dialogue-size-probe > .story-speech {
+ height:auto;
+ margin:0;
+}
+
+@media(max-width:1050px) {
+ body .story-dialogue.story-dialogue {
+  grid-template-columns:minmax(0,1fr);
+ }
+}
+
+@media(max-width:700px) {
+ :root {
+  --dialogue-avatar:48px;
+  --dialogue-padding:12px;
+  --dialogue-gap:10px;
+ }
+}

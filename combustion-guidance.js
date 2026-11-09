@@ -1,6 +1,6 @@
 export function combustionNextAction({loaded,ignited,isMetal,inJar,near,complete}){
  if(complete)return {id:'observe'};
- if(!loaded)return {id:'load',tool:'[data-shelf-sample].selected',target:'[data-shelf-target]',label:'拿取樣本',instruction:'下一步：從樣本架拿取樣本，放到箭頭標示的燃燒匙凹槽。'};
+ if(!loaded)return {id:'load',tool:'[data-shelf-sample].selected',target:'[data-shelf-target]',label:'拿取樣本',instruction:'下一步：從桌面拿取樣本，放到箭頭標示的燃燒匙凹槽。'};
  if(!ignited&&!near)return {id:'heat',tool:'[data-spoon]',target:'[data-heat-zone]',label:'移向火焰',instruction:'下一步：抓住燃燒匙，把匙端移到箭頭標示的火焰上方加熱。'};
  if(ignited&&!isMetal&&!inJar)return {id:'bottle',tool:'[data-spoon]',target:'[data-jar-target]',label:'放入瓶內',instruction:'下一步：把燃燒匙拖進箭頭標示的集氣瓶內，放開觀察。'};
  return {id:'observe',instruction:'正在反應，觀察樣本顏色與反應式；看完後按「觀察完成，查看產物」。'};

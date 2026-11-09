@@ -1,0 +1,84 @@
+/* Keep each life demonstration and its equation together without scaling objects out of proportion. */
+#life-redox [data-life-observation] {
+ --life-stage-height:clamp(190px,37dvh,300px);
+ position:relative;
+ margin:0;
+ padding:14px;
+ scroll-margin-block:6px;
+}
+#life-redox [data-life-reaction=food] { --life-stage-height:clamp(260px,51dvh,390px); }
+#life-redox [data-life-reaction=peroxide],
+#life-redox [data-life-reaction=chlorine],
+#life-redox [data-life-reaction=sulfur] { --life-stage-height:clamp(180px,33dvh,260px); }
+#life-redox .life-playback-actions { display:flex; align-items:center; gap:7px; flex-shrink:0; }
+#life-redox [data-life-observation] .life-playback-actions .observation-timeline { padding:0; min-height:0; border:0; background:transparent; }
+#life-redox [data-life-observation] .life-playback-actions .observation-timeline button { min-height:40px; }
+#life-redox [data-life-observation]>.reaction-heading,
+#life-redox [data-life-observation]>header { padding:0; margin:0 0 10px; gap:12px; align-items:center; }
+#life-redox [data-life-observation] h3,
+#life-redox [data-life-observation] .reaction-heading h4 { margin:0; font-size:20px; line-height:1.4; }
+#life-redox [data-life-observation] header p { margin:5px 0 0; font-size:14px; line-height:1.5; }
+#life-redox [data-life-observation] .reaction-heading small { font-size:11px; }
+#life-redox [data-life-observation] .life-mix-instruction { margin:0 0 8px; font-size:14px; line-height:1.5; }
+#life-redox [data-life-observation] .life-mix-workbench { margin:0; gap:12px; }
+#life-redox [data-life-observation] .life-reactor-condition { padding:6px 10px; line-height:1.4; font-size:11px; }
+#life-redox [data-life-observation] .life-reactor-art {
+ width:min(100%,calc(var(--life-stage-height) * 760 / 460));
+ max-width:none; margin-inline:auto;
+}
+#life-redox [data-life-observation] .life-reactor-panel { min-width:0; }
+#life-redox [data-life-observation] .observation-timeline { min-height:36px; padding:4px 8px; }
+#life-redox [data-life-observation] .observation-timeline button { min-height:30px; padding:4px 12px; font-size:14px; }
+#life-redox [data-life-observation]>.life-observe-status,
+#life-redox [data-life-observation]>[data-apple-status] { margin:7px 0; min-height:20px; font-size:13px; line-height:1.5; }
+#life-redox [data-life-observation]>.life-paired-equation { margin:8px 0 0; padding:10px 12px; }
+#life-redox [data-life-observation] .life-example-equation h4 { margin:0 0 4px; font-size:16px; }
+#life-redox [data-life-observation] .life-equation-art { height:145px; width:100%; max-width:none; }
+#life-redox [data-life-observation] .life-equation-note { margin:4px 0 0; font-size:12px; line-height:1.5; }
+/* Give the apple cut faces more space; shorten the arrow diagram instead of
+   shrinking its formulas or stretching the laboratory photograph. */
+#life-redox [data-life-reaction=food]>.life-example-equation { padding:7px 12px; margin-top:6px; }
+#life-redox [data-life-observation] .life-equation-art { height:180px; }
+#life-redox [data-life-observation] .life-equation-formula { font-size:38px; }
+#life-redox [data-life-observation] .life-equation-name { font-size:23px; }
+#life-redox [data-life-reaction=food] .life-example-equation h4 { margin-bottom:2px; font-size:15px; line-height:1.4; }
+#life-redox [data-life-reaction=food] .life-equation-note { margin-top:2px; font-size:11px; line-height:1.4; }
+/* Reserve the final equation's space so playback does not push the scene away. */
+#life-redox [data-life-observation]>[data-life-redox-equation][hidden] { display:block!important; visibility:hidden; }
+#life-redox [data-life-observation] .bio-equation-art { height:180px; width:100%; max-width:none; }
+#life-redox [data-life-observation] .bio-equation-energy { margin:0; font-size:12px; line-height:1.5; }
+#life-redox .life-biology-lab .life-mix-workbench { grid-template-columns:125px minmax(0,1fr); width:min(100%,calc(var(--life-stage-height) * 12 / 7 + 139px)); margin-inline:auto; }
+#life-redox .life-biology-lab .bio-stage-art { height:var(--life-stage-height); }
+#life-redox .life-biology-lab .bio-stage-art>svg { width:100%; height:100%; aspect-ratio:auto; }
+#life-redox .life-biology-lab .bio-molecule-rack { padding:8px; gap:3px; }
+#life-redox .life-biology-lab .bio-supply-item { padding:3px 0 8px; gap:3px; }
+#life-redox .life-biology-lab .bio-supply-item+div { padding-top:8px; }
+#life-redox .life-biology-lab .bio-molecule-model { max-height:80px; }
+#life-redox .life-biology-lab .bio-supply-item>strong { font-size:11px; }
+#life-redox [data-life-observation] .lab-specimen-groups figcaption b { font-size:12px; }
+#life-redox [data-life-observation] .lab-specimen-groups figcaption span { font-size:10px; }
+@media(max-width:760px) {
+ #life-redox [data-life-observation] { --life-stage-height:220px; padding:10px; }
+ #life-redox [data-life-observation]>.reaction-heading,
+ #life-redox [data-life-observation]>header { gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+ #life-redox [data-life-observation] h3,
+ #life-redox [data-life-observation] .reaction-heading h4 { font-size:18px; }
+ #life-redox [data-life-observation] .text-button[data-life-retry] { min-height:36px; padding:6px 12px; font-size:14px; }
+ #life-redox [data-life-observation] .life-example-equation { padding:10px; }
+ #life-redox [data-life-observation] .life-equation-mobile { gap:6px; }
+ #life-redox [data-life-observation] .life-equation-change { padding:7px 8px; }
+ #life-redox [data-life-observation] .life-equation-change>b { font-size:14px; }
+ #life-redox [data-life-observation] .life-equation-change>div { margin-top:5px; }
+ #life-redox [data-life-observation] .life-equation-change span { font-size:12px; line-height:1.4; }
+ #life-redox [data-life-observation] .life-equation-change strong { font-size:17px; line-height:1.4; }
+ #life-redox .life-biology-lab .life-mix-workbench { grid-template-columns:minmax(0,1fr); gap:8px; width:100%; }
+ #life-redox .life-biology-lab .bio-stage-art { height:auto; aspect-ratio:12/7; }
+ #life-redox .life-biology-lab .bio-stage-art>svg { height:auto; aspect-ratio:12/7; }
+ #life-redox .life-biology-lab .bio-molecule-rack { display:grid; grid-template-columns:1fr 1fr; position:relative; padding:6px; }
+ #life-redox .life-biology-lab .bio-molecule-rack>small { display:none; }
+ #life-redox .life-biology-lab .bio-supply-item { display:flex; align-items:center; justify-content:center; gap:5px; padding:0; }
+ #life-redox .life-biology-lab .bio-supply-item+div { padding:0; border:0; }
+ #life-redox .life-biology-lab .bio-molecule-rest { width:42px; flex:0 0 42px; }
+ #life-redox .life-biology-lab .bio-molecule-model { max-height:42px; }
+ #life-redox [data-life-observation] .bio-equation-art { height:auto; min-height:100px; aspect-ratio:10/3; }
+}

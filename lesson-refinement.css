@@ -1,13 +1,13 @@
 /* One viewport for taking a sample and using the bench. The rack shares its width. */
 @media(min-width:850px){
- #card-2 .integrated-studio{width:100%;max-width:1040px;margin:22px auto 0;scroll-margin-top:12px}
- #card-2 .integrated-studio .specimen-shelf{padding:7px 12px 9px;column-gap:14px}
- #card-2 .integrated-studio .specimen-vial{height:39px;margin:0 5px 3px}
- #card-2 .integrated-studio .specimen-group h4{padding:2px 6px;margin-bottom:3px}
- #card-2 .integrated-studio .shelf-heading{margin-bottom:3px}
- #card-2 .integrated-studio .bench-sequence{padding:4px}
- #card-2 .integrated-studio .combustion-step{font-size:11px;margin:2px 0;padding:3px 8px}
- #card-2 .integrated-studio .combustion-condition{font-size:9px}
+ :is(#card-2,#card-8) .integrated-studio{width:100%;max-width:1040px;margin:22px auto 0;scroll-margin-top:12px}
+ :is(#card-2,#card-8) .integrated-studio .specimen-shelf{padding:7px 12px 9px;column-gap:14px}
+ :is(#card-2,#card-8) .integrated-studio .specimen-vial{height:39px;margin:0 5px 3px}
+ :is(#card-2,#card-8) .integrated-studio .specimen-group h4{padding:2px 6px;margin-bottom:3px}
+ :is(#card-2,#card-8) .integrated-studio .shelf-heading{margin-bottom:3px}
+ :is(#card-2,#card-8) .integrated-studio .bench-sequence{padding:4px}
+ :is(#card-2,#card-8) .integrated-studio .combustion-step{font-size:11px;margin:2px 0;padding:3px 8px}
+ :is(#card-2,#card-8) .integrated-studio .combustion-condition{font-size:9px}
 }
 #card-4 .iron-linked-view{display:grid;grid-template-columns:minmax(0,1fr) 30%;align-items:start}
 #card-4 .iron-linked-view .iron-transfer-board{width:100%;margin:0}
@@ -443,8 +443,8 @@
 }
 .interactive-lab-frame>.interaction-reset-bar{box-sizing:border-box;border:0;background:transparent;padding:0 0 6px;margin:0 auto}
 #card-1 .interactive-lab-frame>.interaction-reset-bar{max-width:720px}
-#card-2 .interactive-lab-frame>.interaction-reset-bar{width:100%;max-width:1040px}
-@media(max-width:700px){#card-2 .interactive-lab-frame>.interaction-reset-bar{width:100%}}
+:is(#card-2,#card-8) .interactive-lab-frame>.interaction-reset-bar{width:100%;max-width:1040px}
+@media(max-width:700px){:is(#card-2,#card-8) .interactive-lab-frame>.interaction-reset-bar{width:100%}}
 /* Match the photosynthesis instruction pill, while preserving the full drop area. */
 .life-biology-lab[data-life-reaction=resp] .bio-stage-drop>span{top:auto;bottom:20%;left:24%;right:24%;transform:none;padding:7px 10px;background:#fff9e5ed;border:1px solid #d9d5ac;border-radius:20px;box-shadow:none;font-size:11px;font-weight:400;color:#3f6144;text-shadow:none;text-align:center}
 .life-biology-lab[data-life-reaction=resp][data-bio-step="1"] .bio-stage-drop>span{top:45%;bottom:auto;left:55%;right:4%}
@@ -524,3 +524,6 @@
 .life-case-example>.story-dialogue { margin:0 0 20px; }
 .life-case-example .prep-studio { padding:20px; }
 @media(max-width:650px){.life-experiments-stack{gap:28px}.life-case-example .prep-studio{padding:10px}.life-case-group{gap:20px}}
+
+/* Register the drop region to the photographic roller supports. */
+.blade-studio .finish-blade-target{left:18.5%;width:47.5%;top:53%;height:17.2%}

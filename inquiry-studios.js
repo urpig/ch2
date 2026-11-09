@@ -3,7 +3,6 @@ import {bindReactantPickup} from './life-reactant-drag.js';
 import {createOxidationFire} from './oxidation-fire.js';
 const oxidationTypes={fast:'劇烈的氧化',slow:'緩和的氧化'};
 const atom=(kind,label)=>`<span class="reaction-atom reaction-atom-${kind}">${label}</span>`;
-const watchMass='留意電子秤上的讀數。';
 
 function evidenceGas(burning){
  const formula=burning?'CO₂':'O₂';
@@ -71,99 +70,83 @@ function evidenceScene(id,time,{start,end},seen){
  </div>`;
 }
 
-function evidencePicker(s){
- return `<div class="evidence-picker" role="group" aria-label="選擇氧化案例">
-  ${observationCases.map(({id,title,kind})=>{
-   const seen=s.looked.includes(id);
-   return `<button type="button" data-observe="${id}" data-kind="${kind}" aria-pressed="${s.selected===id}" aria-label="${oxidationTypes[kind]}，${title}，${seen?'已觀察':'待觀察'}">
-    <span><small>${oxidationTypes[kind]}</small><b>${title}</b></span><i aria-hidden="true">${seen?'✓':'○'}</i>
-   </button>`;
-  }).join('')}
- </div>`;
-}
-
 export function evidenceStudio(s){
- const {id,title,time,before,after,mass,observation}=observationCases.find(item=>item.id===s.selected);
- const seen=s.looked.includes(id);
- const caption=seen?observation:watchMass;
- const difference=mass.end-mass.start;
- const change=`${difference<0?'↓ 少了':'↑ 多了'} ${Math.abs(difference).toFixed(1)} g`;
- return `<div class="evidence-toolbar">
-  ${evidencePicker(s)}
-  <button type="button" class="primary evidence-play" data-play-evidence>${seen?'↻ 重播動畫':'▶ 播放動畫'}</button>
-  <button type="button" class="card-reset" data-prep-reset aria-label="重設本卡">↺ 重設</button>
- </div>
- <section class="evidence-player" data-evidence-player data-phase="${seen?'after':'ready'}" aria-label="${title}動畫">
-  ${evidenceScene(id,time,mass,seen)}
-  <section class="evidence-inspector" aria-label="${title}的反應前後">
-   <div class="substance-before-after"><div><small>反應前</small><b>${before}</b></div><span aria-hidden="true">→</span><div><small>反應後</small><b data-evidence-product>${seen?after:'播放後顯示'}</b></div></div>
-   <p class="evidence-mass-summary"><span>原本是 ${mass.start.toFixed(1)} g</span><b data-evidence-mass-change>${seen?change:'只秤固體'}</b></p>
-   <p class="evidence-scene-caption" role="status" ${caption?'':'hidden'}>${caption??''}</p>
-  </section>
- </section>
- ${observationCases.every(item=>s.looked.includes(item.id))?`<section class="evidence-comparison" aria-label="兩次秤重的比較"><h4>回看兩次讀數</h4><div>${observationCases.map(item=>`<article><b>${item.title}</b><strong>${item.mass.start.toFixed(1)} → ${item.mass.end.toFixed(1)} <small>g</small></strong><span>${item.id==='burn'?'CO₂ 飄離秤面':'氧結合後留在秤上'}</span></article>`).join('')}</div></section>`:''}`;
+ return `<div id="oxidation-comparison" class="evidence-comparison">
+ <div class="evidence-comparison-headings">
+  ${observationCases.map(({id,kind,time})=>`<header class="evidence-case-heading evidence-case-heading--${id==='burn'?'burn':'rust'}"><i class="evidence-heading-symbol" aria-hidden="true">${kind==='fast'?'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M13 2c1 5-2 6-1 9 1-1 2-2 3-4 4 4 6 8 4 12-2 4-11 5-14-1C2 13 6 8 9 5c-1 4 0 5 1 6 3-3 4-5 3-9Z"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 5 3-2 4 4-3 3Zm4 4 9 11-3-1L8 11M3 18h4m-2-2v4M16 3v3m-1.5-1.5h3"/></svg>'}</i><h4 id="evidence-heading-${id}">${oxidationTypes[kind]}反應：${kind==='fast'?'燃燒':'生鏽'}</h4><span>${time}</span></header>`).join('')}
+ </div><div class="evidence-pair" aria-label="左邊木炭燃燒，右邊鐵釘生鏽">
+ ${observationCases.map(({id,title,time,before,after,mass})=>{
+  const seen=s.looked.includes(id),difference=mass.end-mass.start;
+  const change=`${difference<0?'↓ 少了':'↑ 多了'} ${Math.abs(difference).toFixed(1)} g`;
+  return `<section class="evidence-player" data-evidence-player="${id}" data-phase="${seen?'after':'ready'}" aria-labelledby="evidence-heading-${id}">
+   ${evidenceScene(id,time,mass,seen)}
+   <section class="evidence-inspector" aria-label="${title}的反應前後">
+    <div class="substance-before-after"><div><small>反應前</small><b>${before}</b></div><span aria-hidden="true">→</span><div><small>反應後</small><b data-evidence-product>${seen?after:'播放後顯示'}</b></div></div>
+    <p class="evidence-mass-summary"><span>原本是 ${mass.start.toFixed(1)} g</span><b data-evidence-mass-change>${seen?change:'只秤固體'}</b></p>
+   </section>
+   <div class="evidence-playback" role="group" aria-label="${title}的播放控制">
+    <button type="button" class="primary evidence-play" data-play-evidence="${id}" aria-label="${seen?'重播':'播放'}${title}動畫">${seen?'↻ 重播動畫':'▶ 播放動畫'}</button>
+   </div>
+  </section>`;
+ }).join('')}</div></div>`;
 }
 
 export function bindEvidence(root,s,update){
- const player=root.querySelector('[data-evidence-player]');
- const play=root.querySelector('[data-play-evidence]');
- const selected=s.selected;
- const canvas=player.querySelector('.evidence-flame');
- const {start,end}=observationCases.find(item=>item.id===selected).mass;
- const reading=player.querySelector('[data-evidence-mass]');
  const duration=5200;
- let fire=null,frame=0;
- player.style.setProperty('--evidence-duration',duration+'ms');
-
- function finish(){
-  if(!s.looked.includes(selected))s.looked.push(selected);
-  update(document.activeElement===play?'[data-play-evidence]':undefined);
- }
-
- play.onclick=()=>{
-  if(frame)return;
-  player.scrollIntoView({block:'nearest',behavior:'instant'});
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches){
-   finish();
-   return;
+ const controls=[];
+ for(const player of root.querySelectorAll('[data-evidence-player]')){
+  const id=player.dataset.evidencePlayer,{title,after,mass:{start,end}}=observationCases.find(item=>item.id===id);
+  const play=player.querySelector('[data-play-evidence]');
+  let fire=null,frame=0,elapsed=0,last=0,paused=false,playing=false,alive=true;
+  player.style.setProperty('--evidence-duration',duration+'ms');
+  function setPaused(value){
+   if(!playing||paused===value)return;
+   paused=value;
+   player.dataset.paused=String(paused);
+   if(paused){cancelAnimationFrame(frame);frame=0;}else{last=performance.now();frame=requestAnimationFrame(weigh);}
   }
-  if(canvas){
-   fire=createOxidationFire(canvas);
-   player.classList.toggle('has-fire-renderer',Boolean(fire));
-   canvas.addEventListener('webglcontextlost',()=>player.classList.remove('has-fire-renderer'),{once:true});
+  const control={pause:()=>setPaused(true),dispose:()=>{alive=false;cancelAnimationFrame(frame);fire?.dispose();}};
+  controls.push(control);
+  const pauseOthers=()=>controls.forEach(other=>{if(other!==control)other.pause();});
+  function finish(){
+   frame=0;playing=false;paused=false;
+   player.dataset.phase='after';player.removeAttribute('data-paused');
+   player.querySelector('[data-evidence-mass]').textContent=end.toFixed(1);
+   player.querySelector('[data-evidence-mass-phase]').textContent='反應後';
+   player.querySelector('[data-evidence-product]').textContent=after;
+   player.querySelector('[data-evidence-mass-change]').textContent=`${end<start?'↓ 少了':'↑ 多了'} ${Math.abs(end-start).toFixed(1)} g`;
+   play.textContent='↻ 重播動畫';
+   if(!s.looked.includes(id))s.looked.push(id);
+   update();
   }
-  player.dataset.phase='playing';
-  player.querySelector('[data-evidence-mass-phase]').textContent='反應中';
-  player.querySelector('[data-evidence-mass-change]').textContent='只秤固體';
-  player.querySelector('[data-evidence-product]').textContent='播放後顯示';
-  const caption=player.querySelector('.evidence-scene-caption');
-  caption.hidden=false;
-  caption.textContent=selected==='burn'
-   ? '看 CO₂ 飄離炭盆，再留意秤上的讀數。'
-   : '看 O₂ 移向鐵釘表面，再留意秤上的讀數。';
-  reading.textContent=start.toFixed(1);
-  play.setAttribute('aria-disabled','true');
-  play.textContent='正在觀察…';
-  const started=performance.now();
-  const [massStart,massEnd]=canvas?[.2,.82]:[.24,.94];
   function weigh(now){
-   const progress=Math.min(1,(now-started)/duration);
-   const massProgress=Math.max(0,Math.min(1,(progress-massStart)/(massEnd-massStart)));
-   reading.textContent=(start+(end-start)*massProgress).toFixed(1);
-   fire?.draw((now-started)/1000,progress);
-   if(progress===1){
-    frame=0;
-    finish();
-   }else frame=requestAnimationFrame(weigh);
+   if(!alive||paused||!playing)return;
+   elapsed=Math.min(duration,elapsed+Math.max(0,now-last));last=now;
+   const progress=elapsed/duration;
+   const [massStart,massEnd]=id==='burn'?[.2,.82]:[.24,.94];
+   const amount=Math.max(0,Math.min(1,(progress-massStart)/(massEnd-massStart)));
+   player.querySelector('[data-evidence-mass]').textContent=(start+(end-start)*amount).toFixed(1);
+   fire?.draw(elapsed/1000,progress);
+   if(progress===1)finish();else frame=requestAnimationFrame(weigh);
   }
-  frame=requestAnimationFrame(weigh);
- };
- root.querySelectorAll('[data-observe]').forEach(button=>button.onclick=()=>{
-  if(s.selected===button.dataset.observe)return;
-  s.selected=button.dataset.observe;
-  update(`[data-observe="${s.selected}"]`);
- });
- return ()=>{cancelAnimationFrame(frame);fire?.dispose();};
+  play.onclick=()=>{
+   pauseOthers();cancelAnimationFrame(frame);elapsed=0;paused=false;playing=true;
+   play.setAttribute('aria-label',`重播${title}動畫`);
+   if(matchMedia('(prefers-reduced-motion: reduce)').matches){finish();return;}
+   player.dataset.phase='ready';player.removeAttribute('data-paused');
+   const canvas=player.querySelector('.evidence-flame');
+   if(canvas&&!fire){fire=createOxidationFire(canvas);player.classList.toggle('has-fire-renderer',Boolean(fire));}
+   player.querySelector('[data-evidence-mass]').textContent=start.toFixed(1);
+   player.querySelector('[data-evidence-mass-phase]').textContent='反應中';
+   player.querySelector('[data-evidence-mass-change]').textContent='只秤固體';
+   player.querySelector('[data-evidence-product]').textContent='播放後顯示';
+   void player.offsetWidth;
+   player.dataset.phase='playing';
+   play.textContent='↻ 從頭播放';
+   last=performance.now();frame=requestAnimationFrame(weigh);
+  };
+ }
+ return ()=>controls.forEach(control=>control.dispose());
 }
 export function transferStudio(s){const e=transferCases.find(e=>e.id===s.example),moved=s.transfers[e.id]||[],targets=s.transferTargets?.[e.id]||moved,done=moved.length===e.count,roles=s.transferRoles.includes(e.id);
  const source=j=>`<button class="oxygen-handle" data-oxygen-handle="${j}" aria-label="拿取第${j+1}個氧原子" ${moved.includes(j)?'disabled':''}>${moved.includes(j)?'<span class="oxygen-vacancy">O 已移走</span>':atom('oxygen','O')}</button>`;

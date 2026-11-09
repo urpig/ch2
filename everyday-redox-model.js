@@ -27,9 +27,15 @@ export function lifeRecord(s,key,role){
  else if(key==='food')correct=s.time>=3&&role==='oxidation';
  if(correct&&!s.evidence.includes(key))s.evidence.push(key);return correct;
 }
+// Guided examples count after playback; respiration still requires the learner's judgement.
+export function recordLifeDemonstration(s,key){
+ if(!['food','photo'].includes(key))return false;
+ if(key==='food'&&s.time<4)return false;
+ return lifeRecord(s,key,'oxidation');
+}
 export function appleComparison(time){const t=Number.isFinite(time)?Math.max(0,Math.min(4,time)):0,i=Math.floor(t),blend=values=>values[i]+((values[Math.min(4,i+1)]-values[i])*(t-i));return {plain:blend([0,.24,.52,.8,1]),protected:blend([0,.01,.04,.12,.46]),reserve:Math.max(0,1-t/3)};}
 export const lifeCaseGroups=[
- ['vitamin','維他命 C 與蘋果保鮮',['food']],
- ['biology','光合作用與呼吸作用',['photo','resp']],
- ['bleach','實驗室漂白',['peroxide','chlorine','sulfur']]
+ ['vitamin','(1) 維他命 C 與蘋果保鮮',['food']],
+ ['biology','(2) 光合作用與呼吸作用',['photo','resp']],
+ ['bleach','(3) 實驗室漂白',['peroxide','chlorine','sulfur']]
 ];
