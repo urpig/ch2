@@ -58,7 +58,7 @@ export function stabilityMarkup(){
   ${stabilityPairs.map((pair,i)=>`<section id="stability-pair-${pair.id}" role="tabpanel" aria-labelledby="stability-tab-${pair.id}" data-stability-pair="${pair.id}" ${i?'hidden':''}>
    <div class="stability-playbar"><b>${pair.title}</b><div><button type="button" class="primary" data-stability-play>▶ 同時開始加熱</button><button type="button" class="secondary" data-stability-pause disabled>暫停</button></div></div>
    <div class="stability-shared-layout">${sharedBench(pair)}<div class="stability-detail-pair">${pair.trials.map(id=>pairedObservation(stabilityTrials.find(t=>t.id===id))).join('')}</div></div>
-   <div class="stability-trial-result" data-stability-result hidden>${storySpeech('grandpa',pair.id==='elements'?'「鎂的活性大，較不安定，加熱後會被氧化成氧化鎂。銀的活性小，較安定，加熱後不反應。」':'「鎂原本很不安定，但氧化鎂卻很安定。<br>銀原本很安定，但氧化銀卻很不安定，加熱後就會失去氧。」')}</div>
+   <div class="stability-trial-result" data-stability-result hidden>${storySpeech('grandpa',pair.id==='elements'?'「鎂的活性大，較不安定，加熱後會被氧化成氧化鎂。銀的活性小，較安定，加熱後不反應。」':'「鎂原本很不安定，但氧化鎂卻很安定。銀原本很安定，但氧化銀卻很不安定，加熱後就會失去氧。」')}</div>
   </section>`).join('')}
  </div>
  <section class="stability-conclusion" data-stability-conclusion hidden aria-label="四種物質的比較結果"><h3>元素和它的氧化物，特性不同</h3>

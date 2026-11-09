@@ -6,7 +6,7 @@ import {dictionaryChapters} from '../dist/terminology-data.js';
 import {factoryPackedBurden,factoryBurdenLayer} from '../dist/factory-art.js';
 
 test('the split lessons, dictionary and saved IDs share the requested learning sequence',()=>{
- assert.deepEqual(chapterSequence.map(c=>c.number),['序章','01','02','03A','03B','04','05','05B','06','07','08','09']);
+ assert.deepEqual(chapterSequence.map(c=>c.number),['序章','01','02','03A','03B','04','05A','05B','06','07','08','09']);
  assert.equal(chapterSequence[chapterSequence.findIndex(c=>c.id==='forge-prep-c')+1].id,'magnesium-co2');
  assert.equal(chapterSequence[5].id,'oxide-stability');
  assert.equal(new Set(chapterSequence.map(c=>c.id)).size,chapterSequence.length);

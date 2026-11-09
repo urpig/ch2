@@ -6,7 +6,7 @@ export const chapterSequence=[
  {id:'card-2',number:'03A',lessonId:2},
  {id:'card-8',number:'03B',lessonId:8},
  {id:'oxide-stability',number:'04'},
- {id:'forge-prep-c',number:'05'},
+ {id:'forge-prep-c',number:'05A'},
  {id:'magnesium-co2',number:'05B'},
  {id:'life-redox',number:'06'},
  {id:'card-5',number:'07',lessonId:5},

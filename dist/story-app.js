@@ -66,7 +66,7 @@ function createCard(step){
  return article;
 }
 const nextLabel={
- 'card-1':'先認識氧化反應','forge-prep':'02 比較元素活性','metal-activity':'03A 觀察金屬燃燒','card-2':'03B 觀察非金屬燃燒','card-8':'04 比較氧化物的安定性','oxide-stability':'05 追蹤氧去了哪裡','forge-prep-c':'05B 鎂在二氧化碳中燃燒','magnesium-co2':'到生活中找氧化還原',
+ 'card-1':'先認識氧化反應','forge-prep':'02 比較元素活性','metal-activity':'03A 觀察金屬燃燒','card-2':'03B 觀察非金屬燃燒','card-8':'04 比較氧化物的安定性','oxide-stability':'05A 追蹤氧去了哪裡','forge-prep-c':'05B 鎂在二氧化碳中燃燒','magnesium-co2':'到生活中找氧化還原',
  'life-redox':'07 看見爐內的分工','card-6':'09 守住寶劍，讓它遠離鐵鏽','card-7':'獻上寶劍，聽見新的難題'
 };
 function chapterFooter(step){
