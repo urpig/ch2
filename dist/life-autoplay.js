@@ -20,7 +20,8 @@ export function bindLifePlayback(scene,{seconds,paint,onStart,onComplete,initial
   if(disposed)return;
   player?.dispose();complete=false;onStart?.();
   scene.dataset.phase='running';controls.start();play.textContent='↻ 重新播放';
-  if(!isVisible())stage.scrollIntoView({block:'nearest',behavior:'instant'});
+  // Show the experiment and the equation as one reading unit when playback starts.
+  scene.scrollIntoView({block:'start',behavior:'instant'});
   player=createFoodPlayback({
    duration:matchMedia('(prefers-reduced-motion:reduce)').matches?1:seconds*1000,
    onTime:t=>paint(t/4),

@@ -1,20 +1,24 @@
+import {chapterNumber} from './lesson-sequence.js';
 export const dictionaryChapters=[
  {id:'ore',label:'序章 · 礦石與金屬',target:'card-1'},
  {id:'prep',label:'01 · 認識氧化反應',target:'forge-prep'},
  {id:'activity',label:'02 · 比較元素活性',target:'metal-activity'},
- {id:'combustion',label:'03 · 燃燒與產物',target:'card-2'},
- {id:'transfer',label:'03A · 氧化與還原',target:'forge-prep-c'},
- {id:'life',label:'03B · 生活中的氧化還原',target:'life-redox'},
- {id:'copper',label:'04 · 氧化鐵的還原',target:'card-3'},
- {id:'furnace',label:'05 · 看見爐內的分工',target:'card-5'},
- {id:'blade',label:'06 · 生鐵、鋼與熟鐵',target:'card-6'},
-];
+ {id:'combustion',label:'03A · 金屬燃燒與產物',target:'card-2'},
+ {id:'nonmetals',label:'03B · 非金屬燃燒與產物',target:'card-8'},
+ {id:'stability',label:'04 · 氧化物的安定性',target:'oxide-stability'},
+ {id:'transfer',label:'05 · 氧化與還原',target:'forge-prep-c'},
+ {id:'transfer-magnesium',label:'05B · 鎂與二氧化碳',target:'magnesium-co2'},
+ {id:'life',label:'06 · 生活中的氧化還原',target:'life-redox'},
+ {id:'furnace',label:'07 · 看見爐內的分工',target:'card-5'},
+ {id:'blade',label:'08 · 生鐵、鋼與熟鐵',target:'card-6'},
+ {id:'rust',label:'09 · 鐵製品防鏽',target:'card-7'}
+].map(chapter=>({...chapter,label:chapterNumber(chapter.target)+' · '+chapter.label.split(' · ')[1]}));
 export const dictionarySources={
  chemistry:{title:'OpenStax · 原子、元素與化合物',url:'https://openstax.org/books/chemistry-2e/pages/2-1-early-ideas-in-atomic-theory'},
  redox:{title:'IUPAC · 氧化的定義',url:'https://goldbook.iupac.org/terms/view/O04362'},
  affinity:{title:'RSC · 碳與金屬氧化物的活性比較',url:'https://edu.rsc.org/experiments/where-is-carbon-in-the-reactivity-series/1787.article'},
  activity:{title:'RSC · 金屬的活性',url:'https://edu.rsc.org/practical/reactivity-of-metals-practical-videos-14-16-years/4012974.article'},
- aqua:{title:'密西根大學 · 王水與金',url:'https://lnf-wiki.eecs.umich.edu/wiki/Aqua_Regia'},
+ aqua:{title:'伊利諾大學 · 王水',url:'https://drs.illinois.edu/Page/SafetyLibrary/AquaRegia'},
  elements:{title:'RSC · 元素週期表',url:'https://periodic-table.rsc.org/'},
  steel:{title:'World Steel · 鋼與冶金用語',url:'https://worldsteel.org/about-steel/glossary/'},
  furnace:{title:'World Steel · 鐵礦、焦炭與煉鐵',url:'https://worldsteel.org/about-steel/raw-materials/'},
@@ -26,12 +30,13 @@ export const dictionarySources={
  vitaminE:{title:'NIH · 維生素 E',url:'https://ods.od.nih.gov/factsheets/VitaminE-Consumer/'},
  resveratrol:{title:'Oregon State University · 白藜蘆醇',url:'https://lpi.oregonstate.edu/mic/dietary-factors/phytochemicals/resveratrol'}
 };
-const term=(id,label,definition,example,note,chapters,related=[],aliases=[],source='chemistry')=>({id,label,definition,example,note,chapters,related,aliases,source});
+const term=(id,label,definition,example,note,chapters,related=[],aliases=[],source='chemistry')=>({id,label,definition,example,note,chapters:[...new Set(chapters.flatMap(chapter=>['copper','transfer'].includes(chapter)?['transfer','transfer-magnesium']:chapter==='combustion'?['combustion','nonmetals']:chapter))],related,aliases,source});
 export const scienceTerms=[
+ term('oxidestability','氧化物的安定性','本課用「氧是否容易被其他元素拿走」比較氧化物的相對安定性。','鎂能拿走氧化銅的氧；銅難以拿走氧化鎂的氧。','比較要在合適且相同的條件下；較安定不代表永遠不與其他物質反應。',['stability'],['affinity','oxide'],['安定性'],'affinity'),
  term('oxide','氧化物','氧與另一種元素組成的一類化合物，本課常見如 CuO 與 Fe₂O₃。','銅得到氧，形成氧化銅。','不能把所有氧化物遇水後的性質都當成一樣；鈉的代表燃燒產物另介紹為過氧化鈉。',['ore','prep','combustion','copper','furnace'],['oxidation','copperoxide','sodiumperoxide']),
  term('oxidation','氧化','本課先用「物質得到氧、與氧結合」來理解。','碳得到氧成為 CO₂，被氧化。','沒有火焰也可能氧化，例如鐵釘生鏽。',['prep','combustion','transfer','life','copper','furnace'],['reduction','redox'],['氧化反應','被氧化'],'redox'),
  term('activity','金屬活性','金屬起化學反應的傾向。比較金屬時，要先固定反應條件。','在同樣的冷水裡，鈉比鎂容易反應。','反應也會受溫度、試劑種類和金屬表面影響。',['activity'],['condition','affinity'],[],'activity'),
- term('aquaregia','王水','由鹽酸和硝酸組成、能溶解金的強腐蝕性混合液。','本課比較金在濃硝酸和王水中的變化。','課堂以畫面模擬觀察。',['activity'],['activity'],[],'aqua'),
+ term('aquaregia','王水','由濃鹽酸與濃硝酸組成的強腐蝕性混合液，能溶解金等不易反應的金屬。','金在本卡的冷水、稀鹽酸與濃硝酸中沒有明顯反應，遇到王水則會逐漸溶解。','王水不是單一的酸，也不是唯一能與金反應的物質；本卡只比較列出的試劑。',['activity'],['activity'],[],'aqua'),
  term('reduction','還原','本課先用「氧化物失去氧」來理解。','氧化銅失去氧，生成金屬銅，被還原。','還原會改變物質的組合，反應中的原子仍會保留。',['transfer','life','copper','furnace'],['oxidation','redox','reducingagent'],['還原反應','被還原'],'redox'),
  term('redox','氧化還原反應','同時發生氧化與還原的化學反應；在氧轉移的反應中，一方得氧，另一方失氧。','CO 得氧被氧化時，氧化鐵同時失氧被還原。','要同時追蹤兩種物質各自的變化。',['transfer','life','copper','furnace'],['oxidation','reduction'],['氧化還原'],'redox'),
  term('affinity','對氧活性','本課用來比較元素與氧結合的傾向，幫助預測氧可能移往哪一方。','在合適條件下，碳能幫助鐵的氧化物失氧。','排序是比較線索，仍受溫度、材料表面與反應條件影響，不是無條件保證。',['activity','combustion','transfer','copper','furnace'],['activity','reducingagent','condition'],['對氧活性大小','對氧氣活性','元素對氧的活性'],'affinity'),
@@ -74,7 +79,7 @@ export const scienceTerms=[
  term('hardness','硬度','材料抵抗表面被壓入、刮傷等作用的能力。','刀材抵抗刮傷的表現，是硬度相關的線索。','本課的彎折試驗主要看受力與卸載後的表現，不能直接量出硬度。',['blade'],['toughness','brittleness','heattreatment'],[],'steel'),
  term('toughness','韌性','材料在破裂前，吸收能量、承受變形的能力。','好刀材常需兼顧硬度與韌性，才不易一受衝擊就斷裂。','韌不等於硬，也不等於受力後一定完全回彈。',['blade'],['hardness','brittleness'],[],'steel'),
  term('brittleness','脆性','材料在還沒有明顯永久變形前，就容易破裂的性質。','本課生鐵刀的脆裂，呈現脆性的代表情形。','硬的材料不一定韌；硬度與脆性是不同觀察面向。',['blade'],['toughness','pigiron'],['硬脆','脆裂'],'steel'),
- term('rust','鐵鏽','鐵腐蝕後形成的複雜鏽層，通常含水合氧化物、氧氫化物等。','潮濕鐵片表面出現紅棕色、較疏鬆的鏽層。','鐵鏽不是單一純 Fe₂O₃，疏鬆鏽層通常不能可靠地保護底下的鐵。',['prep','ore'],['ironoxide']),
+ term('rust','鐵鏽','鐵腐蝕後形成的複雜鏽層，通常含水合氧化物、氧氫化物等。','潮濕鐵片表面出現紅棕色、較疏鬆的鏽層。','鐵鏽不是單一純 Fe₂O₃，疏鬆鏽層通常不能可靠地保護底下的鐵。',['prep','ore','rust'],['ironoxide']),
  term('bleaching','漂白','讓色素的發色結構改變，使顏色變淡的過程。','本課用不同漂白劑比較氧化與還原的角色。','不一定所有漂白都走同一路徑，也不等於已經殺死所有微生物。',['life'],['oxidizer','reducingagent','peroxide'],['漂白劑']),
  term('peroxide','過氧化氫','化學式 H₂O₂ 的化合物，可依反應條件扮演不同的氧化還原角色。','本課漂白案例中，它使色素被氧化，自己被還原。','H₂O₂ 不是水 H₂O；「雙氧水」通常是過氧化氫的水溶液。',['life','combustion'],['oxidizer','sodiumperoxide'],['H₂O₂','H2O2','雙氧水']),
  term('hypochlorite','次氯酸鈉','化學式 NaClO 的化合物，是一些含氯漂白水的主要有效成分。','本課漂白案例中，次氯酸鈉是氧化劑。','含氯漂白水不可與酸性清潔劑混合；這裡只比較概念，不提供混合操作。',['life'],['oxidizer','bleaching'],['NaClO','NaOCl']),
@@ -86,9 +91,12 @@ export const primerTerms={
  ore:['hematite','ironoxide','smelting'],
  prep:['oxidation','oxide','rust'],
  activity:['activity','condition','aquaregia'],
+ stability:['oxidestability','oxide','affinity'],
  transfer:['redox','reduction','oxidizer','reducingagent'],
+ 'transfer-magnesium':['redox','affinity','oxidizer','reducingagent'],
  life:[['redox','oxidation','reduction'],['bleaching','oxidizer','reducingagent'],['antioxidant','vitaminc','oxidation']],
- combustion:['oxide','litmus','acid','alkali'],copper:['reduction','reducingagent','ironoxide'],
+ combustion:['oxide','litmus','acid','alkali'],nonmetals:['oxide','litmus','acid'],
  furnace:['coke','slag','pigiron'],
  blade:['pigiron','steel','wrought'],
+ rust:['rust','ironoxide','oxidation'],
 };

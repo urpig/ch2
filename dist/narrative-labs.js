@@ -9,7 +9,7 @@ import {rockIllustration} from './lesson-materials.js';
 import {scopeMarkup} from './card-markup.js';
 import {mountFurnace} from './furnace-workshop.js';
 import {mountBlade} from './blade-workshop.js';
-import {mountRust} from './rust-workshop.js';
+import {mountRust} from './rust-sword-workshop.js';
 let sceneId=0;
 const svg=(body,label)=>scopeMarkup(`<svg viewBox="0 0 640 360" preserveAspectRatio="xMidYMid meet" role="img" aria-label="${label}"><defs><linearGradient id="steel-texture"><stop stop-color="#61756c"/><stop offset=".36" stop-color="#d3ded2"/><stop offset=".48" stop-color="#f6f9ed"/><stop offset=".67" stop-color="#8b9e8f"/><stop offset="1" stop-color="#4a6054"/></linearGradient></defs><rect width="640" height="360" fill="#e9eee1"/><path d="M0 300H640V360H0Z" fill="#d6e0cf"/>${body}</svg>`,'narrative-'+(++sceneId));
 const txt=(x,y,t,size=16)=>`<text x="${x}" y="${y}" text-anchor="middle" font-size="${size}" fill="#46604b">${t}</text>`;

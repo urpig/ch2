@@ -1,0 +1,212 @@
+/* Shared chapter refinements: nested life tabs and the sword preservation bench. */
+:is(#card-2,#card-8) .integrated-studio .specimen-shelf.tabletop-specimens{position:absolute;display:block;inset:auto 2% 5% auto;width:43%;padding:0;border:0;border-radius:0;margin:0;background:none;box-shadow:none;z-index:8;overflow:visible}
+.tabletop-sample-row{display:flex;gap:5px;align-items:flex-end}
+.tabletop-specimen{position:relative;flex:1;min-width:0;aspect-ratio:1;filter:drop-shadow(0 5px 3px #10222377)}
+.tabletop-dish{position:absolute;left:0;bottom:17%;width:100%;height:auto;aspect-ratio:3/2;object-fit:contain;pointer-events:none}
+.tabletop-material{position:absolute;left:3%;bottom:25%;width:94%;height:70%;cursor:grab;touch-action:none;z-index:2;outline:none}
+.tabletop-material>svg{width:100%;height:100%;overflow:visible;pointer-events:none}
+.tabletop-material:focus-visible{outline:2px solid #f7d784;outline-offset:3px;border-radius:50%}
+.tabletop-material.dragging,.tabletop-material.grabbed{z-index:30;cursor:grabbing;filter:drop-shadow(0 8px 5px #10222377)}
+.finish-sample.has-drag-proxy>svg{visibility:hidden}
+.finish-sample.has-drag-proxy.dragging{filter:none}
+.finish-specimen-in-hand{position:fixed;z-index:10000;pointer-events:none;filter:drop-shadow(0 9px 6px #10222377)}
+.finish-specimen-in-hand>svg{display:block;width:100%;height:100%;overflow:visible}
+.tabletop-sample-label{position:absolute;bottom:0;left:0;right:0;text-align:center;font-size:clamp(9px,1vw,14px);font-weight:600;color:#fbf6df;line-height:1.3;text-shadow:0 1px 3px #10201a;pointer-events:none}
+.tabletop-material.next-tool::after{border-radius:50%}
+/* Photographic solids keep their natural proportions above each ceramic dish. */
+:is(#card-2,#card-8) .integrated-studio .specimen-shelf.tabletop-specimens{width:47%;right:1.5%;bottom:4%}
+.tabletop-sample-row{gap:8px}
+.tabletop-specimen{aspect-ratio:1/1.06;filter:none}
+.tabletop-dish,.tabletop-dish-rim{position:absolute;left:0;bottom:16%;width:100%;height:auto;aspect-ratio:4/3;pointer-events:none}
+.tabletop-dish{filter:drop-shadow(0 3px 2px #10222366)}
+.tabletop-dish-rim{z-index:3;overflow:visible}
+.tabletop-material{left:0;bottom:16%;width:100%;height:auto;aspect-ratio:4/3;filter:none}
+.tabletop-material>svg{display:block;width:100%;height:auto;aspect-ratio:4/3}
+.sample-contact-shadow{filter:blur(1.6px)}
+.tabletop-material.dragging .sample-contact-shadow,.combustion-demo-picked .sample-contact-shadow{display:none}
+.tabletop-material.sample-in-transfer{visibility:hidden}
+.tabletop-material.dragging{filter:drop-shadow(0 9px 4px #10222366)}
+.tabletop-material.dragging:after{display:none}
+/* The collection bottle has a clear right-hand area; reagents stay on the left. */
+:is(#card-2,#card-8) .combustion-workbench[data-element="S"] .specimen-shelf.tabletop-specimens,
+:is(#card-2,#card-8) .combustion-workbench[data-element="P"] .specimen-shelf.tabletop-specimens,
+:is(#card-2,#card-8) .combustion-workbench[data-element="C"] .specimen-shelf.tabletop-specimens{left:auto;right:1.5%;bottom:.5%;width:30%}
+.bottle-analysis .analysis-wash{left:46.710526%;top:46.511628%}
+:is(#card-2,#card-8) .combustion-workbench .analysis-spoon-rest{left:85%;top:18.837209%;width:21.052632%;height:60.465116%;rotate:0deg;transform:none}
+.combustion-spoon-rack{filter:drop-shadow(0 2px 1px #10272733)}
+@media(max-width:600px){:is(#card-2,#card-8) .integrated-studio .specimen-shelf.tabletop-specimens{width:47%;right:1.5%;bottom:4%}.tabletop-sample-row{gap:3px}.tabletop-material{min-height:44px}.tabletop-material>svg{position:absolute;bottom:0}.tabletop-sample-label{font-size:9px}:is(#card-2,#card-8) .combustion-observation-continue{top:2%;right:2%;bottom:auto;max-width:55%;min-height:44px;font-size:11px;padding:8px}}
+.blade-studio .finish-readout{background:linear-gradient(145deg,#dce2d5,#99aca5);border:3px solid #35494b;box-shadow:0 3px 6px #112c3e55,inset 0 1px 3px #fff9;color:#25433f;border-radius:4px;padding:8px}
+.blade-studio .finish-readout strong{color:#193d35;background:#bdc9ab;border:1px solid #788b75;border-radius:2px;margin:4px 0;box-shadow:inset 0 1px 4px #3b4a3866;text-shadow:0 1px #e7edc988}
+.blade-studio .finish-readout>span{color:#375a50}
+.blade-studio .finish-load-grip{background:linear-gradient(#e0e7e2,#9fadae 14%,#eaf1ed 19%,#607879 39%,#2c474d 51%,#748b8c 74%,#c4d5cf);border-color:#cbd9ce;box-shadow:0 4px 7px #10232f88,inset 0 0 0 2px #637d7c;border-radius:5px}
+.blade-studio .finish-blade-target:not(.loaded){border:2px dashed #147887;background:#b6e4dc14;box-shadow:inset 0 0 0 1px #fff9}
+.blade-studio .finish-blade-target:not(.loaded)>span{background:#145a67;border:1px solid #d4e9dd;border-radius:4px;box-shadow:0 2px 4px #17333866}
+@media(max-width:600px){.blade-studio .finish-readout{padding:2px;border-width:1px}.blade-studio .finish-readout strong{margin:2px 0}}
+.oxygen-examples{border:1px solid #b7c7ae;border-radius:14px;overflow:hidden;background:#fcfbf2}
+.oxygen-examples .interaction-reset-bar{padding:10px 14px}
+.oxygen-example-tabs{display:flex;gap:8px;margin:16px 18px}
+.oxygen-example-tabs button{flex:1;min-width:0;min-height:48px;border:1px solid #becbb6;background:#f8f9f0;border-radius:7px;font-size:17px;color:#31564b;font-weight:650;padding:9px}
+.oxygen-example-tabs [aria-selected=true]{color:#fff9e4;background:#315b4e;border-color:#315b4e}
+.oxygen-example-tabs button:focus-visible{outline:3px solid #bc8d3d;outline-offset:3px}
+#oxygen-example-panel,#magnesium-example-panel{padding:0 18px 20px}
+.oxygen-example-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:18px 0}
+.oxygen-example-heading h3{font-size:clamp(21px,2.2vw,28px);line-height:1.5;margin:0;flex:1 1 280px}
+.oxygen-playback{display:flex;gap:8px;flex:0 0 auto}.oxygen-playback button{width:auto;white-space:nowrap;min-height:44px;font-size:16px;padding:8px 12px}
+.oxygen-equation{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;justify-content:space-between;padding:12px 16px;background:#edf1e2;border:1px solid #d0d9bf;border-radius:9px;margin-bottom:16px}
+.oxygen-equation b{font:700 clamp(21px,2.5vw,29px)/1.5 Georgia,serif;color:#224d43}.oxygen-equation span{font-size:13px;color:#73816d}
+.oxygen-experiment-grid{display:grid;grid-template-columns:minmax(0,2fr) minmax(290px,1fr);gap:14px;align-items:start}
+.oxygen-lab-view{border:1px solid #b6c6b3;border-radius:10px;overflow:hidden;margin:0;background:#edf2e6}
+.oxygen-lab-view>figcaption{display:flex;justify-content:space-between;gap:10px;padding:12px 14px;background:#2c5247;color:#fff8de;font-size:16px}
+.oxygen-lab-view>p{margin:0;padding:13px 14px;min-height:76px;color:#3b594b;font-size:16px;line-height:1.7}
+.carbon-oxygen-bench.term-demonstration{display:block;margin:0;border:0;border-radius:0;aspect-ratio:3/2}
+.carbon-oxygen-bench .term-mixture-after .material-copper{left:0;top:0;width:100%;height:100%}
+.oxygen-co2-release{position:absolute;left:50%;top:18%;color:#f1f7ec;font-size:17px;text-shadow:0 1px 4px #0b211f;background:#345d4fbb;padding:4px 9px;border-radius:50%;z-index:6;opacity:0}
+[data-phase=react] .oxygen-co2-release{opacity:1;translate:0 calc(var(--oxygen-progress)*-45px)}
+.oxygen-observation-side{min-width:0;display:grid;gap:12px}
+.oxygen-material-change{background:#edf3e8;border:1px solid #c4d1b8;border-radius:10px;padding:12px}
+.oxygen-material-change h4{margin:0 0 8px;font-size:17px}.oxygen-material-change>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.oxygen-material-change section{display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 5px;border:1px solid #d2dcc7;border-radius:7px;background:#fcfcf5;min-width:0}
+.oxygen-material-change section>b{font-size:14px}.oxygen-material-change section>span{font-size:13px;line-height:1.6;min-height:42px}.oxygen-material-change .free-specimen-dish{width:100%;max-width:150px}
+.oxygen-material-change section:last-child .free-specimen-dish{opacity:var(--oxygen-progress)}
+.oxygen-trail{margin:0;background:linear-gradient(130deg,#f8f5e6,#eef3e6);border:1px solid #c6d2bc;border-radius:10px;padding:12px}
+.oxygen-trail figcaption{display:flex;justify-content:space-between;gap:8px;padding-bottom:10px;border-bottom:1px solid #d2dac5;font-size:17px}.oxygen-trail figcaption>span{font-size:12px;color:#78846e}
+.oxygen-trail-lanes{display:grid;grid-template-columns:1fr 1fr;gap:15px;text-align:center;padding-top:10px;font-size:14px;line-height:1.5}
+.oxygen-trail-atoms{position:relative;height:158px;--atom-size:clamp(26px,2.7vw,38px)}
+.oxygen-trail-atoms .term-ball{position:absolute;width:var(--atom-size);height:var(--atom-size);left:auto;top:auto;display:grid;place-items:center;transform:translate(-50%,-50%);font:700 clamp(13px,1.6vw,18px) Georgia,serif}
+.oxygen-trail-atoms .term-ball-C{background:radial-gradient(circle at 30% 22%,#9baca5,#415c52 60%,#233c33)}
+.oxygen-trail-atoms .term-ball-Ag{background:radial-gradient(circle at 30% 22%,#f5f7f4,#aebdbb 55%,#5b7376);color:#253c40;box-shadow:inset -2px -3px 5px #334b4e44,0 2px 3px #27403a30}
+.oxygen-route-arrow{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);color:#a37e42;font-size:26px;opacity:.8}
+.oxygen-travel-caption{font-size:14px;line-height:1.6;margin:0;min-height:43px}
+.oxygen-change-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:center}
+.oxygen-change-pair p{margin:0;padding:8px 3px;border-radius:6px;background:#e8f0ed}
+.oxygen-change-pair p:last-child{background:#faeddb}
+.oxygen-change-pair b{display:block;color:#21667a}
+.oxygen-change-pair p:last-child b{color:#a34520}
+.magnesium-co2-lab{position:relative;display:block;width:100%;aspect-ratio:4/3;overflow:hidden;isolation:isolate;background:#586565;--mg-light:0;--mg-metal:1;--mg-ash:0;--mg-settled:0;--mg-smoke:0}
+.magnesium-co2-lab img{pointer-events:none;user-select:none}
+.mg-lab-plate{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.mg-ignition-burner{position:absolute;left:3%;top:34%;width:30%;height:auto;z-index:1;filter:drop-shadow(0 4px 3px #10202744)}
+.mg-photo-tongs{position:absolute;left:calc(var(--mg-x,56%) - 5.53%);top:calc(var(--mg-y,84%) - 32.1%);width:70%;aspect-ratio:1672/941;transform-origin:7.9% 61.1%;transform:rotate(var(--mg-angle,5deg)) scale(var(--mg-scale,.55));z-index:3;filter:drop-shadow(1px 2px 1px #17242b44)}
+.mg-photo-tongs img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.mg-steel-tongs{clip-path:polygon(0 0,100% 0,100% 100%,17% 100%,17% 60%,0 60%)}
+.mg-grip-lower{clip-path:polygon(0 61.1%,48.4% 38.6%,100% 21%,100% 100%,17% 100%,17% 60%,0 60%)}
+.mg-grip-upper{clip-path:polygon(0 0,100% 0,100% 21%,48.4% 38.6%,0 61.1%);transform-origin:48.4% 38.6%;rotate:calc((1 - var(--mg-holding,0)) * 2deg)}
+.mg-held-ribbon{position:absolute;left:calc(var(--mg-ribbon-x,77%) - 1.1%);top:var(--mg-ribbon-y,84%);width:4.2%;height:calc(20% * var(--mg-scale,.55));z-index:4;transform-origin:26% 0;transform:rotate(var(--mg-ribbon-angle,78deg))}
+.mg-held-ribbon svg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}
+.mg-resting-ribbon{position:absolute;left:75%;top:84%;width:5%;height:13%;transform:rotate(78deg);opacity:calc(1 - var(--mg-holding,0));filter:drop-shadow(0 2px 1px #10202088)}
+.mg-resting-ribbon svg{width:100%;height:100%}
+.mg-metal-ribbon{opacity:var(--mg-metal)}
+.mg-converted-ribbon{opacity:var(--mg-ash);filter:grayscale(1) brightness(2.1) contrast(.65)}
+.mg-white-flare{position:absolute;left:var(--mg-tip-x,20.3%);top:var(--mg-tip-y,19.5%);width:25%;aspect-ratio:1;transform:translate(-50%,-50%);opacity:var(--mg-light);z-index:5;mix-blend-mode:screen;background:radial-gradient(ellipse,#fff 0 2%,#f8fdffdf 4%,#e5f5ffa6 10%,#d1eaff3d 27%,#cce6ff00 65%);filter:blur(.35px)}
+.mg-white-flare i{position:absolute;inset:48% 6%;background:linear-gradient(90deg,transparent,#e9f7ff44 30%,#fff 50%,#e8f4ff33 70%,transparent);opacity:.65;filter:blur(.7px)}
+.mg-white-flare i:nth-child(2){rotate:62deg;scale:.72}.mg-white-flare i:nth-child(3){rotate:116deg;scale:.48}
+.mg-glass-light{position:absolute;left:37%;top:40%;width:26%;height:49%;z-index:5;pointer-events:none;opacity:calc(var(--mg-light)*.32);background:radial-gradient(ellipse at 50% 42%,#f8ffff66,transparent 65%);box-shadow:inset 2px 0 4px #def5ff77,inset -2px 0 4px #def5ff77;mix-blend-mode:screen;border-radius:5% 5% 12% 12%}
+.mg-oxide-cloud{position:absolute;inset:0;z-index:4;clip-path:polygon(37% 41%,63% 41%,63% 86%,60% 89%,40% 89%,37% 86%);pointer-events:none}
+.mg-oxide-cloud i{position:absolute;width:18%;height:12%;border-radius:50%;background:radial-gradient(ellipse,#fffdf0bb,#f6f9f055 40%,transparent 72%);filter:blur(4px)}
+.mg-bottom-products{position:absolute;left:39%;top:83.5%;width:22%;height:5%;opacity:var(--mg-settled);z-index:2;filter:drop-shadow(0 1px 1px #1b2d2b66)}
+.mg-bottom-products .free-material-mixture{position:absolute;inset:0;display:block}
+.mg-bottom-products .free-material-mixture .free-material-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;transform:none}
+.mg-bottom-products .free-material-mixture.is-mixed .material-white{left:0;top:0;width:100%;height:100%}
+.mg-bottom-products .free-material-mixture.is-mixed .material-black{left:20%;top:36%;width:37%;height:46%;opacity:.85}
+.mg-front-glass{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:6;clip-path:polygon(36% 38%,64% 38%,64% 91%,36% 91%);mask-image:linear-gradient(90deg,#000 0 37%,#0000 40% 60%,#000 63% 100%),linear-gradient(0deg,#000 0 10%,#0000 16% 100%),linear-gradient(0deg,#0000 0 58%,#000 59% 61%,#0000 63% 100%)}
+.mg-gas-label{position:absolute;left:49.4%;top:73.8%;transform:translate(-50%,-50%);z-index:7;font:650 clamp(12px,1.4vw,18px)/1 Georgia,serif;color:#3e5049;text-shadow:0 1px 1px #fff6}
+.oxygen-material-change .mg-ribbon-closeup{display:block;width:44px;height:100px;margin:7px auto 9px;filter:drop-shadow(1px 2px 1px #40545433)}
+.mg-product-closeup{width:100%;margin:auto;opacity:var(--oxygen-progress)}
+.mg-product-closeup .free-material-mixture.is-mixed .material-white{left:0;top:0;width:100%;height:100%;transform:none}
+.mg-product-closeup .free-material-mixture.is-mixed .material-black{left:19%;top:43%;width:32%;height:44%;transform:rotate(-8deg)}
+@media(max-width:600px){.oxygen-equation{padding:10px}.oxygen-equation b{font-size:clamp(14px,4.1vw,19px);white-space:nowrap;letter-spacing:-.2px}}
+.oxygen-judgement{margin-top:16px;padding:16px;background:#edf1e3;border:1px solid #c6d3b9;border-radius:9px}
+.oxygen-judgement h4{margin:0 0 12px;font-size:19px}.oxygen-judgement>div{display:flex;gap:10px}.oxygen-judgement button{flex:1;min-height:48px;font-size:16px;padding:9px;border:1px solid #bccbb0;border-radius:6px;background:#fffdf6;color:#2f5347}.oxygen-judgement [aria-pressed=true]{border-color:#9c7439;box-shadow:inset 0 0 0 2px #c9a66b}
+.oxygen-judgement p{font-size:15px;line-height:1.7;color:#775123;margin:10px 0 0;min-height:1.7em}
+.oxygen-explanation{margin-top:14px}.oxygen-explanation .story-speech{margin:14px 0}
+#magnesium-co2>.chapter-body>.story-speech{margin-bottom:20px}
+.oxygen-role-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.oxygen-role-pair p{margin:0;padding:14px;border:1px solid #bad0cb;border-radius:8px;background:#e8f0eb;color:#235c63;font-size:17px}.oxygen-role-pair p:last-child{background:#f9efdf;color:#8c4c26;border-color:#dfc5a5}.oxygen-role-pair b{display:block;margin-bottom:5px}
+.oxygen-agent-note{font-size:16px;line-height:1.9;padding:16px;background:#f3f0df;border-left:3px solid #b4924a}
+.oxygen-summary{padding:18px;border-top:1px solid #c3cfb7;background:#edf2e5}.oxygen-summary h3{font-size:22px;margin:0 0 12px}.oxygen-summary p{font-size:16px;line-height:1.8}.oxygen-activity-order{font-weight:750;font-size:23px!important;color:#685332}.oxygen-summary-table{overflow-x:auto}.oxygen-summary table{width:100%;border-collapse:collapse;font-size:16px;background:#fffdf2}.oxygen-summary th,.oxygen-summary td{border:1px solid #c7d1ba;padding:12px;text-align:left}
+.oxygen-examples [hidden]{display:none!important}
+@media(max-width:1050px){.oxygen-experiment-grid{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:760px){
+ #oxygen-example-panel,#magnesium-example-panel{padding:0 10px 14px}.oxygen-example-tabs{margin:12px 10px}.oxygen-example-tabs button{font-size:15px;padding:8px 5px}
+ .oxygen-experiment-grid{grid-template-columns:1fr}.oxygen-lab-view>p{min-height:0}.oxygen-observation-side{grid-template-columns:1fr}
+ .oxygen-material-change .free-specimen-dish{max-width:115px}.oxygen-trail-atoms{height:140px;--atom-size:32px}
+ .oxygen-example-heading h3{font-size:22px;flex-basis:100%}.oxygen-judgement>div{flex-direction:column}.oxygen-judgement button{font-size:16px}
+ .oxygen-role-pair p{padding:12px;font-size:15px}.oxygen-summary{padding:14px}.oxygen-summary th,.oxygen-summary td{font-size:14px;padding:8px}
+}
+.life-case-group{scroll-margin-top:24px}
+.life-case-group>h3{font-size:clamp(21px,2.2vw,28px);margin:0 0 20px}
+.life-case-group .story-dialogue{margin-bottom:20px}
+.life-case-group .life-integrated{padding:20px;margin:0}
+.life-guided-explanation{margin-top:20px}.life-guided-explanation[hidden]{display:none!important}
+.life-selector[role=tablist]{display:flex;gap:10px;margin:0 0 20px}
+.life-selector[role=tablist] button{flex:1;min-width:0;min-height:48px;padding:10px;font-size:16px}
+.life-selector [aria-selected=true]{background:#dbe7cb;border-color:#7b9969;color:#254a40;box-shadow:inset 0 -3px #7b9969}
+.life-selector button:focus-visible{outline:3px solid #b38236;outline-offset:3px}
+.rust-prevention{border:1px solid #adc2b5;border-radius:14px;overflow:hidden;background:#f6f6ec}
+.rust-playback{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;background:#f6f7ef}
+.rust-playback>span{font-size:15px;color:#637566}
+.rust-playback>div{display:flex;gap:8px}
+.rust-playback button{min-height:44px;font-size:16px;padding:8px 14px;width:auto;white-space:nowrap}
+.rust-sword-bench{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:50px 18px 24px;background:linear-gradient(#243a32ad,#182f29e8),url('./assets/story/forge-blade-workbench.png') center 65%/cover;isolation:isolate}
+.rust-phase{position:absolute;top:12px;left:18px;padding:5px 9px;border:1px solid #c4cbb1;border-radius:5px;background:#fbf7e8;color:#355449;font-size:13px}
+.rust-sword-tray{margin:0;min-width:0;border:1px solid #d4d6bf;border-radius:9px;overflow:hidden;background:#fbf7e8ed;box-shadow:0 10px 20px #10252136}
+.rust-sword-tray figcaption{padding:15px 14px 12px;display:grid;gap:6px;color:#254c42;min-height:88px}
+.rust-sword-tray figcaption b{font-size:17px}
+.rust-sword-tray figcaption span{font-size:13px;line-height:1.6;color:#647566}
+.rust-sword-surface{position:relative;background:radial-gradient(ellipse at 45% 25%,#9ba498,#46594e 80%);border-block:1px solid #bdcabc}
+.rust-sword-surface canvas{display:block;width:100%;height:auto;aspect-ratio:1000/740}
+.rust-macro-label{position:absolute;left:10px;top:46%;padding:3px 8px;border:1px solid #d7ddcb55;border-radius:4px;background:#223f36d9;color:#fff9e4;font-size:12px;line-height:1.6;pointer-events:none}
+.rust-sword-tray>p{min-height:60px;font-size:15px;font-weight:600;line-height:1.6;margin:0;padding:12px 14px;color:#3d594b}
+.rust-explanation{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:16px 18px;background:#edf2e6}
+.rust-explanation[hidden]{display:none}
+.rust-explanation p{margin:0;font-size:15px;line-height:1.8;color:#38564b}
+.rust-explanation b{display:block;color:#274e42}
+@media(max-width:700px){
+ .life-case-group .life-integrated{padding:10px}
+ .life-selector[role=tablist]{gap:5px}
+ .life-selector[role=tablist] button{font-size:14px;padding:7px 4px}
+ .rust-playback{flex-wrap:wrap;padding:12px}.rust-playback>span{font-size:13px}
+ .rust-sword-bench{grid-template-columns:1fr;padding:48px 10px 16px;gap:10px}
+ .rust-sword-tray figcaption{padding:11px 12px;min-height:0;background:#faf8eb}
+ .rust-sword-tray figcaption b{font-size:16px}.rust-sword-tray figcaption span{font-size:13px}
+ .rust-sword-tray>p{min-height:0;padding:10px 12px;font-size:14px}
+ .rust-explanation{grid-template-columns:1fr;gap:10px;padding:14px}.rust-explanation p{font-size:14px}
+}
+@media(max-width:600px){
+ /* The large previous/next controls handle all steps on narrow screens. */
+ #card-5 .factory-hotspot:not([data-zone=charge]):not([aria-pressed=true]){display:none}
+ #card-5 .factory-hotspot:not([data-zone=charge]){left:82%!important;top:15%!important;width:30%;min-height:40px;padding:5px;gap:4px}
+ #card-5 .factory-hotspot:not([data-zone=charge]) span{font-size:11px;line-height:1.4}
+ #card-5 .factory-hotspot[data-zone=charge]{width:25%;min-height:32px;padding:4px}
+ #card-5 .factory-hotspot[data-zone=charge] small{display:none}
+}
+
+/* Split combustion shelves keep all samples in one full-width group. */
+:is(#card-2,#card-8) .combustion-studio .specimen-shelf.single-group{grid-template-columns:1fr}
+.combustion-studio .specimen-shelf.single-group .shelf-heading{grid-column:1}
+.combustion-studio .specimen-shelf.single-group .specimen-group{grid-column:1}
+:is(#card-2,#card-8) .integrated-studio .specimen-shelf.single-group .specimen-group.nonmetals .shelf-rail{grid-template-columns:repeat(3,minmax(0,1fr))}
+
+/* Both oxidation cases stay visible, with controls below each reaction. */
+.evidence-toolbar.evidence-pair-toolbar{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px}
+.evidence-comparison-headings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:9px}.evidence-comparison-headings .evidence-case-heading{border:0;border-radius:7px;background:transparent;padding:0 10px;min-width:0}
+.evidence-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+.evidence-pair .evidence-player{width:100%;margin:0;min-width:0;overflow:hidden}
+.evidence-case-heading{display:flex;justify-content:space-between;align-items:center;padding:10px 13px;background:#edf1e8;border-bottom:1px solid #c5d0c1;gap:6px}
+.evidence-case-heading h4{font-size:18px;margin:2px 0 0}.evidence-case-heading small,.evidence-case-heading>span{font-size:12px}.evidence-case-heading small{color:#84512c}
+.evidence-pair .evidence-scene{aspect-ratio:1.55}.evidence-pair .evidence-inspector{padding:11px}.evidence-pair .substance-before-after{gap:5px;font-size:14px}.evidence-pair .evidence-mass-summary{flex-wrap:wrap;gap:5px;font-size:14px}
+.evidence-player[data-paused=true] *{animation-play-state:paused!important}
+.evidence-playback{display:flex;justify-content:center;gap:8px;padding:10px 12px;border-top:1px solid #c5d0c1;background:#f0f3e8}
+.evidence-playback button{width:auto;min-width:0;min-height:44px;padding:8px 13px;font-size:15px;white-space:nowrap}
+.evidence-playback .evidence-play{flex:1}.evidence-playback .secondary{flex:none;min-width:65px}
+.evidence-playback button:focus-visible{outline:3px solid #ad7836;outline-offset:2px}
+.rust-investigation{margin:14px 0 22px;padding:18px;border:1px solid #b7c9b4;border-radius:12px;background:#f7f8ef}.rust-investigation>header{display:flex;align-items:center;justify-content:space-between;gap:12px}.rust-investigation h4{margin:5px 0;font-size:22px}.rust-investigation small{color:#627660}.rust-investigation>p{line-height:1.7}.rust-experiment-tools{display:flex;gap:12px;margin:14px 0}.rust-experiment-tool{display:flex;align-items:center;gap:13px;flex:1;min-width:0;min-height:94px;padding:9px 18px;text-align:left;border:1px solid #a4b9ae;border-radius:8px;background:#fffef8;color:#244d4a;touch-action:none}.rust-experiment-tool[aria-pressed=true]{border:2px solid #285e58;background:#e0ebe0;box-shadow:0 0 0 2px #285e5818}.rust-experiment-tool>span:last-child{font-size:17px;font-weight:700}.rust-experiment-tool small{display:block;font-size:13px;font-weight:400;margin-top:4px}.rust-tool-photo{height:70px;width:45px;display:block;overflow:hidden;flex:0 0 45px}.rust-tool-photo>svg{height:81px;width:14px;display:block;margin:0 auto;transform:rotate(20deg);transform-origin:50% 50%}.rust-experiment-tool[data-experiment-tool=oil] .pipette-charge{fill:#cfab45}.rust-tool-instruction{font-size:14px;color:#577169}.rust-experiment-trays{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.rust-experiment-tray{margin:0;border:1px solid #b2c2b0;background:#e4ebe0;border-radius:10px;overflow:hidden}.rust-experiment-tray>figcaption{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;background:#f1f4e9}.rust-experiment-target{display:block;width:100%;padding:0;border:0;background:linear-gradient(120deg,#a2ada0,#64766c);color:#fff;position:relative;overflow:hidden;cursor:crosshair}.rust-experiment-target:disabled{opacity:1;cursor:default}.rust-experiment-target canvas{display:block;width:100%;height:auto;aspect-ratio:1000/740}.rust-experiment-treatment{display:block;padding:9px 5px;background:#213f39;font-size:15px}.rust-experiment-status{padding:10px 12px;margin:14px 0 10px;background:#e8eee1;border-radius:7px;min-height:46px;color:#2c5149}.rust-experiment-playback{display:flex;gap:9px}.rust-experiment-playback>.primary{flex:1}.rust-investigation button:focus-visible{outline:3px solid #c48b31;outline-offset:3px}.rust-tool-action{position:absolute;top:8%;left:58%;width:15px;height:125px;pointer-events:none;transform:rotate(-20deg);animation:rust-apply-tool .85s ease-in-out}.rust-tool-action>svg{height:100%;width:100%}.rust-tool-action.is-oil .pipette-charge,.rust-tool-action.is-oil .pipette-droplet{fill:#c29a36}.rust-tool-action .pipette-charge,.rust-tool-action .pipette-droplet{opacity:1}.rust-experiment-tools .life-being-dragged{z-index:5}.rust-investigation[data-phase=observing] .rust-experiment-trays{box-shadow:0 0 0 2px #b3c9ac;border-radius:10px}@keyframes rust-apply-tool{0%{opacity:0;transform:translateY(-20px) rotate(-20deg)}30%,70%{opacity:1;transform:translateY(0) rotate(-20deg)}100%{opacity:0;transform:translateY(-14px) rotate(-20deg)}}
+@media(max-width:620px){.rust-investigation{padding:11px}.rust-investigation>header{align-items:flex-start}.rust-investigation h4{font-size:19px}.rust-investigation>header .secondary{font-size:12px;min-width:72px;padding:8px}.rust-experiment-tools{gap:7px}.rust-experiment-tool{gap:6px;padding:7px;min-height:88px}.rust-experiment-tool>span:last-child{font-size:15px}.rust-experiment-tool small{font-size:12px}.rust-tool-photo{width:23px;flex-basis:23px}.rust-experiment-trays{gap:7px}.rust-experiment-tray>figcaption{padding:7px}.rust-experiment-treatment{font-size:12px}.rust-experiment-playback>.primary{font-size:14px}.rust-experiment-status{font-size:14px}.rust-experiment-target canvas{aspect-ratio:1}.rust-tool-action{height:90px}}
+@media(max-width:620px){.evidence-toolbar.evidence-pair-toolbar{align-items:flex-start;flex-direction:column}.evidence-pair{gap:7px}.evidence-case-heading{padding:8px;display:block}.evidence-case-heading h4{font-size:16px}.evidence-case-heading>span{display:block;margin-top:3px}.evidence-pair .evidence-inspector{padding:7px}.evidence-pair .substance-before-after{grid-template-columns:1fr}.evidence-pair .substance-before-after>span{display:none}.evidence-pair .evidence-scene{aspect-ratio:.9}.evidence-pair .evidence-time{font-size:9px}.evidence-pair .evidence-readout{font-size:clamp(10px,5cqw,26px)}.evidence-pair .evidence-scale{--scale-width:68%}.evidence-pair .evidence-scene-rust{--scale-width:68%}.practice-experiment-context{padding:10px}.practice-experiment-context th,.practice-experiment-context td{padding:7px;font-size:14px}}
+.evidence-case-heading{padding:8px 12px}.evidence-case-heading h4{line-height:1.4}.evidence-case-heading small{display:block;line-height:1.3}.evidence-pair .evidence-scene{aspect-ratio:1.8}
+@media(max-width:620px){.evidence-comparison-headings{gap:7px}.evidence-comparison-headings .evidence-case-heading{padding:0 7px}}
+@media(max-width:620px){.evidence-pair .evidence-scene{aspect-ratio:1}.evidence-playback{gap:5px;padding:8px 6px;flex-wrap:wrap}.evidence-playback button{font-size:13px;padding:8px 5px}.evidence-playback .secondary{min-width:42px}}
+.photographic-specimen{display:block;width:100%;height:100%;object-fit:contain}.apparatus-photo{pointer-events:none}.photographic-lab-background{filter:brightness(.95)}.combustion-workbench .combustion-art{background:#e5e7e1}.combustion-workbench .bench-water-art{pointer-events:none}.combustion-workbench .ph-paper-tray{background:linear-gradient(170deg,#fffefa,#dfded5);box-shadow:0 3px 5px #182b2a50;border-color:#d0d4cd}.combustion-workbench .bench-paper-rack{background:linear-gradient(#e5e3d9,#faf9f2);border-color:#c7cdc4}
+:is(#card-2,#card-8) .specimen-vial>.photographic-specimen{height:100%;width:100%;overflow:hidden}
+.photographic-collection-bottle .apparatus-photo-jar{opacity:.67}
+.rust-investigation>header{flex-wrap:nowrap}.rust-investigation>header>.secondary{width:auto;flex:0 0 auto;margin:0;white-space:nowrap}.rust-experiment-playback>button{width:auto;margin:0}.rust-experiment-target canvas{max-height:290px;object-fit:contain}.rust-experiment-target{margin:0}.rust-investigation .rust-experiment-status{min-height:0;margin:12px 0}.rust-experiment-tray .text-button{width:auto;margin:0;padding:2px 6px}.rust-investigation .rust-experiment-target:disabled{cursor:default}.rust-experiment-tool[disabled]{opacity:.65}.rust-experiment-target .rust-experiment-treatment{width:100%}
+@media(min-width:901px){.rust-investigation{display:grid;grid-template-columns:220px minmax(0,1fr);column-gap:16px}.rust-investigation>header,.rust-investigation>p,.rust-experiment-playback{grid-column:1/-1}.rust-investigation>.rust-experiment-tools{grid-column:1;grid-row:3;flex-direction:column;margin:0;gap:10px;align-self:start}.rust-investigation>.rust-tool-instruction{grid-column:1;grid-row:4;font-size:13px;margin:8px 0 0;align-self:start}.rust-investigation>.rust-experiment-trays{grid-column:2;grid-row:3/span 2}.rust-experiment-target canvas{height:240px}.rust-investigation h4{font-size:21px}.rust-investigation>p:not(.rust-tool-instruction):not(.rust-experiment-status){margin:8px 0 12px}.rust-experiment-tool{padding:7px 10px;gap:9px}.rust-experiment-tool small{font-size:12px}.rust-investigation .rust-experiment-status{font-size:14px}}

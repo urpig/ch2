@@ -1,0 +1,52 @@
+/* One continuous tabletop per comparison. */
+.stability-shared-view .stability-tabs{padding:12px 14px 0}
+.stability-shared-view [role=tabpanel][hidden]{display:none!important}
+.stability-shared-view .stability-playbar{padding:12px 14px;gap:12px}
+.stability-shared-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:14px;padding:0 14px 14px;align-items:start}
+.stability-shared-bench{margin:0;border:1px solid #bccbb9;border-radius:9px;overflow:hidden;background:#f7f8ef}
+.stability-bench-labels{display:grid;grid-template-columns:1fr 1fr;background:#294f47;color:#f9f5e4;padding:10px 8px;text-align:center;gap:10px}
+.stability-bench-labels b{font-size:18px;line-height:1.5}
+.stability-shared-photo{position:relative;aspect-ratio:1672/941;overflow:hidden;isolation:isolate;background:#8c9591}
+.stability-bench-plate,.stability-bench-front{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
+.stability-bench-front{z-index:2;clip-path:inset(0 0 53% 0)}
+.stability-heating-station{position:absolute;inset:0;pointer-events:none;--station-x:28.5%;--fill-left:21.1%}
+.stability-heating-station.station-1{--station-x:71.1%;--fill-left:63.7%}
+.stability-heating-station .free-crucible-fill{left:var(--fill-left);top:31.6%;width:14.8%;height:6.8%;z-index:3;clip-path:ellipse(49% 47% at 50% 50%)}
+.stability-shared-flame{position:absolute;left:calc(var(--station-x) - 2.1%);top:44.7%;width:4.2%;height:8.6%;opacity:0;z-index:1;transform-origin:50% 100%}
+.stability-shared-flame img{display:block;width:100%;height:100%;object-fit:fill;animation:stability-blue-flame .2s ease-in-out infinite alternate}
+.stability-heating-station .stability-reaction-glow{position:absolute;left:calc(var(--station-x) - 10%);top:18%;width:20%;height:31%;opacity:0;z-index:4;pointer-events:none;background:radial-gradient(ellipse,#fff 0 6%,#f4fbffdd 10%,#d9edff66 30%,transparent 69%);filter:blur(1px);mix-blend-mode:screen}
+.stability-shared-photo .stability-phase{z-index:5;left:8px;top:8px;font-size:12px}
+.stability-shared-bench>figcaption{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:10px 12px;background:#edf2e6;min-height:4.5em}
+.stability-shared-bench>figcaption p{margin:0;font-size:14px;line-height:1.6}
+.stability-detail-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.stability-shared-view .stability-case{min-width:0;border:1px solid #c4d0bc;border-radius:8px;overflow:hidden;background:#fbfcf4}
+.stability-shared-view .stability-case>h4{margin:0;padding:9px 4px;text-align:center;background:#e8eee1;font-size:17px;line-height:1.5}
+.stability-shared-view .stability-before-after{margin:8px;padding:6px;background:#f5f6ea}
+.stability-shared-view .stability-before-after>h4{margin:0 0 5px;font-size:13px}
+.stability-shared-view .stability-before-after>div{gap:4px}
+.stability-shared-view .stability-dish .free-specimen-dish{aspect-ratio:1.4}
+.stability-shared-view .stability-dish figcaption{font-size:12px;line-height:1.5;padding:3px!important}
+.stability-shared-view .stability-oxygen-card{margin:8px;padding:7px}
+.stability-shared-view .stability-oxygen-card>h4{font-size:13px;margin:0 0 5px;line-height:1.5}
+.stability-shared-view .stability-oxygen-card>h4 small{display:none}
+.stability-shared-view .stability-oxygen{display:block;width:100%;height:auto;max-height:145px}
+.stability-shared-view .stability-case-equation{margin:0;padding:9px 5px;text-align:center;font:600 15px/1.5 Georgia,'Noto Sans TC',serif;background:#e7efdf;border-top:1px solid #cdd7c4;min-height:4.2em}
+.stability-shared-view.is-paused .stability-shared-flame img{animation-play-state:paused}
+@keyframes stability-blue-flame{from{transform:scaleX(.9) scaleY(.96)}to{transform:scaleX(1.04) scaleY(1.02)}}
+@media(max-width:1050px){.stability-shared-layout{grid-template-columns:1fr}.stability-shared-view .stability-oxygen{max-height:155px}.stability-shared-view .stability-dish .free-specimen-dish{max-height:100px}}
+@media(max-width:600px){
+ .stability-shared-view .stability-tabs{padding:8px 8px 0;gap:6px}
+ .stability-shared-view .stability-tabs button{font-size:14px;padding:9px 7px;line-height:1.5}
+ .stability-shared-view .stability-playbar{padding:10px 8px;align-items:flex-start;flex-direction:column}
+ .stability-shared-view .stability-playbar>b{font-size:17px;line-height:1.5}
+ .stability-shared-view .stability-playbar button{font-size:14px;padding:10px;min-height:44px}
+ .stability-shared-layout{padding:0 8px 8px;gap:9px}
+ .stability-bench-labels{padding:7px 3px}.stability-bench-labels b{font-size:15px}
+ .stability-shared-bench>figcaption{gap:7px;padding:8px;font-size:12px}
+ .stability-shared-bench>figcaption p{font-size:12px}
+ .stability-detail-pair{gap:6px}.stability-shared-view .stability-case>h4{font-size:15px}
+ .stability-shared-view .stability-before-after,.stability-shared-view .stability-oxygen-card{margin:5px;padding:4px}
+ .stability-shared-view .stability-dish figcaption{font-size:10px}.stability-shared-view .stability-before-after>h4{font-size:11px}
+ .stability-shared-view .stability-oxygen-card>h4{font-size:12px}.stability-shared-view .stability-case-equation{font-size:12px;min-height:4.5em}
+}
+@media(prefers-reduced-motion:reduce){.stability-shared-flame img{animation:none}}

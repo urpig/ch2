@@ -2,7 +2,7 @@ import {freshAffinityLab,restoreAffinityLab,affinityLabReady} from './affinity-f
 import {activityQuiz,metalConditions,restoreActivityRecords,activityComparisonsComplete} from './metal-activity-model.js';
 export const observationCases=[
  {id:'burn',title:'木炭燃燒',kind:'fast',time:'短時間內',before:'木炭 C ＋ 氧氣 O₂',after:'二氧化碳 CO₂',mass:{start:30,end:24}},
- {id:'rust',title:'鐵釘生鏽',kind:'slow',time:'長時間快轉',before:'鐵釘 Fe',after:'鐵鏽（氧化鐵）',mass:{start:10,end:10.3}}
+ {id:'rust',title:'鐵釘生鏽',kind:'slow',time:'長時間快轉',before:'鐵釘 Fe',after:'鐵鏽（Fe₂O₃）',mass:{start:10,end:10.3}}
 ];
 export const oxidationQuiz={
  question:'木炭燃燒和鐵釘生鏽的快慢不同。哪個線索能說明兩者都是氧化？',
@@ -23,6 +23,7 @@ export const transferCases=[
 export function freshInquiry(){return {version:1,affinityLab:freshAffinityLab(),selected:'burn',looked:[],oxidationAnswer:null,activityCondition:'cold',activitySeen:[],activityRecords:[],activityAnswer:null,comparison:0,predictions:{},compared:[],order:[],rankChecked:false,example:'carbon-copper',transfers:{},transferTargets:{},transferRoles:[],answers:[null,null,null],life:'biology'};}
 const unique=(value,ids)=>[...new Set(Array.isArray(value)?value:[])].filter(x=>ids.includes(x));
 export function restoreInquiry(raw){const s=freshInquiry();if(!raw||raw.version!==1)return s;
+ s.transferLessonRevision=raw.transferLessonRevision===2?2:0;
  s.affinityLab=restoreAffinityLab(raw.affinityLab);s.selected=observationCases.some(x=>x.id===raw.selected)?raw.selected:'burn';s.looked=unique(raw.looked,observationCases.map(x=>x.id));
  if(inquiryReady(s,0)&&Number.isInteger(raw.oxidationAnswer)&&raw.oxidationAnswer>=0&&raw.oxidationAnswer<oxidationQuiz.options.length)s.oxidationAnswer=raw.oxidationAnswer;
  const conditionIds=metalConditions.map(item=>item.id);

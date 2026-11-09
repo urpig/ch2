@@ -1,25 +1,25 @@
 /* One continuous laboratory card: the entire rack sits above the apparatus. */
-#card-2 .integrated-studio{display:grid;grid-template-columns:minmax(0,1fr);gap:0;border:1px solid #a9bfc0;border-radius:12px;background:#e5eded;box-shadow:0 9px 24px #29444315;isolation:isolate;scroll-margin-top:12px;overflow:visible}
-#card-2 .integrated-studio .specimen-shelf{display:grid;grid-template-columns:1fr 1fr;column-gap:24px;border:0;border-radius:11px 11px 0 0;margin:0;padding:10px 18px 12px;background:linear-gradient(#eef3ee,#d7e3de);box-shadow:inset 0 1px #fff,0 5px 10px #233f3e16;z-index:10;position:relative}
-#card-2 .integrated-studio .shelf-heading{grid-column:1/-1;display:flex;flex-direction:row;justify-content:space-between;align-items:center;font-size:13px;line-height:1.5;margin:0 0 6px;gap:10px}
-#card-2 .integrated-studio .shelf-heading span{font-size:11px}
-#card-2 .integrated-studio .specimen-group{min-width:0;margin:0}
-#card-2 .integrated-studio .specimen-group h4{margin:0 0 7px;padding:4px 8px;font-size:12px;line-height:1.4;background:#dce8dc}
-#card-2 .integrated-studio .specimen-group.nonmetals h4{background:#e8e4d9}
-#card-2 .integrated-studio .specimen-group h4 small{display:inline;font-size:10px}
-#card-2 .integrated-studio .shelf-rail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0;padding:0 5px 5px;border-bottom:7px solid #71847a;box-shadow:0 3px #435e56,0 7px 7px #243b3520}
-#card-2 .integrated-studio .specimen-vial{height:56px;margin:0 12px 5px;border-radius:5px 5px 10px 10px}
-#card-2 .integrated-studio .shelf-specimen>b{font-size:12px;line-height:1.4;min-height:17px}
-#card-2 .integrated-studio .shelf-specimen>small{font-size:10px;line-height:1.3}
-#card-2 .integrated-studio .bench-workspace{padding:0 0 8px;min-width:0;border-top:1px solid #9eb4b0;background:linear-gradient(#d4e2e2,#e9eeea);border-radius:0 0 11px 11px}
-#card-2 .integrated-studio .bench-sequence{padding:7px 6px;justify-content:center;font-size:11px;line-height:1.4;gap:9px}
-#card-2 .integrated-studio [data-stage-purpose]{display:none}
-#card-2 .integrated-studio .combustion-workbench{width:100%;max-width:none;box-sizing:border-box;margin-inline:0;border-radius:0;border-color:#a9bebd}
-#card-2 .integrated-studio .combustion-step{padding:7px 10px;margin:7px 0 3px;font-size:12px;line-height:1.5}
-#card-2 .integrated-studio .combustion-condition{font-size:10px;line-height:1.5;margin:0 2px}
-#card-2 .integrated-studio .shelf-specimen.dragging{z-index:40}
-@media(max-width:800px){#card-2 .integrated-studio .specimen-shelf{padding:9px 10px 11px;column-gap:14px}#card-2 .integrated-studio .specimen-vial{height:48px;margin-inline:4px}#card-2 .integrated-studio .shelf-rail{gap:5px}#card-2 .integrated-studio .shelf-specimen>b{font-size:10px;min-height:28px}#card-2 .integrated-studio .shelf-specimen>small{font-size:9px}#card-2 .integrated-studio .specimen-group h4 small{display:none}}
-@media(max-width:500px){#card-2 .integrated-studio .shelf-heading{font-size:11px;gap:5px}#card-2 .integrated-studio .shelf-heading span{font-size:9px}#card-2 .integrated-studio .specimen-shelf{column-gap:8px}#card-2 .integrated-studio .specimen-vial{height:39px;margin-inline:0}#card-2 .integrated-studio .shelf-specimen>b{font-size:9px}#card-2 .integrated-studio .shelf-specimen>small{font-size:8px}}
+:is(#card-2,#card-8) .integrated-studio{display:grid;grid-template-columns:minmax(0,1fr);gap:0;border:1px solid #a9bfc0;border-radius:12px;background:#e5eded;box-shadow:0 9px 24px #29444315;isolation:isolate;scroll-margin-top:12px;overflow:visible}
+:is(#card-2,#card-8) .integrated-studio .specimen-shelf{display:grid;grid-template-columns:1fr 1fr;column-gap:24px;border:0;border-radius:11px 11px 0 0;margin:0;padding:10px 18px 12px;background:linear-gradient(#eef3ee,#d7e3de);box-shadow:inset 0 1px #fff,0 5px 10px #233f3e16;z-index:10;position:relative}
+:is(#card-2,#card-8) .integrated-studio .shelf-heading{grid-column:1/-1;display:flex;flex-direction:row;justify-content:space-between;align-items:center;font-size:13px;line-height:1.5;margin:0 0 6px;gap:10px}
+:is(#card-2,#card-8) .integrated-studio .shelf-heading span{font-size:11px}
+:is(#card-2,#card-8) .integrated-studio .specimen-group{min-width:0;margin:0}
+:is(#card-2,#card-8) .integrated-studio .specimen-group h4{margin:0 0 7px;padding:4px 8px;font-size:12px;line-height:1.4;background:#dce8dc}
+:is(#card-2,#card-8) .integrated-studio .specimen-group.nonmetals h4{background:#e8e4d9}
+:is(#card-2,#card-8) .integrated-studio .specimen-group h4 small{display:inline;font-size:10px}
+:is(#card-2,#card-8) .integrated-studio .shelf-rail{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0;padding:0 5px 5px;border-bottom:7px solid #71847a;box-shadow:0 3px #435e56,0 7px 7px #243b3520}
+:is(#card-2,#card-8) .integrated-studio .specimen-vial{height:56px;margin:0 12px 5px;border-radius:5px 5px 10px 10px}
+:is(#card-2,#card-8) .integrated-studio .shelf-specimen>b{font-size:12px;line-height:1.4;min-height:17px}
+:is(#card-2,#card-8) .integrated-studio .shelf-specimen>small{font-size:10px;line-height:1.3}
+:is(#card-2,#card-8) .integrated-studio .bench-workspace{padding:0 0 8px;min-width:0;border-top:1px solid #9eb4b0;background:linear-gradient(#d4e2e2,#e9eeea);border-radius:0 0 11px 11px}
+:is(#card-2,#card-8) .integrated-studio .bench-sequence{padding:7px 6px;justify-content:center;font-size:11px;line-height:1.4;gap:9px}
+:is(#card-2,#card-8) .integrated-studio [data-stage-purpose]{display:none}
+:is(#card-2,#card-8) .integrated-studio .combustion-workbench{width:100%;max-width:none;box-sizing:border-box;margin-inline:0;border-radius:0;border-color:#a9bebd}
+:is(#card-2,#card-8) .integrated-studio .combustion-step{padding:7px 10px;margin:7px 0 3px;font-size:12px;line-height:1.5}
+:is(#card-2,#card-8) .integrated-studio .combustion-condition{font-size:10px;line-height:1.5;margin:0 2px}
+:is(#card-2,#card-8) .integrated-studio .shelf-specimen.dragging{z-index:40}
+@media(max-width:800px){:is(#card-2,#card-8) .integrated-studio .specimen-shelf{padding:9px 10px 11px;column-gap:14px}:is(#card-2,#card-8) .integrated-studio .specimen-vial{height:48px;margin-inline:4px}:is(#card-2,#card-8) .integrated-studio .shelf-rail{gap:5px}:is(#card-2,#card-8) .integrated-studio .shelf-specimen>b{font-size:10px;min-height:28px}:is(#card-2,#card-8) .integrated-studio .shelf-specimen>small{font-size:9px}:is(#card-2,#card-8) .integrated-studio .specimen-group h4 small{display:none}}
+@media(max-width:500px){:is(#card-2,#card-8) .integrated-studio .shelf-heading{font-size:11px;gap:5px}:is(#card-2,#card-8) .integrated-studio .shelf-heading span{font-size:9px}:is(#card-2,#card-8) .integrated-studio .specimen-shelf{column-gap:8px}:is(#card-2,#card-8) .integrated-studio .specimen-vial{height:39px;margin-inline:0}:is(#card-2,#card-8) .integrated-studio .shelf-specimen>b{font-size:9px}:is(#card-2,#card-8) .integrated-studio .shelf-specimen>small{font-size:8px}}
 
 /* The furnace gets the full row; detailed explanation sits directly beneath. */
 #card-5 .factory-layout{display:flex;flex-direction:column}
@@ -103,28 +103,28 @@
 @media(max-width:950px){#card-5 .factory-heater{font-size:10px;min-height:28px}#card-5 .factory-heater span{font-size:13px}#card-5 .factory-feed>span{font-size:9px}#card-5 .factory-charge-target>span{font-size:9px;bottom:-16px}}
 
 /* Continuous sampling: the hit area follows the visible spoon bowl. */
-#card-2 .combustion-workbench .shelf-load-target{width:11%;height:12%;opacity:0;pointer-events:none;border-radius:50%;transition:opacity .12s}
-#card-2 .combustion-workbench .shelf-load-target.drop-active{opacity:1;background:#d6e8cb44;border-color:#638c67;box-shadow:0 0 0 4px #c4e2b455,0 0 18px #d6edbb77}
-#card-2 .combustion-workbench .shelf-load-target.drop-hover{background:#b7d7a788;box-shadow:0 0 0 6px #dceccb77,0 0 22px #c9edb7aa}
-#card-2 .combustion-workbench .shelf-load-target span{top:110%;left:-30%;width:160%;font-size:11px;text-align:center;color:#375d46;background:#f6faefef;border-radius:4px;padding:4px 6px}
-#card-2 .fresh-spoon .precision-spoon{animation:clean-spoon-arrive .35s ease-out}
+:is(#card-2,#card-8) .combustion-workbench .shelf-load-target{width:11%;height:12%;opacity:0;pointer-events:none;border-radius:50%;transition:opacity .12s}
+:is(#card-2,#card-8) .combustion-workbench .shelf-load-target.drop-active{opacity:1;background:#d6e8cb44;border-color:#638c67;box-shadow:0 0 0 4px #c4e2b455,0 0 18px #d6edbb77}
+:is(#card-2,#card-8) .combustion-workbench .shelf-load-target.drop-hover{background:#b7d7a788;box-shadow:0 0 0 6px #dceccb77,0 0 22px #c9edb7aa}
+:is(#card-2,#card-8) .combustion-workbench .shelf-load-target span{top:110%;left:-30%;width:160%;font-size:11px;text-align:center;color:#375d46;background:#f6faefef;border-radius:4px;padding:4px 6px}
+:is(#card-2,#card-8) .fresh-spoon .precision-spoon{animation:clean-spoon-arrive .35s ease-out}
 @keyframes clean-spoon-arrive{from{opacity:.5;filter:brightness(1.35)}to{opacity:1;filter:brightness(1)}}
-@media(prefers-reduced-motion:reduce){#card-2 .fresh-spoon .precision-spoon{animation:none}#card-2 .combustion-workbench .shelf-load-target{transition:none}}
+@media(prefers-reduced-motion:reduce){:is(#card-2,#card-8) .fresh-spoon .precision-spoon{animation:none}:is(#card-2,#card-8) .combustion-workbench .shelf-load-target{transition:none}}
 
 /* Start with the visible spoon over the outer flame; all drag targets follow its bowl. */
-#card-2 .combustion-workbench .spoon-rest,#card-2 .combustion-workbench .combustion-spoon:not(.bench-product-spoon){left:38.28947%;top:4.418605%;width:21.052632%;height:53.488372%;z-index:5}
+:is(#card-2,#card-8) .combustion-workbench .spoon-rest,:is(#card-2,#card-8) .combustion-workbench .combustion-spoon:not(.bench-product-spoon){left:38.28947%;top:4.418605%;width:21.052632%;height:53.488372%;z-index:5}
 /* Independent SVG sheets morph their contours; never rotate the entire flame. */
 .alcohol-flame-fallback .alcohol-envelope{animation:none;transform:none}
 .redox-scene .alcohol-flame-fallback{transform-origin:320px 287px;transform:scaleY(1.4)}
 @media(prefers-reduced-motion:reduce){.alcohol-flame-fallback .alcohol-envelope{animation:none!important}}
 
 /* The instrument remains draggable while heating; location controls exposure. */
-#card-2 .free-spoon .reaction-coat{animation:none;opacity:var(--reaction-progress,0)}
-#card-2 .free-spoon .reactant-surface{animation:none;opacity:calc(1 - var(--reaction-progress,0))}
-#card-2 .free-spoon{cursor:grab;touch-action:none}
-#card-2 .free-spoon.dragging{cursor:grabbing;filter:drop-shadow(3px 6px 4px #23434b44)}
-#card-2 .free-spoon>span{left:20%;top:7%;font-size:11px}
-#card-2 .free-spoon.specimen-burning .precision-spoon{filter:drop-shadow(0 0 3px #f4c76866)}
+:is(#card-2,#card-8) .free-spoon .reaction-coat{animation:none;opacity:var(--reaction-progress,0)}
+:is(#card-2,#card-8) .free-spoon .reactant-surface{animation:none;opacity:calc(1 - var(--reaction-progress,0))}
+:is(#card-2,#card-8) .free-spoon{cursor:grab;touch-action:none}
+:is(#card-2,#card-8) .free-spoon.dragging{cursor:grabbing;filter:drop-shadow(3px 6px 4px #23434b44)}
+:is(#card-2,#card-8) .free-spoon>span{left:20%;top:7%;font-size:11px}
+:is(#card-2,#card-8) .free-spoon.specimen-burning .precision-spoon{filter:drop-shadow(0 0 3px #f4c76866)}
 .heat-contact-zone{position:absolute;left:38.55%;top:49.07%;width:7.11%;height:12.09%;border:1px dashed #b8a67944;border-radius:50%;pointer-events:none;z-index:4;box-sizing:border-box}
 .heat-contact-zone.receiving-heat{border-color:#c89c54aa;background:radial-gradient(ellipse,#f9d98911,#f9b75011 65%,transparent)}
 .spoon-heat-readout{position:absolute;left:2%;top:3%;width:27%;max-width:240px;background:#f5f8f0ee;border:1px solid #b6c8bb;border-left:3px solid #9db7ad;border-radius:6px;padding:10px 12px;box-sizing:border-box;color:#4f6b62;pointer-events:none;z-index:6}
@@ -138,21 +138,21 @@
 .mobile-specimen-fallback{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;display:none}
 .specimen-burning .mobile-specimen-fallback{display:block}
 .atmosphere-ready .mobile-specimen-fallback{display:none}
-@media(max-width:800px){.spoon-heat-readout{padding:6px 8px;width:29%}.spoon-heat-readout b{font-size:10px}.spoon-heat-readout>span{font-size:9px;margin-top:2px}#card-2 .free-spoon>span{font-size:9px}.spoon-heat-progress{margin-top:5px}}
+@media(max-width:800px){.spoon-heat-readout{padding:6px 8px;width:29%}.spoon-heat-readout b{font-size:10px}.spoon-heat-readout>span{font-size:9px;margin-top:2px}:is(#card-2,#card-8) .free-spoon>span{font-size:9px}.spoon-heat-progress{margin-top:5px}}
 /* On phones each material group gets a full-width rack and finger-sized samples. */
 @media(max-width:600px){
- #card-2 .integrated-studio .specimen-shelf{grid-template-columns:minmax(0,1fr);row-gap:12px;padding:12px 10px 14px}
- #card-2 .integrated-studio .shelf-heading{flex-wrap:wrap;gap:3px 10px;font-size:12px;margin-bottom:0}
- #card-2 .integrated-studio .shelf-heading span{font-size:10px}
- #card-2 .integrated-studio .specimen-group{grid-column:1;margin:0}
- #card-2 .integrated-studio .specimen-group h4{font-size:12px;margin:0 0 22px;padding:4px 7px}
- #card-2 .integrated-studio .specimen-group.metals .shelf-rail{grid-template-columns:repeat(4,minmax(44px,1fr))}
- #card-2 .integrated-studio .specimen-group.nonmetals .shelf-rail{grid-template-columns:repeat(3,minmax(44px,1fr))}
- #card-2 .integrated-studio .shelf-rail{gap:7px;padding:0 2px 6px}
- #card-2 .integrated-studio .shelf-specimen{min-width:44px;min-height:84px;box-sizing:border-box}
- #card-2 .integrated-studio .specimen-vial{height:52px;margin:0 2px 5px}
- #card-2 .integrated-studio .shelf-specimen>b{font-size:12px;line-height:1.4;min-height:17px}
- #card-2 .integrated-studio .shelf-specimen>small{display:block;font-size:10px;line-height:1.4}
- #card-2 .integrated-studio .combustion-observation-continue{min-height:44px}
+ :is(#card-2,#card-8) .integrated-studio .specimen-shelf{grid-template-columns:minmax(0,1fr);row-gap:12px;padding:12px 10px 14px}
+ :is(#card-2,#card-8) .integrated-studio .shelf-heading{flex-wrap:wrap;gap:3px 10px;font-size:12px;margin-bottom:0}
+ :is(#card-2,#card-8) .integrated-studio .shelf-heading span{font-size:10px}
+ :is(#card-2,#card-8) .integrated-studio .specimen-group{grid-column:1;margin:0}
+ :is(#card-2,#card-8) .integrated-studio .specimen-group h4{font-size:12px;margin:0 0 22px;padding:4px 7px}
+ :is(#card-2,#card-8) .integrated-studio .specimen-group.metals .shelf-rail{grid-template-columns:repeat(4,minmax(44px,1fr))}
+ :is(#card-2,#card-8) .integrated-studio .specimen-group.nonmetals .shelf-rail{grid-template-columns:repeat(3,minmax(44px,1fr))}
+ :is(#card-2,#card-8) .integrated-studio .shelf-rail{gap:7px;padding:0 2px 6px}
+ :is(#card-2,#card-8) .integrated-studio .shelf-specimen{min-width:44px;min-height:84px;box-sizing:border-box}
+ :is(#card-2,#card-8) .integrated-studio .specimen-vial{height:52px;margin:0 2px 5px}
+ :is(#card-2,#card-8) .integrated-studio .shelf-specimen>b{font-size:12px;line-height:1.4;min-height:17px}
+ :is(#card-2,#card-8) .integrated-studio .shelf-specimen>small{display:block;font-size:10px;line-height:1.4}
+ :is(#card-2,#card-8) .integrated-studio .combustion-observation-continue{min-height:44px}
 }
-@media(max-width:340px){#card-2 .integrated-studio .specimen-group.metals .shelf-rail{grid-template-columns:repeat(2,minmax(44px,1fr))}}
+@media(max-width:340px){:is(#card-2,#card-8) .integrated-studio .specimen-group.metals .shelf-rail{grid-template-columns:repeat(2,minmax(44px,1fr))}}

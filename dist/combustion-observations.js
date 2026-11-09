@@ -11,13 +11,13 @@ export const specimenFlames={
  C:{colour:'#e76c36',text:'木炭：紅熱發光，通常沒有明顯火焰',detail:'這裡觀察完全燃燒；生成的二氧化碳是無色氣體。'}
 };
 export const waterReactions={
- Cu:{equation:null,text:'CuO 加入水：無明顯反應',detail:'氧化銅難溶，黑色固體留在杯底；不寫成生成氫氧化銅。'},
- Mg:{equation:'MgO + H₂O → Mg(OH)₂',text:'氧化鎂與水緩慢作用',detail:'形成難溶的氫氧化鎂，液相呈鹼性。'},
- Zn:{equation:null,text:'ZnO 加入水：無明顯反應',detail:'氧化鋅難溶；不能把加入水直接寫成生成氫氧化鋅。'},
- Na:{equation:'2Na₂O₂ + 2H₂O → 4NaOH + O₂',text:'過氧化鈉與水作用（總反應）',detail:'先形成 NaOH 與 H₂O₂，H₂O₂ 再分解；液相呈鹼性。'},
- S:{equation:'SO₂ + H₂O ⇌ H₂SO₃',text:'二氧化硫溶於水，呈酸性',detail:'國中簡化表示；溶液中多種形式共存，不代表全部變成 H₂SO₃。'},
- P:{equation:'P₄O₁₀ + 6H₂O → 4H₃PO₄',text:'磷氧化物與足量水生成磷酸',detail:'形成酸性溶液。'},
- C:{equation:'CO₂ + H₂O ⇌ H₂CO₃',text:'部分二氧化碳與水形成碳酸',detail:'反應可逆，只有部分 CO₂ 形成 H₂CO₃，溶液呈酸性。'},
+ Cu:{equation:null,text:'氧化銅加入水中，難溶且無明顯反應',detail:'黑色氧化銅留在杯底。'},
+ Mg:{equation:'MgO + H₂O → Mg(OH)₂',text:'氧化鎂加入水中，緩慢反應產生氫氧化鎂',detail:'形成難溶的氫氧化鎂，液相呈鹼性。'},
+ Zn:{equation:null,text:'氧化鋅加入水中，難溶且無明顯反應',detail:'白色氧化鋅留在水中。'},
+ Na:{equation:'2Na₂O₂ + 2H₂O → 4NaOH + O₂',text:'過氧化鈉溶到水裡產生氫氧化鈉',detail:'同時產生氧氣，溶液呈鹼性。'},
+ S:{equation:'SO₂ + H₂O ⇌ H₂SO₃',text:'二氧化硫溶到水裡，形成亞硫酸的酸性溶液',detail:'以國中簡化反應式表示。'},
+ P:{equation:'P₄O₁₀ + 6H₂O → 4H₃PO₄',text:'磷氧化物加入水中，反應產生磷酸',detail:'形成酸性溶液。'},
+ C:{equation:'CO₂ + H₂O ⇌ H₂CO₃',text:'二氧化碳溶到水裡，部分與水反應產生碳酸',detail:'反應可逆，溶液呈酸性。'},
  CO:{equation:null,text:'CO 加入水：無明顯反應',detail:'一氧化碳難溶於水。'}
 };
 export function reactionObservations(key,{ignited=false,heatMs=0,completed=false,waterAdded=false}={}){

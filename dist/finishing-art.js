@@ -17,23 +17,40 @@ export function finishingDefs(){return `<defs>
 export function fineSword(){return `<svg viewBox="0 0 620 92" aria-hidden="true">${finishingDefs()}<ellipse cx="311" cy="67" rx="286" ry="7" fill="#081c2226"/><path d="M139 24H547L606 45 547 65H139Z" fill="url(#f-metal)" stroke="#a7c0c3"/><path d="M141 45H598" stroke="#f5ffff" stroke-width="1.4"/><path d="M157 31H537L578 44M168 56H535" stroke="#ffffff75" fill="none"/>${Array.from({length:11},(_,i)=>`<path d="M${156+i*7} ${28+i%4*3} Q${270+i*8} ${37+i%3*2} 550 ${34+i%5*3}" stroke="#40636d" stroke-opacity=".16" stroke-width=".5" fill="none"/>`).join('')}<path d="M130 14Q147 45 130 77L116 74Q130 45 116 17Z" fill="url(#f-brass)" stroke="#645b3c"/><rect x="25" y="31" width="96" height="27" rx="6" fill="#243c3e" stroke="#101f25"/>${Array.from({length:11},(_,i)=>`<path d="M${29+i*8} 31l7 27" stroke="#80918a" stroke-width="3"/>`).join('')}<ellipse cx="23" cy="45" rx="12" ry="18" fill="url(#f-brass)"/><ellipse cx="22" cy="45" rx="6" ry="10" fill="#486f64"/></svg>`;}
 const screw=(x,y)=>`<g transform="translate(${x} ${y})"><circle r="6" fill="url(#f-metal)" stroke="#203a42"/><path d="M-3 0H3" stroke="#1e343a" stroke-width="1.5"/></g>`;
 export function bladeMachine(){const curve=bladeCurve();return `<svg viewBox="0 0 1000 380" class="finish-machine-art" role="img" aria-label="有金屬壓頭、兩個圓柱支點與施力刻線的彎折試驗台">${finishingDefs()}
-<image href="./assets/story/forge-blade-workbench.png" width="1000" height="420" preserveAspectRatio="none"/><rect width="1000" height="380" fill="#f4f0e3" opacity=".48"/>
-<g class="blade-apparatus" transform="translate(0 12) scale(1 .86)">
-<ellipse cx="475" cy="339" rx="360" ry="20" fill="#071b2360"/>
-<g filter="url(#f-shadow)"><path d="M120 315L768 315 790 333 101 333Z" fill="url(#f-metal)"/><path d="M101 333H790V349H101Z" fill="#253e45"/><path d="M123 340H770" stroke="#6d8485"/>
-${[130,735].map(x=>`<rect x="${x}" y="63" width="28" height="255" rx="3" fill="url(#f-column)" stroke="#203740"/><rect x="${x-7}" y="69" width="42" height="12" rx="2" fill="url(#f-metal)"/><rect x="${x-6}" y="292" width="40" height="22" rx="3" fill="url(#f-metal)"/>${screw(x+14,303)}`).join('')}
-<rect x="112" y="48" width="669" height="30" rx="5" fill="url(#f-column)" stroke="#153239"/><path d="M122 52H771" stroke="#b6c9c2"/>${[133,758].map(x=>screw(x,62)).join('')}
-<rect x="444" y="78" width="70" height="70" rx="5" fill="url(#f-column)"/><path d="M453 89H506M453 101H506M453 113H506M453 125H506" stroke="#253c42" stroke-width="3"/><rect x="465" y="135" width="28" height="72" fill="url(#f-column)"/>
-<g data-press-head><rect x="470" y="151" width="18" height="76" fill="url(#f-metal)"/><path d="M453 220H505V243Q480 258 453 243Z" fill="url(#f-column)" stroke="#1f373d"/><path d="M460 239Q480 248 498 239" stroke="#e2eee5" opacity=".7"/></g>
-${[242,718].map(x=>`<g><path d="M${x-22} 281H${x+22}L${x+33} 316H${x-33}Z" fill="url(#f-column)"/><ellipse cx="${x}" cy="281" rx="21" ry="8" fill="url(#f-metal)"/><rect x="${x-9}" y="272" width="18" height="16" rx="7" fill="url(#f-column)"/>${screw(x,302)}</g>`).join('')}
-</g><path d="M180 263H799" stroke="#efdb9a" opacity=".36" stroke-dasharray="5 8"/>
+<image href="./assets/story/forge-blade-workbench.png" width="1000" height="420" preserveAspectRatio="none"/><rect width="1000" height="380" fill="#f4f0e3" opacity=".31"/>
+<defs>
+ <linearGradient id="f-painted" x2="0" y2="1"><stop stop-color="#738182"/><stop offset=".12" stop-color="#3b5052"/><stop offset=".48" stop-color="#203c40"/><stop offset=".85" stop-color="#1a3033"/><stop offset="1" stop-color="#526665"/></linearGradient>
+ <linearGradient id="f-chrome"><stop stop-color="#172e34"/><stop offset=".14" stop-color="#647a7f"/><stop offset=".28" stop-color="#e8eded"/><stop offset=".35" stop-color="#fff"/><stop offset=".42" stop-color="#94a6a8"/><stop offset=".67" stop-color="#445f65"/><stop offset=".86" stop-color="#aebfc1"/><stop offset="1" stop-color="#263e45"/></linearGradient>
+ <linearGradient id="f-ram-steel"><stop stop-color="#272b2d"/><stop offset=".13" stop-color="#626768"/><stop offset=".29" stop-color="#c4c8c5"/><stop offset=".36" stop-color="#f7f7ee"/><stop offset=".45" stop-color="#9b9f9c"/><stop offset=".7" stop-color="#555a5a"/><stop offset=".88" stop-color="#b0b5b1"/><stop offset="1" stop-color="#323739"/></linearGradient>
+ <linearGradient id="f-ram-ring" x2="0" y2="1"><stop stop-color="#d2d2c6"/><stop offset=".18" stop-color="#7e817b"/><stop offset=".6" stop-color="#353b3b"/><stop offset="1" stop-color="#181e20"/></linearGradient>
+ <pattern id="f-machined" width="6" height="4" patternUnits="userSpaceOnUse"><path d="M0 1H6" stroke="#f1faf9" opacity=".16" stroke-width=".5"/><path d="M2 3H5" stroke="#102b31" opacity=".17" stroke-width=".5"/></pattern>
+</defs>
+
+<image class="blade-photo-frame" href="./assets/story/blade-test-frame-v1.png" x="0" y="0" width="1000" height="380" preserveAspectRatio="none"/>
+<g class="blade-apparatus" transform="translate(77 12) scale(.7353 .86)">
+ <g class="blade-ram-housing">
+  <rect x="441" y="67" width="77" height="13" rx="3" fill="url(#f-ram-steel)" stroke="#303536"/>
+  <ellipse cx="479.5" cy="79" rx="38.5" ry="6" fill="url(#f-ram-ring)"/>
+  <rect x="447" y="78" width="65" height="65" rx="4" fill="url(#f-ram-steel)" stroke="#353a3b"/>
+  <rect x="448" y="81" width="63" height="60" fill="url(#f-machined)" opacity=".65"/>
+  ${[88,99,110,121,132].map(y=>`<path d="M454 ${y}H505" stroke="#333939" stroke-width="1.3" opacity=".75"/><path d="M454 ${y+1.5}H505" stroke="#d9dcd4" stroke-width=".65" opacity=".7"/>`).join('')}
+  <path d="M447 138H512V147Q479 159 447 147Z" fill="url(#f-ram-steel)" stroke="#363c3c"/>
+  <ellipse cx="479.5" cy="147" rx="27" ry="5.8" fill="url(#f-ram-ring)"/>
+  <ellipse cx="479.5" cy="150" rx="15" ry="3.4" fill="#252c2d" stroke="#a2a8a0" stroke-width="1.1"/>
+ </g>
+ <rect data-press-rod x="470" y="151" width="18" height="78" fill="url(#f-ram-steel)" stroke="#818984" stroke-width=".6"/>
+ <g data-press-head><rect x="466" y="215" width="26" height="10" rx="2" fill="url(#f-ram-steel)"/><path d="M454 221H504V239Q479 255 454 239Z" fill="url(#f-ram-steel)" stroke="#303738"/><ellipse cx="479" cy="221" rx="25" ry="5" fill="url(#f-ram-ring)" stroke="#b1b7af" stroke-width=".9"/><path d="M461 226V238M495 226V238" stroke="#d6dcd4" stroke-width=".8" opacity=".75"/><path d="M459 238Q479 247 499 238" fill="none" stroke="#ebeee6" opacity=".7"/><rect x="473" y="245" width="13" height="7" rx="2" fill="#333a3b" stroke="#a6ada5" stroke-width=".7"/></g>
 <g data-mounted-blade hidden filter="url(#f-shadow)"><g data-blade-whole><path data-flex-blade d="${curve.edge}" fill="url(#f-metal)" stroke="#d3e5e3" stroke-width=".8"/><path data-flex-ridge d="${curve.ridge}" stroke="#f7ffff" stroke-width="1.4" fill="none"/><path data-flex-grain d="${curve.ridge}" stroke="#253b45" opacity=".25" stroke-width="5" fill="none"/></g><g><path d="M176 242L184 244V283L175 286 169 281 174 264 169 247Z" fill="url(#f-brass)"/><rect x="86" y="252" width="86" height="24" rx="4" fill="#1a373b"/>${Array.from({length:9},(_,i)=>`<path d="M${90+i*9} 253l6 21" stroke="#7f9590" stroke-width="2"/>`).join('')}<ellipse cx="82" cy="264" rx="9" ry="14" fill="url(#f-brass)"/></g>
 <g data-broken-blade hidden>
  <path data-break-left d="M180 251H473L480 259 470 267 478 274H180Z" fill="url(#f-metal)" stroke="#d3deda"/>
  <path data-break-right d="M473 252H718L796 263 718 275H478L470 267 480 259Z" fill="url(#f-metal)" stroke="#d3deda"/>
  <g data-blade-fragments><path d="M475 271l6 5-7 5-4-6Z" fill="#b8c7c7"/><path d="M485 274l4 6-6 1Z" fill="#99aeb0"/></g>
 </g></g>
-<text x="242" y="358" fill="#c2d0c7" text-anchor="middle" font-size="12">支點</text><text x="718" y="358" fill="#c2d0c7" text-anchor="middle" font-size="12">支點</text><text x="480" y="36" fill="#d8e3d5" text-anchor="middle" font-size="12" letter-spacing="3">刀材彎折比較台</text>
+
+</g>
+<text x="255" y="374" fill="#e0e5db" text-anchor="middle" font-size="11">支點</text><text x="605" y="374" fill="#e0e5db" text-anchor="middle" font-size="11">支點</text>
+<text x="430" y="50" fill="#f1eee0" text-anchor="middle" font-size="12" letter-spacing="3">刀材彎折比較台</text>
+<g transform="translate(0 12) scale(1 .86)">
 <g transform="translate(824 75)"><rect width="123" height="240" rx="9" fill="#1b3239" stroke="#a4b7a4" stroke-opacity=".4"/><rect x="23" y="52" width="17" height="163" rx="7" fill="#10272e"/><rect x="28" y="58" width="6" height="150" rx="3" fill="url(#f-metal)"/>${Array.from({length:11},(_,i)=>`<path d="M51 ${61+i*14}h${i%5===0?19:10}" stroke="#a4b2a1" stroke-opacity=".7"/>`).join('')}<path d="M3 205H117" stroke="#e5c486" stroke-dasharray="4 3"/><text x="62" y="26" fill="#d6ddc9" text-anchor="middle" font-size="11">向下拉 · 鬆開觀察</text><text x="78" y="222" fill="#efd7a4" font-size="10">標線</text></g>
 </g></svg>`;}
 function rustPatches(){return `<rect width="300" height="110" fill="url(#f-rust)" mask="url(#f-corrosion-mask)"/>`+Array.from({length:130},(_,i)=>{const x=7+(i*43%284),y=4+(i*31%101),r=.7+(i*13%4);return `<path d="M${x-r} ${y}q${-r*.3} ${-r*.8} ${r*.7} ${-r*.9}l${r*.8} ${r*.2}q${r} ${r*.2} ${r*.5} ${r}l${-r*.6} ${r*.8}q${-r*.9} ${r*.2} ${-r*1.4} ${-r*.7}Z" fill="${['#69341f','#a6582e','#c17942','#8b4327'][i%4]}" opacity="${.45+(i%5)*.1}"/>`;}).join('');}

@@ -1,0 +1,22 @@
+/* Consistent number-only labels above the existing card titles. */
+.exploration-card>.chapter-header>.chapter-kicker{justify-content:flex-start;align-items:center;margin-bottom:12px;letter-spacing:0}
+.chapter-kicker>.chapter-number{display:inline-flex;align-items:center;justify-content:center;min-width:42px;min-height:29px;padding:3px 11px;border:1px solid #bdc9b8;border-radius:7px;background:#eff3e9;color:#395e4e;font-size:13px;font-weight:750;line-height:1.5;font-variant-numeric:tabular-nums;letter-spacing:1px}
+
+/* Two distinct title bands keep the paired experiment easy to scan. */
+.evidence-comparison-headings{gap:12px;margin-bottom:11px}
+.evidence-comparison-headings .evidence-case-heading{--heading-accent:#8b4b26;--heading-line:#ddc3a2;display:flex;align-items:center;gap:11px;min-height:70px;padding:12px 14px;border:1px solid var(--heading-line);border-radius:10px;background:linear-gradient(115deg,#f9eddc,#fffaf1);box-shadow:inset 0 1px 0 #ffffffcc}
+.evidence-comparison-headings .evidence-case-heading--rust{--heading-accent:#386451;--heading-line:#bbcfbb;background:linear-gradient(115deg,#e9f1e6,#f8faf3)}
+.evidence-heading-symbol{display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;border-radius:10px;background:#fff9ed;border:1px solid #e4cba8;color:var(--heading-accent)}
+.evidence-case-heading--rust .evidence-heading-symbol{background:#f6faf1;border-color:#c3d4bd}
+.evidence-heading-symbol svg{display:block;width:24px;height:24px}
+.evidence-comparison-headings .evidence-case-heading h4{flex:1;min-width:0;margin:0;color:var(--heading-accent);font-size:clamp(17px,1.45vw,22px);line-height:1.5;font-weight:750;letter-spacing:.02em}
+.evidence-comparison-headings .evidence-case-heading>span{display:inline-flex;flex:0 0 auto;margin:0;padding:3px 8px;border-radius:999px;background:#ffffffb8;color:#6b6d59;font-size:11px;line-height:1.5;white-space:nowrap}
+@media(max-width:1050px){.evidence-comparison-headings .evidence-case-heading{gap:8px;padding:10px;flex-wrap:wrap}.evidence-comparison-headings .evidence-case-heading h4{font-size:18px}.evidence-comparison-headings .evidence-case-heading>span{margin-left:46px}.evidence-heading-symbol{flex-basis:32px;width:32px;height:32px;border-radius:8px}}
+@media(max-width:620px){.evidence-comparison-headings{gap:7px}.evidence-comparison-headings .evidence-case-heading{align-content:start;gap:6px;min-height:108px;padding:9px}.evidence-heading-symbol{flex-basis:28px;width:28px;height:28px}.evidence-heading-symbol svg{width:20px;height:20px}.evidence-comparison-headings .evidence-case-heading h4{flex-basis:calc(100% - 34px);font-size:16px;line-height:1.5}.evidence-comparison-headings .evidence-case-heading>span{margin-left:0;font-size:10px;padding:2px 6px}.chapter-kicker>.chapter-number{min-width:38px;min-height:27px;font-size:12px}}
+
+.affinity-mnemonic-verse{display:flex;align-items:flex-end;flex-wrap:wrap;gap:12px 24px;padding-top:4px}
+.affinity-mnemonic-group{display:grid;gap:5px;margin-right:.65em}
+.affinity-mnemonic-elements{display:flex;justify-content:space-between;gap:3px;color:#8b6539;font-size:16px;line-height:1.5;font-weight:600;letter-spacing:0}
+.affinity-mnemonic-words{position:relative;white-space:nowrap}
+.affinity-mnemonic-words i{position:absolute;left:100%;font-style:normal}
+@media(max-width:620px){.affinity-mnemonic-verse{gap:13px 20px;font-size:20px}.affinity-mnemonic-elements{font-size:14px}}

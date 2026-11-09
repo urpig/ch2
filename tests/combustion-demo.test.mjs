@@ -18,6 +18,11 @@ test('metal and gas instructions describe their actual distinct water and litmus
  assert.match(sulfur.steps[3][1],/重新取液.*藍色石蕊/);
  for(const key of ['C','CO'])assert.equal(combustionProcedureSteps(key).title,sulfur.title);
  for(const key of ['Cu','Mg','Zn'])assert.equal(combustionProcedureSteps(key).title,sodium.title);
+ const phosphorus=combustionProcedureSteps('P');
+ assert.equal(phosphorus.title,sulfur.title);
+ assert.match(phosphorus.steps[1].join(''),/白色固體微粒/);
+ assert.match(phosphorus.steps[2][1],/燃燒匙上的產物加入清水/);
+ assert.doesNotMatch(phosphorus.steps.flat().join(''),/氣體溶於水/);
 });
 
 test('scrolling life examples include all six experiments once in the requested order, with independent SVG IDs',()=>{
@@ -51,6 +56,18 @@ test('both full demonstrations prepare, ignite, cool, add water, and test both p
  }
 });
 
+test('both demonstrations share a moderately faster pace with time to read each observation',()=>{
+ const major={prep:'sample',load:'sample',heat:'heat',transfer:'heat',burn:'heat',cool:'heat',pour:'water',dissolve:'water',wash:'water',shake:'water',take:'litmus',red:'litmus',retake:'litmus',blue:'litmus',result:'result'};
+ assert.equal(combustionDemoDuration('Na'),combustionDemoDuration('S'));
+ assert.equal(combustionDemoDuration('Na'),42000);
+ for(const key of ['Na','S']){
+  for(const [time,stage] of [[0,'sample'],[5999,'sample'],[6000,'heat'],[18999,'heat'],[19000,'water'],[26999,'water'],[27000,'litmus'],[37999,'litmus'],[38000,'result']])assert.equal(major[combustionDemoFrame(key,time).phase],stage);
+  const windows=new Map();
+  for(let time=0;time<combustionDemoDuration(key);time+=100){const f=combustionDemoFrame(key,time);windows.set(f.phase,(windows.get(f.phase)||0)+100);}
+  for(const phase of ['prep','load','heat','burn','cool','red','blue','result'])assert.ok(windows.get(phase)>=2500,`${key} ${phase} leaves time to observe`);
+ }
+});
+
 test('sulfur is transferred into the bottle before burning there, then washed and shaken before pipetting',()=>{
  const phases=[];for(let time=0;time<=combustionDemoDuration('S');time+=100){const phase=combustionDemoFrame('S',time).phase;if(!phases.includes(phase))phases.push(phase);}
  for(const [first,last] of [['transfer','burn'],['cool','wash'],['wash','shake'],['shake','take'],['red','retake'],['retake','blue']])assert.ok(phases.indexOf(first)<phases.indexOf(last));
@@ -65,7 +82,7 @@ test('only ordered watched clips unlock independent operation; old manual eviden
  assert.equal(restoreCombustionDemo({evidence:['Na:burn','Na:wet','S:burn','S:ph'],combustionMode:'practice'}).combustionMode,'demo');
  const lesson=lessons.find(c=>c.type==='combustion');
  const saved=restoreState(lesson,{...freshState(lesson),combustionMode:'practice',combustionDemoSeen:['Na','S','S','invalid'],combustionDemoSample:'S'});
- assert.equal(saved.combustionMode,'practice');assert.deepEqual(saved.combustionDemoSeen,['Na','S']);assert.equal(saved.combustionDemoSample,'S');
+ assert.equal(saved.combustionMode,'practice');assert.deepEqual(saved.combustionDemoSeen,['Na']);assert.equal(saved.combustionDemoSample,'Na');
  assert.equal(freshState(lesson).combustionMode,'demo');assert.deepEqual(freshState(lesson).combustionDemoSeen,[]);
 });
 
@@ -79,4 +96,17 @@ test('all seven records exist before trying them and reveal only observed fields
  assert.match(sodium,/Na₂O₂/);assert.equal((sodium.match(/尚未測試/g)||[]).length,2);
  assert.match(html.match(/<tr data-record-sample="S">[\s\S]*?<\/tr>/)[0],/酸性/);
  assert.equal((html.match(/data-record-sample=/g)||[]).length,7);
+});
+
+test('each split laboratory unlocks after its own demonstration, without requiring the other card',()=>{
+ for(const [group,key,other] of [['metals','Na','S'],['nonmetals','S','Na']]){
+  assert.equal(combustionDemoReady([other],group),false);assert.equal(combustionDemoReady([key],group),true);
+  const lesson=lessons.find(c=>c.sampleGroup===group);
+  const restored=restoreState(lesson,{combustionDemoSeen:[key],combustionMode:'practice',combustionDemoSample:other});
+  assert.equal(restored.combustionMode,'practice');assert.equal(restored.combustionDemoSample,key);
+  assert.equal(freshState(lesson).combustionDemoSample,key);
+  const rows=combustionRecordsMarkup(group,()=>false);
+  assert.equal((rows.match(/data-record-sample=/g)||[]).length,group==='metals'?4:3);
+  assert.match(rows,/尚未測試/);
+ }
 });

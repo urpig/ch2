@@ -1,0 +1,110 @@
+/* Match textbook reactants to products without reducing the equation to a legend. */
+.life-biology-lab .bio-arrow-equation{display:block;padding:16px 18px 10px;text-align:center}
+.bio-equation-art{display:block;width:100%;max-width:850px;height:auto;margin:0 auto;overflow:visible}
+.bio-equation-art [data-bio-equation-paths][hidden]{display:none}
+.bio-equation-formula{font:38px Georgia,'Times New Roman',serif;fill:#214f48}
+.bio-equation-arrow{color:#b34230}
+.bio-equation-arrow.is-reduction{color:#286d85}
+.bio-equation-arrow path{fill:none;stroke:currentColor;stroke-width:2.6;stroke-linejoin:round;stroke-linecap:round}
+.bio-equation-arrow .bio-equation-line{paint-order:stroke;filter:drop-shadow(0 1px 0 #fffdf3)}
+.bio-equation-arrow text{fill:currentColor;font:600 30px 'Noto Sans TC',sans-serif}
+.bio-equation-energy{display:block;color:#536f61;font-size:14px;margin:-2px 0 4px}
+
+/* The same red/blue arrow convention as the biology equations, with readable
+   paired changes on small screens rather than a shrunken equation. */
+.life-manual-reaction .life-example-equation{margin:18px 0 0;padding:18px 14px 14px;background:#fffdf3;border-color:#d9dbc5}
+.life-example-equation[hidden]{display:none!important}
+.life-example-equation>h4{margin:0 0 12px;text-align:left;font-size:18px;color:#214f48}
+.life-equation-art{display:block;width:100%;max-width:980px;height:auto;margin:auto;overflow:visible}
+.life-equation-name{font:600 21px 'Noto Sans TC',sans-serif;fill:#315b51}
+.life-equation-formula,.life-equation-sign{font:34px Georgia,'Times New Roman',serif;fill:#214f48}
+.life-equation-art .bio-equation-arrow text{font-size:25px}
+.life-example-equation>.life-equation-note{margin:8px 0 0;color:#6d7768;font-size:13px;line-height:1.6;text-align:left}
+.life-equation-mobile{display:none}
+@media(max-width:760px){
+ .life-manual-reaction .life-example-equation{padding:14px 12px;margin:14px 0 0}
+ .life-equation-art{display:none}
+ .life-equation-mobile{display:grid;gap:12px}
+ .life-equation-change{padding:12px 10px;border:1px solid #e3c9b2;border-radius:8px;background:#fbf0e4;color:#a33c2b;text-align:left}
+ .life-equation-change.is-reduction{border-color:#bfd2d9;background:#edf4f5;color:#286d85}
+ .life-equation-change>b{display:block;padding-bottom:9px;border-bottom:1px solid currentColor;font-size:16px;line-height:1.6}
+ .life-equation-change>div{display:grid;grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr);gap:6px;align-items:center;margin-top:10px;text-align:center}
+ .life-equation-change span{font-size:14px;line-height:1.6;color:#315b51;overflow-wrap:anywhere}
+ .life-equation-change strong{display:block;font:600 20px/1.5 Georgia,'Times New Roman',serif;color:#214f48}
+ .life-equation-change i{font:26px Georgia,serif}
+}
+
+.stability-studio{margin:24px 0;border:1px solid #b8caba;border-radius:14px;background:#f7f7ed;overflow:hidden;color:#244e46}
+.stability-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 18px;background:#edf2e7;border-bottom:1px solid #cbd6c3}
+.stability-toolbar>b{font-size:18px}.stability-toolbar button{flex-shrink:0}
+.stability-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:14px 18px 0}
+.stability-tabs>button{padding:12px 10px;min-height:46px;font-size:17px;font-weight:700;background:#fffef7;border:1px solid #b7c8b3;border-radius:8px;color:#315b51}
+.stability-tabs>button>small{display:block;font-size:12px;font-weight:400;margin-bottom:5px;opacity:.85}
+.stability-tabs>button[aria-selected=true]{background:#2e5a4f;color:#fffef2;border-color:#2e5a4f;box-shadow:0 3px 8px #234a3b18}
+.stability-tabs button:focus-visible,.stability-studio button:focus-visible{outline:3px solid #b87c25;outline-offset:3px}
+.stability-playbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px}
+.stability-playbar>b{font-size:19px}.stability-playbar>div{display:flex;gap:8px;align-items:center;flex-shrink:0}
+.stability-playbar button{width:auto!important;min-width:0!important;margin:0!important;min-height:42px;font-size:15px;white-space:nowrap;flex-shrink:0}
+.stability-observation{display:grid;grid-template-columns:1.16fr 1fr;gap:14px;padding:0 18px 14px;align-items:start}
+.stability-bench{margin:0;border:1px solid #c5d0be;border-radius:10px;overflow:hidden;background:#fffdf4}
+.stability-bench .free-real-bench{--reaction-change:0;min-height:0}
+.stability-bench .free-burner-flame{display:block;opacity:0}
+.stability-bench figcaption{padding:12px 10px;font-size:15px;line-height:1.6;color:#3b6155;background:#f4f6ec}
+.stability-phase{position:absolute;left:10px;top:10px;background:#fffdf1ed;padding:5px 9px;border:1px solid #cad3bd;border-radius:5px;font-size:13px;z-index:5}
+.stability-reaction-glow{position:absolute;left:36%;top:24%;width:28%;height:17%;z-index:4;opacity:0;pointer-events:none;background:radial-gradient(ellipse,#fff 0%,#fffff8ed 19%,#e8f5ffa6 34%,#edf5ff33 54%,transparent 74%);border-radius:50%;filter:drop-shadow(0 0 12px #fff9)}
+.stability-metal-piece{display:block;position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 2px 1px #23372a40)}
+.stability-closeups{display:grid;gap:12px;min-width:0}
+.stability-before-after,.stability-oxygen-card{border:1px solid #c9d3bd;border-radius:10px;padding:12px;background:#fcfcf4;overflow:hidden}
+.stability-closeups h4{font-size:17px;margin:0 0 7px;line-height:1.5}
+.stability-oxygen-card h4{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px 8px}
+.stability-oxygen-card h4 small{font-size:12px;font-weight:400;color:#737b62}
+.stability-before-after>div{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.stability-dish{margin:0!important;background:#eef2e6;border:1px solid #d5ddca;border-radius:8px;overflow:hidden}
+.stability-dish .free-specimen-dish{margin:0;aspect-ratio:1.65}
+.stability-dish .free-dish-contents>div{position:absolute;inset:0}
+.stability-dish figcaption{padding:2px 5px 9px!important;text-align:center;background:none!important;font-size:14px;font-weight:700}
+.stability-before-after>p{font-size:14px;line-height:1.6;margin:9px 0 0;min-height:1.6em}
+.stability-oxygen-card{background:linear-gradient(145deg,#f8f4e3,#edf2e7)}
+.stability-oxygen{display:block;width:100%;height:auto}
+.stability-oxygen>text{font:600 23px 'Noto Sans TC',sans-serif;fill:#315b51}
+.stability-oxygen .stability-atom-letter{fill:white;text-anchor:middle;font:bold 26px Georgia,serif}
+.stability-atom-bond{stroke:#8aa198;stroke-width:6;stroke-linecap:round}
+.stability-oxygen-route{fill:none;stroke:#babda9;stroke-width:2;stroke-dasharray:5 6;opacity:.6}
+.stability-oxygen .stability-oxygen-note{font-size:21px;font-weight:400}
+.stability-trial-result{padding:13px 18px 17px;background:#eaf0df;border-top:1px solid #c4d1b7}
+.stability-trial-result>b{font-size:20px;line-height:1.6;font-family:Georgia,'Noto Sans TC',serif}
+.stability-trial-result>p{font-size:16px;line-height:1.7;margin:7px 0 0}
+.stability-trial-result>.stability-equation{font:600 23px/1.7 Georgia,'Noto Sans TC',serif;text-align:center;margin:0 0 14px}
+.stability-trial-result>.story-speech{margin:0}
+.stability-trial-result>.stability-next{display:block;margin:14px 0 0 auto;max-width:100%;white-space:normal;line-height:1.6;font-size:16px}
+.stability-conclusion{padding:22px 18px;background:#fdfcf2;border-top:1px solid #c3cfb7}
+.stability-conclusion h3{font-size:21px;line-height:1.6;margin:0 0 14px}
+.stability-table-scroll table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:16px}
+.stability-table-scroll th,.stability-table-scroll td{border:1px solid #ccd5bd;padding:14px 12px;text-align:left;line-height:1.8;vertical-align:middle}
+.stability-table-scroll thead{background:#e4ecd8}.stability-table-scroll th:first-child{width:22%}.stability-table-scroll th small{font-size:13px;font-weight:400}.stability-table-scroll tbody tr:first-child{background:#f0f3e7}
+.stability-conclusion>p{font-size:14px;color:#5c725c;margin:13px 0 0;line-height:1.7}
+.stability-conclusion>.story-speech{margin:18px 0 0}
+.stability-studio [hidden]{display:none!important}
+.stability-studio .is-paused .free-burner-flame img{animation-play-state:paused}
+.stability-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:0 18px 18px;align-items:start}
+.stability-case{min-width:0;display:grid;gap:10px}
+.stability-case>h4{margin:0;padding:10px 14px;background:#dfe9d8;border:1px solid #bbccb5;border-radius:7px;font-size:19px}
+.stability-case .stability-before-after{padding:10px}
+.stability-case .stability-oxygen-card{padding:10px}
+.stability-case .stability-oxygen-card>h4,.stability-case .stability-before-after>h4{font-size:15px;margin:0 0 7px}
+.stability-trial-result>.story-speech+.story-speech{margin-top:12px}
+@media(max-width:760px){
+ .life-biology-lab .bio-arrow-equation{padding:12px 5px 6px;margin-left:8px;margin-right:8px}
+ .bio-equation-formula{font-size:42px}.bio-equation-arrow text{font-size:40px}.bio-equation-arrow path{stroke-width:3.5}
+ .stability-toolbar{padding:11px 12px;gap:8px}.stability-toolbar>b{font-size:15px}
+ .stability-tabs{grid-template-columns:1fr 1fr;padding:12px 12px 0;gap:8px}.stability-tabs>button{font-size:15px;padding:10px 5px}
+ .stability-playbar{padding:12px;flex-wrap:wrap}.stability-playbar>b{font-size:17px}.stability-playbar>div{margin-left:auto}
+ .stability-observation{grid-template-columns:1fr;padding:0 12px 12px;gap:12px}
+ .stability-pair{grid-template-columns:1fr;padding:0 12px 12px}
+ .stability-closeups{grid-template-columns:1fr}.stability-bench figcaption{font-size:14px}
+ .stability-phase{font-size:12px;padding:4px 7px}.stability-before-after>p{font-size:14px}
+ .stability-trial-result{padding:12px}.stability-trial-result>b{font-size:18px}.stability-trial-result>p{font-size:15px}
+ .stability-conclusion{padding:17px 12px}.stability-conclusion h3{font-size:19px}
+ .stability-table-scroll table{font-size:14px}.stability-table-scroll th,.stability-table-scroll td{padding:10px 7px;line-height:1.7}.stability-table-scroll th:first-child{width:24%}
+}
+@media(prefers-reduced-motion:reduce){.stability-studio *{animation:none!important;transition:none!important}}

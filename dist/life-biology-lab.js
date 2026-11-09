@@ -1,22 +1,20 @@
 import {biologyStages} from './life-biology-model.js';
-import {lifeBiology} from './everyday-redox-model.js';
 import {photosynthesisArt} from './photosynthesis-art.js';
 import {respirationArt} from './respiration-art.js';
 import {moleculeModel} from './bio-molecule-art.js';
 import {observationTimeline} from './observation-timeline.js';
 import {bindLifePlayback} from './life-autoplay.js';
+import {biologyEquationArt} from './bio-equation-art.js';
 const biologyArt=key=>key==='photo'?photosynthesisArt():respirationArt();
 
 function biologyEquation(key,complete){
- const {equation,paths}=lifeBiology[key];
- return `<div class="life-paired-equation"><small>多步反應的總反應式</small><b>${equation}${key==='resp'?' ＋ 能量':''}</b>
- <ul class="bio-equation-paths" data-bio-equation-paths aria-label="氧化還原的物質去向" ${complete?'':'hidden'}>${paths.map(({from,to,role})=>`<li class="is-${role}"><span>${from}</span> <strong>${role==='oxidation'?'被氧化成':'被還原成'}</strong> <span>${to}</span></li>`).join('')}</ul></div>`;
+ return `<div class="life-paired-equation bio-arrow-equation">${biologyEquationArt(key,complete)}${key==='resp'?'<span class="bio-equation-energy">同時釋放能量</span>':''}</div>`;
 }
 
 export function biologyMarkup(key,complete=false){
  const photo=key==='photo',steps=biologyStages[key];
  return `<section class="life-paired-reaction life-biology-lab bio-whole life-auto-observation" data-glossary-skip data-life-observation data-life-reaction="${key}" data-phase="${complete?'complete':'ready'}" data-bio-step="${complete?2:0}" aria-label="${photo?'光合作用':'有氧呼吸'}整體反應觀察">
- <div class="reaction-heading"><div><small>觀看整體反應</small><h4>${photo?'光合作用：水與二氧化碳變成什麼？':'有氧呼吸：養分與氧氣變成什麼？'}</h4></div><button type="button" class="text-button" data-life-retry>${complete?'↻ 重播動畫':'▶ 播放動畫'}</button></div>
+ <div class="reaction-heading"><div><small>觀看整體反應</small><h4>${photo?'光合作用：水與二氧化碳變成什麼？':'有氧呼吸：養分與氧氣變成什麼？'}</h4></div><div class="life-playback-actions"><button type="button" class="text-button" data-life-retry>${complete?'↻ 重播動畫':'▶ 播放動畫'}</button>${observationTimeline()}</div></div>
  <div class="life-mix-workbench">
   <div class="life-reactant-rack bio-molecule-rack"><small>反應物</small>${steps.map(s=>`<div class="bio-supply-item"><div class="bio-molecule-rest">${moleculeModel(s.id,`supply-${key}-${s.id}`)}</div><strong>${s.label}</strong></div>`).join('')}</div>
   <div class="life-reactor-panel">
@@ -25,7 +23,7 @@ export function biologyMarkup(key,complete=false){
     <div class="bio-art-labels" aria-hidden="true"><span class="bio-display-phase" data-bio-display-phase>${complete?'觀察後':'反應前'}</span>
     <b class="bio-organelle-title">${photo?'葉綠體':'粒線體'}<small>${photo?'葉片內部':'細胞內部'}</small></b>
     <div class="bio-model-products" hidden data-bio-model-products><span>${photo?'氧氣 O₂':'二氧化碳 CO₂'}</span><span>${photo?'葡萄糖 C₆H₁₂O₆':'水 H₂O'}</span></div></div>
-   </div>${observationTimeline()}
+   </div>
   </div>
  </div>
  <p class="life-observe-status" data-life-animation-status role="status"></p>${biologyEquation(key,complete)}</section>`;
@@ -53,7 +51,8 @@ export function bindBiologyLab(scene,onComplete){
   organelle.setAttribute('transform',`translate(480 254) scale(${scale}) translate(-480 -254)`);
   light.setAttribute('opacity',String(illumination*.72));beam?.setAttribute('opacity',String(.25+illumination*.75));
   productLabels.hidden=emerging<.24;productLabels.style.opacity=String(fraction(emerging,.24,.88));
-  equationPaths.hidden=p<1;
+  equationPaths.removeAttribute('hidden');
+  equationPaths.closest('svg').setAttribute('viewBox','0 0 800 210');
   status.textContent=p===1?(photo?'水被氧化成氧氣；二氧化碳被還原，用來合成養分。':'葡萄糖被氧化成二氧化碳；氧氣被還原成水。'):p===0?'':photo?'觀察水、二氧化碳與產物的變化。':'觀察養分、氧氣與產物的變化。';
  }
  const dispose=bindLifePlayback(scene,{seconds:5.6,paint,initialComplete:scene.dataset.phase==='complete',onStart:()=>onComplete('start'),onComplete:()=>onComplete('complete')});

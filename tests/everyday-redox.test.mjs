@@ -1,6 +1,16 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {freshLife,restoreLife,lifeRecord,lifeReady,lifeMastered,lifeEvidence,lifeBiology,lifeBleaches,appleComparison} from '../dist/everyday-redox-model.js';
+import {freshLife,restoreLife,lifeRecord,lifeReady,lifeMastered,lifeEvidence,lifeBiology,lifeBleaches,appleComparison,recordLifeDemonstration} from '../dist/everyday-redox-model.js';
+
+test('guided vitamin C and photosynthesis finish after playback without answering respiration for the learner',()=>{
+ const s=freshLife();
+ assert.equal(recordLifeDemonstration(s,'food'),false);s.time=3;assert.equal(recordLifeDemonstration(s,'food'),false);
+ s.time=4;assert.equal(recordLifeDemonstration(s,'food'),true);
+ assert.equal(recordLifeDemonstration(s,'photo'),false);s.seen.push('photo');assert.equal(recordLifeDemonstration(s,'photo'),true);
+ s.seen.push('resp');assert.equal(recordLifeDemonstration(s,'resp'),false);
+ assert.deepEqual(s.evidence,['food','photo']);assert.deepEqual(s.bioRoles,{});assert.equal(lifeReady(s),false);
+ assert.deepEqual(restoreLife(s).evidence,['food','photo']);
+});
 test('生物反應必有相反角色，光合作用水失電子，有氧呼吸葡萄糖失電子',()=>{
  for(const b of Object.values(lifeBiology))assert.deepEqual(b.paths.map(p=>p.role).sort(),['oxidation','reduction']);
  assert.equal(lifeBiology.photo.paths.find(p=>p.role==='oxidation').from,'水 H₂O');

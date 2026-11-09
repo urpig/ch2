@@ -1,5 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {lessons,materialCases,migrateEight,isReady} from '../dist/journey-cards.js';
-test('joining the two labs keeps every observation but requires answering the new combined question',()=>{const c=lessons.find(c=>c.type==='combustion');const metals=c.required.filter(k=>!['S','P','C','CO'].some(x=>k.startsWith(x+':'))),nonmetals=c.required.filter(k=>!metals.includes(k));const s=migrateEight(c,{2:{evidence:metals,answer:2,quizOpen:true},3:{evidence:nonmetals,answer:3,quizOpen:true}});assert.ok(isReady(c,s));assert.equal(s.quizOpen,false);assert.equal(s.answer,null);assert.equal(materialCases.combustion.length,7);});
-test('renumbering the later chapters preserves progress by previous card identity',()=>{for(const c of lessons.filter(c=>c.id>2)){const s=migrateEight(c,{[c.previousId]:{evidence:c.required,answer:c.quiz.answer,quizOpen:true}});assert.ok(isReady(c,s));assert.equal(s.answer,c.quiz.answer);assert.equal(s.quizOpen,true);}});
+import {lessons,casesForLesson,migrateEight,restoreLessonState,isReady} from '../dist/journey-cards.js';
+test('splitting the labs preserves old observations but never copies the metal quiz answer to the nonmetal quiz',()=>{
+ const metal=lessons.find(c=>c.sampleGroup==='metals'),nonmetal=lessons.find(c=>c.sampleGroup==='nonmetals');
+ const raw={2:{selected:'S',evidence:['Na:burn','Na:wet','S:burn','S:ph'],combustionDemoSeen:['Na','S'],combustionDemoSample:'S',combustionMode:'practice',quizRevision:2,answer:1,quizOpen:true}};
+ const a=restoreLessonState(metal,raw),b=restoreLessonState(nonmetal,raw);
+ assert.ok(isReady(metal,a));assert.ok(isReady(nonmetal,b));
+ assert.deepEqual(a.evidence,['Na:burn','Na:wet']);assert.deepEqual(b.evidence,['S:burn','S:ph']);
+ assert.equal(a.selected,'Na');assert.equal(b.selected,'S');
+ assert.equal(a.answer,1);assert.equal(b.answer,null);assert.equal(b.quizOpen,false);
+ assert.deepEqual(a.combustionDemoSeen,['Na']);assert.deepEqual(b.combustionDemoSeen,['S']);
+ assert.deepEqual(casesForLesson(metal).map(([key])=>key),['Na','Mg','Zn','Cu']);
+ assert.deepEqual(casesForLesson(nonmetal).map(([key])=>key),['S','P','C']);
+ const own={...b,selected:'P',evidence:['P:burn'],quizRevision:1,answer:3};
+ assert.equal(restoreLessonState(nonmetal,{...raw,8:own}).selected,'P');
+ assert.deepEqual(restoreLessonState(nonmetal,{...raw,8:own}).evidence,['P:burn']);
+ const old={2:{evidence:metal.required},3:{evidence:nonmetal.required}};
+ assert.ok(isReady(metal,migrateEight(metal,old)));assert.ok(isReady(nonmetal,migrateEight(nonmetal,old)));
+});
+test('renumbering the later chapters preserves progress by previous card identity',()=>{for(const c of lessons.filter(c=>c.id>2&&c.previousId)){const s=migrateEight(c,{[c.previousId]:{evidence:c.required,answer:c.quiz.answer,quizOpen:true}});assert.ok(isReady(c,s));assert.equal(s.answer,c.quiz.answer);assert.equal(s.quizOpen,true);}});

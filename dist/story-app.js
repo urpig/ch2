@@ -1,34 +1,41 @@
-import {notebookMarkup} from './story-dialogue.js';
+import {chapterKicker} from './chapter-heading.js';
+import {notebookMarkup,storyDialogue} from './story-dialogue.js';
+import {mountUniformDialogue} from './dialogue-sizing.js';
 import {mountIronAffinity,resetIronAffinity} from './iron-affinity-workshop.js';
 import {mountTerminology} from './terminology.js';
 import {mountStoryEnding} from './story-ending.js';
 import {createPracticeArea} from './chapter-practice.js';
 import {mountForgePrep,savedIronComparison} from './forge-prep.js';
+import {mountOxideStability} from './oxide-stability.js';
 import {upgradeInteractiveLab} from './lab-upgrade.js';
-import {lessons,materialCases,freshState,restoreState,isReady,isMastered,migrateLegacy,migrateEight} from './journey-cards.js';
+import {lessons,materialCases,freshState,restoreState,restoreLessonState,isReady,isMastered,migrateLegacy,migrateEight} from './journey-cards.js';
+import {chapterSequence,chapterNumber} from './lesson-sequence.js';
 import {mountBurn} from './hands-on-burn.js';
 import {mountCombustionLesson} from './combustion-lesson.js';
 import {mountNarrative} from './narrative-labs.js';
 const $=id=>document.getElementById(id),storageKey='lost-forge-hands-on-7-v3';
-let raw={},canStore=true,current='card-1',prepProgress={},lifeCount=0,lifeObserved=false;try{raw=JSON.parse(localStorage.getItem(storageKey)||'{}');}catch{canStore=false;}
+let raw={},canStore=true,current='card-1',prepProgress={},lifeCount=0,lifeObserved=false,stabilityProgress={};try{raw=JSON.parse(localStorage.getItem(storageKey)||'{}');}catch{canStore=false;}
 let legacy={};try{legacy=JSON.parse(localStorage.getItem('lost-forge-hands-on-9-v1')||'{}');}catch{}
 let previousEight={};try{previousEight=JSON.parse(localStorage.getItem('lost-forge-hands-on-8-v2')||'{}');}catch{}
-const states=lessons.map(c=>raw[c.id]?restoreState(c,raw[c.id]):Object.keys(previousEight).length?migrateEight(c,previousEight):migrateLegacy(c,legacy)),cards=[];
-const visibleLessons=lessons.filter(c=>c.id!==4);
-const displayNumber=c=>c.id===1?'序章':String(visibleLessons.indexOf(c)+2).padStart(2,'0');
+const states=lessons.map(c=>restoreLessonState(c,raw)||(Object.keys(previousEight).length?migrateEight(c,previousEight):migrateLegacy(c,legacy))),cards=[];
+const visibleLessons=chapterSequence.filter(step=>step.lessonId).map(step=>lessons.find(c=>c.id===step.lessonId));
+const displayNumber=c=>chapterNumber('card-'+c.id);
 const fromLesson=c=>({id:'card-'+c.id,number:displayNumber(c),title:c.title,act:c.act,practice:'practice-card-'+c.id,lesson:c});
-const [ore,combustion,iron,furnace,blade]=visibleLessons.map(fromLesson);
+const [ore,combustion,nonmetalCombustion,furnace,blade,rust]=visibleLessons.map(fromLesson);
 const intro={id:'forge-prep',number:'01',title:'認識氧化反應',act:'工坊試煉｜從觀察開始',question:'木炭燃燒和鐵釘生鏽，都是氧化嗎？',practice:'practice-prep-a',progressKey:'oxidation'};
 const activity={id:'metal-activity',number:'02',title:'比較元素活性',act:'工坊試煉｜用觀察比較',question:'在相同條件下，哪些元素比較容易反應？',practice:'practice-prep-b',progressKey:'activity'};
-const transfer={id:'forge-prep-c',number:'03A',title:'氧化與還原總是一起發生',act:'跟著氧找線索｜氧的去向',question:'氧化銅的氧如果被帶走，會跑到哪裡？',practice:'practice-prep-c',progressKey:'transfer'};
-const life={id:'life-redox',number:'03B',title:'生活中的氧化還原',act:'跟著氧找線索｜回到生活',question:'細胞、漂白和蘋果褐變裡，哪兩方一起改變？',practice:'practice-prep-d'};
-const lessonRoute=[ore,intro,activity,combustion,transfer,life,iron,furnace,blade];
+const stability={id:'oxide-stability',number:chapterNumber('oxide-stability'),title:'元素活性與氧化物的安定性',act:'接著想一想｜反應前與反應後',question:'元素容易與氧反應，形成的氧化物也容易失去氧嗎？',practice:'practice-oxide-stability'};
+const transfer={id:'forge-prep-c',number:chapterNumber('forge-prep-c'),title:'氧化與還原總是一起發生',act:'跟著氧找線索｜氧的去向',question:'從反應式追蹤氧：碳如何把氧化銀變回銀？',practice:'practice-prep-c',progressKey:'transfer'};
+const magnesium={id:'magnesium-co2',number:chapterNumber('magnesium-co2'),title:'鎂在二氧化碳中繼續燃燒',act:'跟著氧找線索｜鎂與二氧化碳',question:'二氧化碳能隔絕空氣，為什麼鎂還能在裡面燃燒？',practice:'practice-prep-c-magnesium',progressKey:'magnesium'};
+const life={id:'life-redox',number:chapterNumber('life-redox'),title:'生活中的氧化還原',act:'跟著氧找線索｜回到生活',question:'細胞、漂白和蘋果褐變裡，哪兩方一起改變？',practice:'practice-prep-d'};
+const lessonRoute=[ore,intro,activity,combustion,nonmetalCombustion,stability,transfer,magnesium,life,furnace,blade,rust];
 const {section:practice,addQuestion,orderQuestions}=createPracticeArea();
 const ending={id:'story-ending',number:'續章',title:'鹽場的新難題'};
 const review={id:practice.id,number:'練習',title:'小試身手'};
 const mastered=c=>isMastered(c,states[c.id-1]);
 function stepComplete(step){
  if(step.lesson)return mastered(step.lesson);
+ if(step===stability)return Boolean(stabilityProgress.mastered);
  return step===life?Boolean(lifeCount):Boolean(prepProgress[step.progressKey]);
 }
 function save(){try{localStorage.setItem(storageKey,JSON.stringify(Object.fromEntries(lessons.map(c=>[c.id,states[c.id-1]]))));}catch{canStore=false;}route();}
@@ -40,7 +47,7 @@ function route(){
  $('mastery-progress').value=completed;
  $('route').innerHTML=[...lessonRoute,ending,review].map(step=>{
   const done=stepComplete(step);
-  const ready=step.lesson?isReady(step.lesson,states[step.lesson.id-1]):step===life?lifeObserved:Boolean(prepProgress[{oxidation:'observedOxidation',activity:'observedActivity',transfer:'observedTransfer'}[step.progressKey]]);
+  const ready=step.lesson?isReady(step.lesson,states[step.lesson.id-1]):step===stability?Boolean(stabilityProgress.observed):step===life?lifeObserved:Boolean(prepProgress[{oxidation:'observedOxidation',activity:'observedActivity',transfer:'observedTransfer',magnesium:'observedMagnesium'}[step.progressKey]]);
   const icon=step===ending||step===review?'↗':done?'✓':ready?'◉':'○';
   return `<a href="#${step.id}" ${current===step.id?'aria-current="step"':''} class="${done?'mastered':''}"><span>${step.number}</span><span>${step.title}</span><i>${icon}</i></a>`;
  }).join('');
@@ -59,8 +66,8 @@ function createCard(step){
  return article;
 }
 const nextLabel={
- 'card-1':'先認識氧化反應','forge-prep':'02 比較元素活性','metal-activity':'03 觀察燃燒與產物','card-2':'追蹤氧去了哪裡','forge-prep-c':'到生活中找氧化還原',
- 'life-redox':'回到礦石，找出能取回鐵的材料','card-3':'把取回鐵的線索帶進高爐','card-6':'獻上寶劍，聽見新的難題'
+ 'card-1':'先認識氧化反應','forge-prep':'02 比較元素活性','metal-activity':'03A 觀察金屬燃燒','card-2':'03B 觀察非金屬燃燒','card-8':'04 比較氧化物的安定性','oxide-stability':'05 追蹤氧去了哪裡','forge-prep-c':'05B 鎂在二氧化碳中燃燒','magnesium-co2':'到生活中找氧化還原',
+ 'life-redox':'07 看見爐內的分工','card-6':'09 守住寶劍，讓它遠離鐵鏽','card-7':'獻上寶劍，聽見新的難題'
 };
 function chapterFooter(step){
  const i=lessonRoute.indexOf(step),previous=lessonRoute[i-1],next=lessonRoute[i+1]||ending;
@@ -69,7 +76,7 @@ function chapterFooter(step){
 function mountInquiryCard(step){
  const article=createCard(step);
  article.classList.add('inquiry-lesson');
- article.innerHTML=`<header class="chapter-header"><div class="chapter-kicker"><span>${step.act}</span><span>${step.number}</span></div><h2 id="${step.id}-title">${step.title}</h2><p class="core-question">${step.question}</p></header><div class="chapter-body"></div>${chapterFooter(step)}`;
+ article.innerHTML=`<header class="chapter-header">${chapterKicker(step.number)}<h2 id="${step.id}-title">${step.title}</h2><p class="core-question">${step.question}</p></header><div class="chapter-body"></div>${chapterFooter(step)}`;
  return article.querySelector('.chapter-body');
 }
 function combustionProcedure(){
@@ -90,7 +97,7 @@ function mount(step){
  function record(k){if(!c.required.includes(k))return;if(!has(k))s.evidence.push(k);sync();save();}
  function notice(t){const status=find('.observation-status');if(status)status.textContent=t;}
  function renderLab(){cancel();notice('先讀取場景，再直接拖動物件，看看發生什麼。');const context={s,has,record,notice,delay,persist:save,setCase:(key,autoLoad,spoonOrigin=null)=>{s.selected=key;s.autoLoad=autoLoad;s.spoonOrigin=spoonOrigin;renderLab();save();},onCleanup:f=>cleanup.push(f)};if(c.id===3){mountIronAffinity(find('.interactive-lab'),{...context,comparison:savedIronComparison});return;}if(c.type==='combustion')mountCombustionLesson(find('.interactive-lab'),c,context);else if(['metals','nonmetals'].includes(c.type))mountBurn(find('.interactive-lab'),c,context);else mountNarrative(find('.interactive-lab'),c,context);cleanup.push(upgradeInteractiveLab(find('.interactive-lab'),c,context));find('.case-rack')?.querySelectorAll('[data-case]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.case===s.selected)));}
- function render(){article.innerHTML=`<header class="chapter-header"><div class="chapter-kicker"><span>${c.act}</span><div class="chapter-actions">${c.id===1?'':`<span>${c.day} · ${step.number} / ${blade.number}</span>`}</div></div><h2 id="${article.id}-title">${c.title}</h2><p class="core-question">${c.question}</p></header><div class="chapter-body"><div class="story-scene-intro ${c.id===1?'with-forge-scene':''}">${c.id===1?$('locked-forge-scene').innerHTML:''}<div class="story-scene-copy">${c.opening?`<p class="opening">${c.opening}</p>`:''}<div class="story-dialogue" aria-label="小葵與阿公的對話">${c.dialogue.map(([who,line])=>`<div class="story-speech story-speech--${who}"><span class="story-portrait story-portrait--${who}" data-expression="${c.portraits[who]}" aria-hidden="true"></span><p><b>${who==='kui'?'小葵':'阿公'}</b>${line}</p></div>`).join('')}</div></div></div><div data-prediction-activity >${c.type==='combustion'?combustionProcedure():`<div class="interaction-instruction"><span class="hand-icon">↔</span><p>${c.task}</p></div>`}${materialCases[c.type]&&!['combustion','redox','steel'].includes(c.type)?`<div class="case-rack" role="group" aria-label="選擇代表案例">${materialCases[c.type].map(([key,label])=>`<button data-case="${key}" aria-pressed="${s.selected===key}"><span class="case-symbol">${({CO:'C',ZnCu:'Zn',CuZn:'Cu',alone:'CuO',carbon:'C',wrought:'Fe',pig:'Fe–C',steel:'鋼',normal:'①',stress:'②'})[key]||key}</span><span>${label}</span></button>`).join('')}</div>`:''}<div class="interactive-lab-frame"><div class="interaction-reset-bar"><button type="button" class="card-reset" data-reset aria-label="重設${step.number}：${c.title}">↺ 重設本卡</button></div><div class="interactive-lab"></div></div>${[1,2,3,5,6].includes(c.id)?'':'<p class="observation-status" aria-live="polite"></p>'}</div>${notebookMarkup(c.id)}</div>${chapterFooter(step)}`;
+ function render(){article.innerHTML=`<header class="chapter-header">${chapterKicker(step.number)}<h2 id="${article.id}-title">${c.title}</h2><p class="core-question">${c.question}</p></header><div class="chapter-body"><div class="story-scene-intro ${c.id===1?'with-forge-scene':''}">${c.id===1?$('locked-forge-scene').innerHTML:''}<div class="story-scene-copy">${c.opening?`<p class="opening">${c.opening}</p>`:''}<div class="story-dialogue" aria-label="小葵與阿公的對話">${c.dialogue.map(([who,line])=>`<div class="story-speech story-speech--${who}"><span class="story-portrait story-portrait--${who}" data-expression="${c.portraits[who]}" aria-hidden="true"></span><p><b>${who==='kui'?'小葵':'阿公'}</b>${line}</p></div>`).join('')}</div></div></div><div data-prediction-activity >${c.type==='combustion'?combustionProcedure():c.id===1?'':`<div class="interaction-instruction"><span class="hand-icon">↔</span><p>${c.task}</p></div>`}${materialCases[c.type]&&!['combustion','redox','steel'].includes(c.type)?`<div class="case-rack" role="group" aria-label="選擇代表案例">${materialCases[c.type].map(([key,label])=>`<button data-case="${key}" aria-pressed="${s.selected===key}"><span class="case-symbol">${({CO:'C',ZnCu:'Zn',CuZn:'Cu',alone:'CuO',carbon:'C',wrought:'Fe',pig:'Fe–C',steel:'鋼',normal:'①',stress:'②'})[key]||key}</span><span>${label}</span></button>`).join('')}</div>`:''}<div class="interactive-lab-frame"><div class="interaction-reset-bar"><button type="button" class="card-reset" data-reset aria-label="重設${step.number}：${c.title}">↺ 重設本卡</button></div><div class="interactive-lab"></div></div>${[1,2,3,5,6,7,8].includes(c.id)?'':'<p class="observation-status" aria-live="polite"></p>'}</div>${c.id===1?`<div data-ore-explanation hidden>${storyDialogue('「敲碎之後還是一樣的石頭呀。」','「是的，因為鐵礦石是由氧化鐵（Fe₂O₃）組成的，需要靠化學反應才能變成鐵金屬喔！」')}</div>`:''}${notebookMarkup(c.id)}</div>${chapterFooter(step)}`;
  find('.case-rack')?.addEventListener('click',e=>{const b=e.target.closest('[data-case]');if(!b)return;s.selected=b.dataset.case;s.tab='burn';renderLab();save();});
  find('[data-enter-studio]')?.addEventListener('click',()=>{find('.combustion-studio').scrollIntoView({block:'start',behavior:'instant'});find('.combustion-studio').focus({preventScroll:true});});
  article.querySelectorAll('[data-reset]').forEach(b=>b.addEventListener('click',()=>{cancel();if(c.id===3)resetIronAffinity();s=freshState(c);states[c.id-1]=s;render();save();notice('已重設本卡，可以重新操作。');find('.interaction-reset-bar [data-reset]').focus({preventScroll:true});}));
@@ -98,6 +105,7 @@ function mount(step){
  function sync(){
   const ready=isReady(c,s);
   find('.kui-notebook').hidden=!ready;
+  const oreExplanation=find('[data-ore-explanation]');if(oreExplanation)oreExplanation.hidden=!ready;
   const keys=c.coreRequired||c.required;
   const missing=keys.filter(k=>!has(k)).map(k=>c.id===6?({pig:'生鐵',steel:'鋼鐵',wrought:'熟鐵'})[k]+'刀的卸載結果':c.labels[c.required.indexOf(k)]);
   syncQuiz(s.answer,ready,missing.length?'還差 '+missing.join('、')+'。回看操作完成後再來作答。':'');
@@ -108,12 +116,14 @@ function mount(step){
 
 $('lesson').addEventListener('prep-progress',e=>{prepProgress=e.detail;route();});
 $('lesson').addEventListener('life-progress',e=>{lifeCount=Boolean(e.detail?.mastered);lifeObserved=Boolean(e.detail?.observed);route();});
+$('lesson').addEventListener('oxide-stability-progress',e=>{stabilityProgress=e.detail;route();});
 const inquiryBodies={};
 for(const step of lessonRoute){
  if(step.lesson)mount(step);
  else inquiryBodies[step.id]=mountInquiryCard(step);
 }
-mountForgePrep({intro:inquiryBodies[intro.id],activityRoot:inquiryBodies[activity.id],transfer:inquiryBodies[transfer.id],lifeRoot:inquiryBodies[life.id]},addQuestion);
+mountForgePrep({intro:inquiryBodies[intro.id],activityRoot:inquiryBodies[activity.id],transfer:inquiryBodies[transfer.id],magnesiumRoot:inquiryBodies[magnesium.id],lifeRoot:inquiryBodies[life.id]},addQuestion);
+mountOxideStability(inquiryBodies[stability.id],addQuestion);
 $('card-6').before($('forged-sword-scene').content.cloneNode(true));
 mountStoryEnding($('lesson')).dataset.card=ending.id;
 cards.push($(ending.id));
@@ -122,6 +132,7 @@ $('lesson').append(practice);
 cards.push(practice);
 route();
 mountTerminology();
+mountUniformDialogue();
 
 function activate(id){
  if(current===id)return;
@@ -131,7 +142,7 @@ function activate(id){
   else link.removeAttribute('aria-current');
  }
 }
-const formerAnchors={'card-4':'card-5','practice-terms':'practice-prep-c'};
+const formerAnchors={'card-3':'card-5','card-4':'card-5','practice-terms':'practice-prep-c'};
 function alignRoute(){
  const id=location.hash.slice(1);
  if(!id)return;

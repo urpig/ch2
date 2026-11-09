@@ -4,7 +4,6 @@ export const activitySamples=oxygenAffinitySeries.filter(({symbol})=>symbol!=='H
 
 export const metalConditions=[
  {id:'cold',name:'冷水',label:'冷水'},
- {id:'hot',name:'熱水',label:'熱水'},
  {id:'dilute',name:'稀酸',label:'稀鹽酸'},
  {id:'concentrated',name:'濃酸',label:'室溫濃硝酸'},
  {id:'aqua',name:'王水',label:'王水'}
@@ -14,11 +13,7 @@ export const activityComparisons=[
  {id:'samples',title:'同樣是冷水，換兩種樣本',fixed:'保持冷水相同',changed:'改變樣本',
   prompt:'先讓鈉和鎂都遇到冷水。條件相同，才能比較這兩種樣本。',
   question:'同樣的冷水裡，哪一種樣本的氣泡比較明顯？',
-  trials:[{symbol:'Na',condition:'cold'},{symbol:'Mg',condition:'cold'}]},
- {id:'temperature',title:'同樣是鎂，換冷水和熱水',fixed:'保持鎂樣本相同',changed:'改變水溫',
-  prompt:'這次都用鎂，只把冷水換成熱水。看看水溫會不會影響反應。',
-  question:'同樣是鎂，水溫改變後，氣泡有什麼不同？',
-  trials:[{symbol:'Mg',condition:'cold'},{symbol:'Mg',condition:'hot'}]}
+  trials:[{symbol:'Na',condition:'cold'},{symbol:'Mg',condition:'cold'}]}
 ];
 
 export function activityComparisonReady(records,id){
@@ -34,7 +29,7 @@ export const activityQuiz={
  question:'在同樣的冷水裡，鈉很快冒氣泡，鎂的反應很不明顯。這組觀察能支持哪個說法？',
  options:['在這組條件下，鈉比鎂容易反應','鈉有氣泡，就代表一定看得到火焰','鎂對冷水反應不明顯，所以任何條件下都不會反應','兩種金屬顏色相近，所以活性一樣'],
  answer:0,
- reason:'用相同條件比較，鈉比鎂容易和冷水反應。換成熱水時，鎂也能慢慢放出氫氣。'
+ reason:'在同樣的冷水裡，鈉比鎂容易反應；換成酸，鎂也能明顯反應。'
 };
 
 const still=['still','樣本外觀在這段時間內沒有明顯改變。'];
@@ -46,7 +41,7 @@ const aquaDissolve=['dissolve','王水會氧化並溶解這種金屬，樣本逐
 const vigorousAcid=['violent','接觸含水強酸時可能劇烈放熱、產氣，使酸液噴濺。金屬逐漸被消耗，溶液中仍有反應產物。','acid-splash'];
 const stableFilm=['protected','表面的氧化膜保護了金屬，短時間外觀變化很小。'];
 const potassiumWater=['rapid','鉀在水面快速冒出氫氣，可能出現淡紫色火焰。鉀逐漸被消耗，水中留下氫氧化鉀。','water-reactive'];
-const sodiumWater=['rapid','鈉在水面快速滑動、冒出氫氣，熔成小球後逐漸變小。水中留下氫氧化鈉。','water-reactive'];
+const sodiumWater=['rapid','鈉在水面快速滑動、冒出氫氣，熔成小球；可能短暫出現黃色小火焰。鈉逐漸變小，水中留下氫氧化鈉。','water-reactive'];
 
 // Observations use the representative conditions shown in the card.
 const reactions={
@@ -57,12 +52,6 @@ const reactions={
   Al:stableFilm,C:still,Zn:still,Cr:stableFilm,
   Fe:['still','短時間外觀變化不明顯。鐵鏽需要氧氣、水與較長時間形成。'],
   Sn:still,Pb:still,Cu:still,Hg:still,Ag:still,Pt:still,Au:still
- },
- hot:{
-  K:potassiumWater,Na:sodiumWater,
-  Ca:['cloudy','鈣放出氫氣，生成氫氧化鈣。'],
-  Mg:['slow','鎂表面慢慢冒出氫氣，形成氫氧化鎂。'],
-  Al:stableFilm,C:still,Zn:still,Cr:stableFilm,Fe:still,Sn:still,Pb:still,Cu:still,Hg:still,Ag:still,Pt:still,Au:still
  },
  dilute:{
   K:['rapid','鉀與稀鹽酸快速放熱、產生氫氣，酸液可能噴濺。','acid-splash'],

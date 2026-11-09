@@ -1,3 +1,5 @@
+import {chapterKicker} from './chapter-heading.js';
+
 export function createPracticeArea() {
  const section=document.createElement('section');
  section.id='chapter-practice';
@@ -5,7 +7,7 @@ export function createPracticeArea() {
  section.className='exploration-card chapter-practice';
  section.tabIndex=-1;
  section.setAttribute('aria-labelledby','chapter-practice-title');
- section.innerHTML=`<header class="chapter-header"><div class="chapter-kicker"><span>全章練習</span></div><h2 id="chapter-practice-title">小試身手</h2><p class="core-question">用各單元的觀察，回答下面的問題。</p></header>
+ section.innerHTML=`<header class="chapter-header">${chapterKicker('練習')}<h2 id="chapter-practice-title">小試身手</h2><p class="core-question">用各單元的觀察，回答下面的問題。</p></header>
  <div class="chapter-body practice-list"></div>
  <footer class="chapter-footer"><a class="previous" href="#chapter-top">回到故事起點 ↑</a></footer>`;
  const list=section.querySelector('.practice-list');
@@ -30,7 +32,7 @@ export function createPracticeArea() {
    explain.hidden=true;
   };
   buttons.forEach((button,i)=>button.addEventListener('click',()=>onAnswer(i)));
-  return (answer,ready=true,remaining='')=>{
+  const sync=(answer,ready=true,remaining='')=>{
    body.hidden=!ready;
    locked.hidden=ready;
    locked.textContent=remaining||'先完成原卡的觀察，再回來用證據作答。';
@@ -59,6 +61,8 @@ export function createPracticeArea() {
    explain.hidden=!ready||answer===null||correct;
    if(followup) followup.hidden=!correct;
   };
+  sync.card=card;
+  return sync;
  }
  function orderQuestions(ids) {
   for(const id of ids)list.append(list.querySelector('#'+id));

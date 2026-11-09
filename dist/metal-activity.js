@@ -68,13 +68,14 @@ function sceneEffects(condition,trial,phase,incident=false){
  const shrink=remaining[effect]??1;
  return `
   ${incident&&showChange?'<span class="activity-broken-beaker" data-activity-broken></span>':''}
-  ${incident?'':`<span class="activity-liquid${tinted?' is-tinted':''}${condition==='aqua'?' is-aqua':''}"${tinted?` style="--activity-liquid-color:${tinted}"`:''}></span>`}
+  ${!incident&&condition==='aqua'?'<span class="activity-liquid activity-liquid-base is-aqua"></span>':''}
+  ${incident?'':`<span class="activity-liquid${tinted?' is-tinted':''}"${tinted?` style="--activity-liquid-color:${tinted}"`:''}></span>`}
   ${sample?`<span class="activity-material${surface?' floats':''}${incident?' is-scattering':''}${melts?' is-melting':''}${showChange&&effect==='coating'?' is-coated':''}" style="--activity-sample-after:${shrink};--activity-sample-opacity:${shrink===0?0:1}">${sample}${melts?'<span class="activity-molten-sodium"></span>':''}</span>`:''}
   ${phaseChange?`<span class="activity-diffusion" style="--diffusion-color:${tinted}"><i></i><i></i></span>`:''}
   ${showForceps?'<span class="activity-forceps"></span>':''}
   ${sample&&underway&&!incident?'<span class="activity-ripple"><i></i><i></i></span>':''}
   ${bubbles?`<span class="activity-bubbles${surface?' floats':''}">${Array.from({length:bubbles},(_,i)=>`<i style="--bubble-x:${42+i*17%19}%;--bubble-size:${2+i%7*.61}px;--bubble-drift:${(i*27%40)-20}px;--bubble-rise:${78+i*7%26}%;--bubble-delay:${540+i*39}ms;--bubble-time:${480+i%5*86}ms"></i>`).join('')}</span>`:''}
-  ${underway&&surface&&trial.symbol==='K'?`<img class="activity-potassium-flame" src="${affinityBenchArt.flame}" alt="" draggable="false">`:''}
+  ${underway&&surface&&['K','Na'].includes(trial.symbol)?`<img class="activity-potassium-flame${trial.symbol==='Na'?' activity-sodium-flame':''}" src="${affinityBenchArt.flame}" alt="${trial.symbol==='Na'?'短暫的黃色小火焰':'淡紫色火焰'}" draggable="false">`:''}
   ${fumes?'<span class="activity-fumes"><i></i><i></i><i></i><i></i><i></i></span>':''}
   ${sample&&showChange&&!incident?'<span class="activity-glass-glint"></span>':''}
   ${underway&&hazard==='acid-splash'?liquidBurst(incident):''}`;
@@ -92,8 +93,7 @@ function observationMarkup(trial,phase,incident=false){
 }
 
 function benchActions(phase,incident=false){
- return `<button type="button" data-activity-before>${incident?'回到一般觀察':phase==='before'?'看觀察結果':'回看加入前'}</button>
-  <button type="button" data-activity-replay>↻ ${incident?'重播風險示意':'重播觀察'}</button>`;
+ return `<button type="button" data-activity-replay>↻ ${incident?'重播風險示意':'重播觀察'}</button>`;
 }
 
 function shownTrial(s){
@@ -108,13 +108,14 @@ export function metalActivityMarkup(s){
  const safety=safetyNote(condition,trial?.symbol);
  return `<div class="metal-activity">
   <div class="inquiry-question"><p aria-label="元素對氧活性排列"><strong>活性大小：</strong>鉀 ＞ 鈉 ＞ 鈣 ＞ 鎂 ＞ 鋁 ＞ 碳 ＞ 鋅 ＞ 鉻 ＞ 鐵 ＞ 錫 ＞ 鉛 ＞ 氫 ＞ 銅 ＞ 汞 ＞ 銀 ＞ 鉑 ＞ 金</p></div>
-  ${storySpeech('grandpa','「活性大的物質，如鉀、鈉，遇到冷水就會反應。有些活性較小的金屬要用酸，像金就要用王水才能溶解喔！接下來，我先示範把鉀放到冷水裡。」')}
-  <p><button type="button" class="primary" data-activity-demo>▶ 看阿公示範：鉀 ＋ 冷水</button></p>
+  ${storySpeech('grandpa','「活性大的物質，如鉀、鈉，遇到冷水就會反應。鎂、鋅、鐵可以和稀鹽酸反應；銅、銀不和稀鹽酸反應，但可以和濃硝酸反應；金則可用王水溶解喔！下面我先操作鉀遇到冷水時的反應給你看。」')}
+  <aside class="activity-observe-note" aria-label="注意觀察"><strong>注意觀察</strong><p><b class="observe-metals">鉀、鈉</b>，遇到冷水就會反應。<br><b class="observe-metals">鎂、鋅、鐵</b>則要用稀鹽酸才會反應。<br><b class="observe-metals">銅、銀</b>要用到濃硝酸才會反應。<br><b class="observe-metals">金</b>則是只能被王水溶解，其他都不反應。</p></aside>
+  <p class="activity-demo-launch"><button type="button" class="primary" data-activity-demo>▶ 看阿公示範：鉀 ＋ 冷水</button></p>
   <section class="activity-bench" aria-label="元素活性比較實驗">
 
    <div class="activity-controls">
     <h5><span>1</span> 選反應條件</h5>
-    <div class="activity-conditions" role="group" aria-label="選擇反應條件">${metalConditions.map((item,i)=>`<button type="button" data-activity-condition="${item.id}" aria-pressed="${item.id===condition}"><small aria-hidden="true">${s.activitySeen.includes(item.id)?'✓':String(i+1).padStart(2,'0')}</small><span>${item.name}</span></button>`).join('')}</div>
+    <div class="activity-conditions" role="group" aria-label="選擇反應條件">${metalConditions.map((item,i)=>item.id==='aqua'?`<div class="activity-aqua-choice"><button type="button" data-activity-condition="${item.id}" aria-pressed="${item.id===condition}"><small aria-hidden="true">${s.activitySeen.includes(item.id)?'✓':String(i+1).padStart(2,'0')}</small><span class="activity-term-label">${item.name}</span></button></div>`:`<button type="button" data-activity-condition="${item.id}" aria-pressed="${item.id===condition}"><small aria-hidden="true">${s.activitySeen.includes(item.id)?'✓':String(i+1).padStart(2,'0')}</small><span>${item.name}</span></button>`).join('')}</div>
    </div>
    <div class="activity-workspace">
     <div class="activity-shelf">
@@ -125,7 +126,7 @@ export function metalActivityMarkup(s){
     <section class="activity-stage" data-activity-stage data-phase="${phase}" aria-label="觀察台">
      <header class="activity-stage-head">
       <div class="activity-stage-title"><small>觀察台</small><b>玻璃燒杯 · ${conditionLabel(condition)}</b></div>
-      <div class="activity-stage-controls"><span data-activity-phase>${trial?'觀察結果':'等待樣本'}</span><div class="activity-actions" data-activity-actions ${trial?'':'hidden'}>${benchActions(phase)}</div></div>
+      <div class="activity-stage-controls"><div class="activity-actions" data-activity-actions ${trial?'':'hidden'}>${benchActions(phase)}</div></div>
      </header>
      <div class="activity-camera">
       <div class="activity-effects" data-activity-effects aria-hidden="true">${sceneEffects(condition,trial,phase)}</div>
@@ -149,7 +150,6 @@ export function bindMetalActivity(root,s,update,{demo=false}={}){
  const camera=stage.querySelector('.activity-camera');
  const observation=stage.querySelector('#activity-observation');
  const hazardBadge=stage.querySelector('[data-activity-hazard]');
- const phaseLabel=stage.querySelector('[data-activity-phase]');
  const actions=stage.querySelector('[data-activity-actions]');
  const rack=root.querySelector('.activity-rack');
  const status=stage.querySelector('[data-activity-message]');
@@ -183,7 +183,6 @@ export function bindMetalActivity(root,s,update,{demo=false}={}){
   stopSpray();
   showingIncident=incident;
   stage.dataset.phase=phase;
-  phaseLabel.textContent={before:'加入前',running:'觀察中',after:'觀察結果'}[phase];
   effects.innerHTML=sceneEffects(condition,trial,phase,incident);
   const splash=effects.querySelector('[data-activity-splash]');
   if(splash)stopSpray=playActivitySpray(splash,{aqua:condition==='aqua',rupture:incident});
@@ -276,11 +275,6 @@ export function bindMetalActivity(root,s,update,{demo=false}={}){
   const trial=shownTrial(s);
   if(button.hasAttribute('data-activity-replay'))run(trial,'[data-activity-replay]',showingIncident);
   if(button.hasAttribute('data-activity-incident'))run(trial,'[data-activity-replay]',true);
-  if(button.hasAttribute('data-activity-before')){
-   select(null);
-   paint(trial,showingIncident||stage.dataset.phase==='before'?'after':'before');
-   actions.querySelector('[data-activity-before]').focus({preventScroll:true});
-  }
  });
  function syncRackNav(){
   nav[0].disabled=rack.scrollLeft<2;

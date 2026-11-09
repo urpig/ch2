@@ -8,7 +8,7 @@ function environment(t,{complete=false}={}){
  const toggle={disabled:true,setAttribute(){}},play={};
  const bar={setAttribute(){},querySelector:()=>toggle};
  const stage={getBoundingClientRect:()=>({top,bottom:top+400,height:400}),scrollIntoView(){top=200;}};
- const scene={dataset:{},closest:()=>null,querySelector:s=>s==='.observation-timeline'?bar:s==='[data-life-retry]'?play:stage};
+ const scene={dataset:{},scrollIntoView(){top=100;},closest:()=>null,querySelector:s=>s==='.observation-timeline'?bar:s==='[data-life-retry]'?play:stage};
  const descriptors=new Map();
  function stub(key,value){descriptors.set(key,Object.getOwnPropertyDescriptor(globalThis,key));Object.defineProperty(globalThis,key,{configurable:true,writable:true,value});}
  stub('window',{addEventListener:(key,fn)=>events.set(key,fn),removeEventListener:key=>events.delete(key)});

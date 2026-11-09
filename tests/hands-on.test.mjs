@@ -9,7 +9,7 @@ test('crushing the ore completes the prologue operation without requiring rotati
  assert.equal(isMastered(c,restoreState(c,s)),true);
  assert.equal(isReady(c,{...s,evidence:['ore']}),false);
 });
-test('six core inquiry cards cover the supplied story and retain one four-option quiz each',()=>{assert.equal(lessons.length,6);for(const [i,c] of lessons.entries()){assert.equal(c.id,i+1);for(const k of ['question','task','finding','explanation','bridge'])assert.ok(c[k].length>10);if([1,2,5,6].includes(c.id))assert.equal(c.opening,'');else assert.ok(c.opening.length>10);assert.equal(c.labels.length,c.required.length);assert.equal(c.quiz.options.length,4);assert.equal(new Set(c.quiz.explanations).size,4);}assert.ok(!lessons.some(c=>c.type==='rust'));assert.ok(!lessons.some(c=>['mass','cell'].includes(c.type)));});
+test('stored lesson definitions retain their identities and one four-option quiz each',()=>{assert.equal(lessons.length,8);for(const [i,c] of lessons.entries()){assert.equal(c.id,i+1);for(const k of ['question','task','finding','explanation','bridge'])assert.ok(c[k].length>10);if([1,2,5,6,7,8].includes(c.id))assert.equal(c.opening,'');else assert.ok(c.opening.length>10);assert.equal(c.labels.length,c.required.length);assert.equal(c.quiz.options.length,4);assert.equal(new Set(c.quiz.explanations).size,4);}assert.equal(lessons.find(c=>c.id===7).type,'rust');assert.ok(!lessons.some(c=>['mass','cell'].includes(c.type)));});
 test('core observations are all required while every extended material observation remains available',()=>{
  for(const c of lessons){
   const state=freshState(c);
@@ -17,13 +17,13 @@ test('core observations are all required while every extended material observati
   assert.equal(isReady(c,state),true);
  }
  const combustion=lessons.find(c=>c.type==='combustion');
- assert.deepEqual(combustion.coreRequired,['Na:burn','Na:wet','S:burn','S:ph']);
+ assert.deepEqual(combustion.coreRequired,['Na:burn','Na:wet']);
  for(const missing of combustion.coreRequired){
   const state={...freshState(combustion),evidence:combustion.required.filter(key=>key!==missing)};
   assert.equal(isReady(combustion,state),false);
  }
- for(const [key] of materialCases.combustion)assert.ok(combustion.required.includes(key+':burn')&&combustion.required.includes(key+(['S','C','CO'].includes(key)?':ph':':wet')));
- assert.equal(combustion.required.length,19);
+ for(const [key] of materialCases.metals)assert.ok(combustion.required.includes(key+':burn')&&combustion.required.includes(key+(['S','C','CO'].includes(key)?':ph':':wet')));
+ assert.equal(combustion.required.length,13);
  assert.ok(combustion.required.includes('Zn:cool'));
 });
 test('early answers survive reload without inventing observations or mastery',()=>{for(const c of lessons){const state={...freshState(c),evidence:[...c.required.filter(key=>key!==(c.coreRequired||c.required)[0]),'bogus'],quizOpen:true,answer:c.quiz.answer,selected:'bogus'};const s=restoreState(c,state);assert.equal(isReady(c,s),false);assert.equal(s.quizOpen,true);assert.equal(s.answer,c.quiz.answer);assert.equal(isMastered(c,s),false);assert.ok(!s.evidence.includes('bogus'));const full=restoreState(c,{...state,evidence:c.required});assert.equal(full.answer,c.quiz.answer);assert.equal(isMastered(c,full),true);for(const answer of [-1,9,NaN,'1'])assert.equal(restoreState(c,{...state,answer}).answer,null);}});

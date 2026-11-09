@@ -5,8 +5,8 @@ import {evidenceStudio} from '../dist/inquiry-studios.js';
 import {activityQuiz,activityReaction,activitySamples,metalConditions,activityComparisonsComplete,activityComparisonReady} from '../dist/metal-activity-model.js';
 import {metalActivityMarkup} from '../dist/metal-activity.js';
 
-test('all sixteen samples can be tested in the five supported conditions in teaching order',()=>{
- assert.deepEqual(metalConditions.map(item=>item.id),['cold','hot','dilute','concentrated','aqua']);
+test('all sixteen samples can be tested in the four supported conditions in teaching order',()=>{
+ assert.deepEqual(metalConditions.map(item=>item.id),['cold','dilute','concentrated','aqua']);
  assert.deepEqual(activitySamples.map(sample=>sample.symbol),['K','Na','Ca','Mg','Al','C','Zn','Cr','Fe','Sn','Pb','Cu','Hg','Ag','Pt','Au']);
  for(const {symbol} of activitySamples){
   for(const {id} of metalConditions){
@@ -24,7 +24,7 @@ test('all sixteen samples can be tested in the five supported conditions in teac
 test('activity observations distinguish changes due to the sample and reagent',()=>{
  assert.equal(activityReaction('Na','cold').effect,'rapid');
  assert.equal(activityReaction('Mg','cold').effect,'still');
- assert.equal(activityReaction('Mg','hot').effect,'slow');
+ assert.equal(activityReaction('Mg','hot'),null);
  assert.equal(activityReaction('Zn','dilute').effect,'gas');
  assert.equal(activityReaction('Cu','dilute').effect,'still');
  assert.equal(activityReaction('Cu','concentrated').effect,'blue');
@@ -39,7 +39,7 @@ test('routine water and acid results keep the beaker intact and only sodium with
  assert.doesNotMatch(metalActivityMarkup(s),/data-activity-broken/);
  const observation=(symbol,condition)=>metalActivityMarkup({...s,activityCondition:condition,activityRecords:[{symbol,condition}]});
  for(const symbol of ['K','Na']){
-  for(const condition of ['cold','hot']){
+  for(const condition of ['cold']){
    assert.equal(activityReaction(symbol,condition).hazard,'water-reactive');
    assert.doesNotMatch(observation(symbol,condition),/data-activity-broken|data-activity-incident/);
   }
@@ -73,17 +73,18 @@ test('activity progress restores valid free observations and rejects invalid ans
  assert.deepEqual(partial.activityRecords,[cold]);
  assert.equal(partial.activityAnswer,0);
  const complete=restoreInquiry({...raw,activityCondition:'hot',activitySeen:['cold','hot'],activityRecords:[cold,{symbol:'Mg',condition:'cold'},{symbol:'Mg',condition:'hot'}]});
- assert.equal(complete.activityCondition,'hot');
+ assert.equal(complete.activityCondition,'cold');
+ assert.deepEqual(complete.activityRecords,[cold,{symbol:'Mg',condition:'cold'}]);
  assert.equal(complete.activityAnswer,0);
  assert.equal(restoreInquiry({...complete,activityAnswer:4}).activityAnswer,null);
  assert.deepEqual(restoreInquiry({version:1}).activitySeen,[]);
 });
 
 test('activity keeps distinct observations across condition changes and migrates both legacy trays',()=>{
- const s=restoreInquiry({version:1,activityCondition:'aqua',activitySeen:['cold','hot'],activityTrials:[{symbol:'Na',condition:'cold'},{symbol:'Mg',condition:'hot'}]});
+ const s=restoreInquiry({version:1,activityCondition:'aqua',activitySeen:['cold','dilute'],activityTrials:[{symbol:'Na',condition:'cold'},{symbol:'Mg',condition:'dilute'}]});
  assert.equal(s.activityCondition,'aqua');
  const [latest,prior]=s.activityRecords;
- assert.deepEqual(latest,{symbol:'Mg',condition:'hot'});
+ assert.deepEqual(latest,{symbol:'Mg',condition:'dilute'});
  assert.deepEqual(prior,{symbol:'Na',condition:'cold'});
  const records=[{symbol:'H',condition:'cold'},{symbol:'unknown',condition:'cold'},{symbol:'Au',condition:'aqua'},latest,latest,prior,{symbol:'Fe',condition:'cold'}];
  assert.deepEqual(restoreInquiry({...s,activityRecords:records}).activityRecords,[latest,prior,{symbol:'Fe',condition:'cold'}]);
@@ -100,7 +101,7 @@ test('saved inquiry cannot skip evidence and old ranking credit cannot finish th
 
 test('legacy oxidation records keep credit for charcoal and rust observations',()=>{
  const all=['burn','rust','breath','ice'];
- const activityRecords=[{symbol:'Mg',condition:'hot'}];
+ const activityRecords=[{symbol:'Mg',condition:'cold'}];
  const saved=restoreInquiry({version:1,tab:1,selected:'ice',looked:all,sorted:all,activitySeen:['cold','hot'],activityRecords,activityAnswer:0});
  assert.deepEqual(saved.looked,['burn','rust']);
  assert.equal(saved.selected,'burn');
@@ -125,7 +126,7 @@ test('free exploration accepts any valid observation without guided tabs or comp
  const markup=metalActivityMarkup({...saved,activityComparison:'samples'});
  assert.doesNotMatch(markup,/activity-lesson-tabs|activity-comparison|組比較已觀察/);
  assert.equal((markup.match(/data-activity-sample=/g)||[]).length,16);
- assert.equal((markup.match(/data-activity-condition=/g)||[]).length,5);
+ assert.equal((markup.match(/data-activity-condition=/g)||[]).length,4);
  assert.doesNotMatch(metalActivityMarkup(freshInquiry()),/鈉在水面快速滑動/);
 });
 
@@ -167,4 +168,10 @@ test('restored role credit requires all oxygen transferred and keeps the selecte
  const s=freshInquiry();transferOxygen(s,'magnesium',0,1);s.transferRoles=['magnesium'];
  const partial=restoreInquiry(s);assert.deepEqual(partial.transferTargets.magnesium,[1]);assert.deepEqual(partial.transferRoles,[]);
  transferOxygen(s,'magnesium',1,0);assert.deepEqual(restoreInquiry(s).transferTargets.magnesium,[1,0]);
+});
+
+test('removed hot-water observations cannot restore a removed reagent or earn activity credit',()=>{
+ const saved=restoreInquiry({version:1,activityCondition:'hot',activitySeen:['hot'],activityRecords:[{symbol:'Na',condition:'hot'}],activityAnswer:0});
+ assert.equal(saved.activityCondition,'cold');assert.deepEqual(saved.activitySeen,[]);assert.deepEqual(saved.activityRecords,[]);assert.equal(saved.activityAnswer,null);
+ assert.doesNotMatch(metalActivityMarkup(saved),/data-activity-condition="hot"|熱水/);
 });

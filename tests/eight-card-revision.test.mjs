@@ -12,7 +12,7 @@ test('saved solid and gas observations unlock the core route while an old questi
  assert.equal(s.quizOpen,true);
  assert.equal(s.answer,null);
  assert.deepEqual(s.evidence,evidence);
- const partial=migrateLegacy(c,{2:{evidence:evidence.filter(k=>k!=='S:ph'),quizOpen:true,answer:c.quiz.answer}});
+ const partial=migrateLegacy(c,{2:{evidence:evidence.filter(k=>k!=='Na:wet'),quizOpen:true,answer:c.quiz.answer}});
  assert.equal(isReady(c,partial),false);
 });
 test('three carbon cases yield distinct retained blade geometry after unloading',()=>{assert.deepEqual(materialCases.steel.map(x=>x[0]),['pig','steel','wrought']);const shapes=k=>buildForgeScene({type:'steel',key:k,mounted:true,phase:'after'}).objects.filter(o=>o.shape.startsWith('blade:')).map(o=>o.shape);assert.equal(shapes('pig').length,2);assert.deepEqual(shapes('steel'),['blade:0.00']);assert.deepEqual(shapes('wrought'),['blade:0.31']);for(const key of ['blade:0.00','blade:0.31','blade:0.00:left','blade:0.00:right']){const m=labMesh(key);assert.equal(m.positions.length,m.normals.length);assert.ok([...m.positions,...m.normals].every(Number.isFinite));}});

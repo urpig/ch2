@@ -7,6 +7,7 @@ import {lifeReactorArt} from './life-reactor-art.js';
 import {lifeLabDefinition} from './life-reactant-model.js';
 import {bindLifePlayback} from './life-autoplay.js';
 import {biologyMarkup,bindBiologyLab} from './life-biology-lab.js';
+import {lifeEquationMarkup,showLifeEquation} from './life-equation-art.js';
 
 // Each entry records both sides of one representative reaction.
 export function lifeReactionPair(key){
@@ -39,13 +40,12 @@ export function lifePairedMarkup(key,complete=false){
  if(key==='photo'||key==='resp')return biologyMarkup(key,complete);
  const p=lifeReactionPair(key),lab=lifeLabDefinition(key);
  return `<section class="life-paired-reaction life-manual-reaction life-auto-observation" data-glossary-skip data-life-observation data-life-reaction="${key}" data-phase="${complete?'complete':'ready'}" style="--life-progress:${complete?1:0}" aria-label="${p.title}的氧化還原配對">
- <div class="reaction-heading"><div><small>觀察實驗組與對照組</small><h4>${p.title}</h4></div><button type="button" class="text-button" data-life-retry>${complete?'↻ 重播動畫':'▶ 播放動畫'}</button></div>
+ <div class="reaction-heading"><div><small>觀察實驗組與對照組</small><h4>${p.title}</h4></div><div class="life-playback-actions"><button type="button" class="text-button" data-life-retry>${complete?'↻ 重播動畫':'▶ 播放動畫'}</button>${observationTimeline()}</div></div>
  <p class="life-mix-instruction">左側加入${lab.inputs[0].label}，右側保留原樣。比較兩組的顏色。</p>
  <div class="life-mix-workbench life-bleach-workbench"><div class="life-reactor-panel"><div class="life-reactor-condition">${lab.condition}</div><div class="life-reactor-art life-reactor-${key}">${lifeReactorArt(key,complete)}${laboratoryTransfer(key)}<div class="life-reactant bleach-bench-reagent">${bleachSupply(key)}</div></div>
- ${observationTimeline()}
  </div></div>
  <p class="life-observe-status" data-life-animation-status role="status">${complete?'實驗組的顏色比對照組淡了。':''}</p>
- <div class="life-manual-results" aria-label="同時追蹤氧化與還原">${['oxidation','reduction'].map((role,i)=>`<div class="life-result-path ${role}"><div class="life-source-name">${p[role].from}</div><span class="life-result-arrow" aria-hidden="true">→</span><div class="life-result-destination"><span class="life-result-wait">等候反應</span><strong data-life-product>${p[role].to}</strong></div><p class="life-pair-label" data-life-pair-label><b>${p[role].from.replace(/ (?:H₂O₂|H₂O|CO₂|O₂|C₆H₁₂O₆|SO₂|NaClO)$/,'')}${i===0?'被氧化':'被還原'}</b></p></div>`).join('')}</div>
+ ${lifeEquationMarkup(key,complete)}
  </section>`;
 }
 export function bindLifePairedReaction(scene,onComplete){
@@ -55,13 +55,8 @@ export function bindLifePairedReaction(scene,onComplete){
  const key=scene.dataset.lifeReaction,retry=scene.querySelector('[data-life-retry]'),status=scene.querySelector('[data-life-animation-status]');
  const seconds={peroxide:4.6,chlorine:4.8,sulfur:5.2}[key];
  const paintTransfer=bindLaboratoryTransfer(scene,key,seconds);
- const results=scene.querySelector('.life-manual-results');
- const products=scene.querySelectorAll('[data-life-product],[data-life-pair-label]');
- const waiting=scene.querySelectorAll('.life-result-wait');
  const paint=p=>{
-  results.hidden=p<1;
-  products.forEach(e=>e.setAttribute('aria-hidden',String(p===0)));
-  waiting.forEach(e=>e.setAttribute('aria-hidden',String(p>0)));
+  showLifeEquation(scene,p===1);
   scene.style.setProperty('--life-progress',String(p));scene.dataset.reactionProgress=p.toFixed(3);
   const change=Math.max(0,Math.min(1,(p-.26)/.69));
   const fade=change*change*(3-2*change);

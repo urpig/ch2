@@ -57,7 +57,7 @@
 .affinity-mnemonic h4{margin:0 0 10px;color:#716039;font-size:15px}
 .affinity-mnemonic-verse{margin:0;color:#345b4b;font-size:clamp(20px,2vw,25px);font-weight:700;line-height:1.65;letter-spacing:.025em}
 .affinity-mnemonic-story{margin:12px 0;color:#5f6655;font-size:16px;line-height:1.9}
-.affinity-mnemonic-order{margin:14px 0 0;padding-top:12px;border-top:1px solid #e3deca;color:#486453;font-size:15px;line-height:1.9}
+.affinity-mnemonic-order{margin:0 0 16px;padding-bottom:14px;border-bottom:1px solid #e3deca;color:#486453;font-size:16px;line-height:1.9}
 .affinity-mnemonic-order span{display:block;color:#8c7745;font-size:13px;margin-bottom:4px}
 @media(max-width:600px){.affinity-mnemonic{padding:15px}.affinity-mnemonic-story{font-size:15px}.affinity-mnemonic-order{font-size:14px}}
 .prep-definitions .story-speech{margin:0}.prep-conversation.story-speech{margin:20px 0}

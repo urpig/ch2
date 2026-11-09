@@ -1,9 +1,13 @@
 // Teaching playback times, not real laboratory reaction times.
 export const combustionDemoOrder=['Na','S'];
+export const combustionDemoSamples=group=>group==='metals'?['Na']:group==='nonmetals'?['S']:combustionDemoOrder;
 const common={prep:'準備樣本',load:'放上燃燒匙',heat:'加熱點燃',burn:'觀察燃燒',cool:'移開、冷卻',pour:'產物加水',dissolve:'觀察遇水',red:'測紅色石蕊',blue:'測藍色石蕊',result:'比較結果',wash:'加入蒸餾水',shake:'左右搖晃',take:'取瓶內液',retake:'再取一次液體'};
+// Both demonstrations share four teaching windows: sampling 6 s,
+// heating/burning/cooling 13 s, water 8 s, and litmus/results 15 s.
+// Sulfur's extra transfers and pipette pickups fit inside the same windows.
 const tracks={
- Na:[['prep',800],['load',1200],['heat',1200],['burn',2400],['cool',1600],['pour',1600],['dissolve',1300],['red',1800],['blue',1800],['result',1800]],
- S:[['prep',800],['load',1200],['heat',1200],['transfer',1300],['burn',3000],['cool',1800],['wash',1700],['shake',1500],['take',1300],['red',1500],['retake',1200],['blue',1500],['result',1800]]
+ Na:[['prep',2500],['load',3500],['heat',3000],['burn',6500],['cool',3500],['pour',4000],['dissolve',4000],['red',5500],['blue',5500],['result',4000]],
+ S:[['prep',2500],['load',3500],['heat',3000],['transfer',3000],['burn',3500],['cool',3500],['wash',4000],['shake',4000],['take',1500],['red',4000],['retake',1500],['blue',4000],['result',4000]]
 };
 const captions={
  Na:{prep:'先看鈉的樣子：銀白色的小塊。',load:'從樣本架取鈉，放上燃燒匙。',heat:'把匙端靠近酒精燈的火焰。',burn:'看鈉本身的黃色火焰。',cool:'移開熱源，等產物冷卻。',pour:'把冷卻後的產物加入清水。',dissolve:'產物與水作用；接著測試溶液。',red:'紅色石蕊的浸水端變藍了。',blue:'藍色石蕊的浸水端仍是藍色。',result:'紅變藍、藍不變：溶液呈鹼性。'},
@@ -22,8 +26,10 @@ export function combustionDemoFrame(key,time=0){
   redTested:!before(key==='Na'?'blue':'retake'),blueTested:tested,
   evidence:[...(burned?[key+':burn']:[]),...(tested?[key+(key==='Na'?':wet':':ph')]:[])]};
 }
-export function combustionDemoReady(seen=[]){return combustionDemoOrder.every(key=>seen.includes(key));}
-export function restoreCombustionDemo(raw={}){
- const seen=[];for(const key of combustionDemoOrder){if(!Array.isArray(raw.combustionDemoSeen)||!raw.combustionDemoSeen.includes(key))break;seen.push(key);}
- return {combustionDemoSeen:seen,combustionMode:raw.combustionMode==='practice'&&combustionDemoReady(seen)?'practice':'demo',combustionDemoSample:raw.combustionDemoSample==='S'&&seen.includes('Na')?'S':'Na'};
+export function combustionDemoReady(seen=[],group){return combustionDemoSamples(group).every(key=>seen.includes(key));}
+export function restoreCombustionDemo(raw={},group){
+ const samples=combustionDemoSamples(group),seen=[];
+ for(const key of samples){if(!Array.isArray(raw.combustionDemoSeen)||!raw.combustionDemoSeen.includes(key))break;seen.push(key);}
+ const sample=samples.includes(raw.combustionDemoSample)&&(samples.length===1||raw.combustionDemoSample==='Na'||seen.includes('Na'))?raw.combustionDemoSample:samples[0];
+ return {combustionDemoSeen:seen,combustionMode:raw.combustionMode==='practice'&&combustionDemoReady(seen,group)?'practice':'demo',combustionDemoSample:sample};
 }
