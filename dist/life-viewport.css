@@ -38,14 +38,17 @@
 /* Give the apple cut faces more space; shorten the arrow diagram instead of
    shrinking its formulas or stretching the laboratory photograph. */
 #life-redox [data-life-reaction=food]>.life-example-equation { padding:7px 12px; margin-top:6px; }
-#life-redox [data-life-observation] .life-equation-art { height:180px; }
-#life-redox [data-life-observation] .life-equation-formula { font-size:38px; }
-#life-redox [data-life-observation] .life-equation-name { font-size:23px; }
+#life-redox [data-life-observation] .life-equation-art { height:155px; }
+#life-redox [data-life-observation] .life-equation-formula { font-size:32px; }
+#life-redox [data-life-observation] .life-equation-name { font-size:20px; }
+#life-redox [data-life-observation] .bio-equation-formula { font-size:32px; }
+#life-redox [data-life-observation] .bio-equation-arrow text { font-size:23px; }
+#life-redox [data-life-observation] .life-paired-equation { background:#fffdf3;border:1px solid #d9dbc5;border-radius:9px; }
 #life-redox [data-life-reaction=food] .life-example-equation h4 { margin-bottom:2px; font-size:15px; line-height:1.4; }
 #life-redox [data-life-reaction=food] .life-equation-note { margin-top:2px; font-size:11px; line-height:1.4; }
 /* Reserve the final equation's space so playback does not push the scene away. */
 #life-redox [data-life-observation]>[data-life-redox-equation][hidden] { display:block!important; visibility:hidden; }
-#life-redox [data-life-observation] .bio-equation-art { height:180px; width:100%; max-width:none; }
+#life-redox [data-life-observation] .bio-equation-art { height:155px; width:100%; max-width:none; }
 #life-redox [data-life-observation] .bio-equation-energy { margin:0; font-size:12px; line-height:1.5; }
 #life-redox .life-biology-lab .life-mix-workbench { grid-template-columns:125px minmax(0,1fr); width:min(100%,calc(var(--life-stage-height) * 12 / 7 + 139px)); margin-inline:auto; }
 #life-redox .life-biology-lab .bio-stage-art { height:var(--life-stage-height); }
@@ -80,5 +83,5 @@
  #life-redox .life-biology-lab .bio-supply-item+div { padding:0; border:0; }
  #life-redox .life-biology-lab .bio-molecule-rest { width:42px; flex:0 0 42px; }
  #life-redox .life-biology-lab .bio-molecule-model { max-height:42px; }
- #life-redox [data-life-observation] .bio-equation-art { height:auto; min-height:100px; aspect-ratio:10/3; }
+ #life-redox [data-life-observation] .bio-equation-art { display:none; }
 }

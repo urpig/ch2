@@ -44,13 +44,11 @@ export function lifeEquationMarkup(key,complete=false){
  const compact=key==='food';
  const layout={height:210,name:94,formula:132,sign:122,start:145};
  return `<section class="life-paired-equation life-example-equation" data-life-redox-equation="${key}"  aria-label="${data.name}的反應式與氧化還原箭頭">
- ${compact?'':'<h4>反應中的氧化與還原</h4>'}
  <svg class="life-equation-art" viewBox="0 0 1000 ${layout.height}" role="img" aria-label="${data.changes.map(c=>substanceText(c.from)+roleName(c.role)+'成'+substanceText(c.to)).join('；')}">
   <g class="life-equation-terms" text-anchor="middle">${terms.map(([name,formula],i)=>`<g data-equation-species="${i}"><text class="life-equation-name" x="${x[i]}" y="${layout.name}">${name}</text><text class="life-equation-formula" x="${x[i]}" y="${layout.formula}">${formula}</text></g>`).join('')}<g class="life-equation-sign"><text x="235" y="${layout.sign}">＋</text><text x="500" y="${layout.sign}">→</text><text x="765" y="${layout.sign}">＋</text></g></g>
   ${data.changes.map((c,i)=>{const above=c.role==='reduction',start=above?72:layout.start,tip=above?-11:11,bend=above?30:165,label=above?20:198;return `<g class="bio-equation-arrow is-${c.role}" data-equation-from="${substanceText(c.from)}" data-equation-to="${substanceText(c.to)}" data-equation-role="${c.role}"><path class="bio-equation-line" d="M ${x[i]} ${start} V ${bend} H ${x[i+2]} V ${start}"/><path d="M ${x[i+2]-7} ${start+tip} L ${x[i+2]} ${start+(above?1:-1)} L ${x[i+2]+7} ${start+tip}"/><text x="${i?615:385}" y="${label}" text-anchor="middle">${c.from[0]} ${roleName(c.role)}</text></g>`;}).join('')}
  </svg>
  <div class="life-equation-mobile" aria-label="兩種物質的變化">${data.changes.map(c=>`<div class="life-equation-change is-${c.role}"><b>${c.from[0]} ${roleName(c.role)}</b><div><span>${c.from[0]}${c.from[1]?`<strong>${c.from[1]}</strong>`:''}</span><i aria-hidden="true">→</i><span>${c.to[0]}${c.to[1]?`<strong>${c.to[1]}</strong>`:''}</span></div></div>`).join('')}</div>
- ${compact?'':'<p class="life-equation-note">色素以文字代稱；這是反應變化示意，省略完整配平。</p>'}
  </section>`;
 }
 

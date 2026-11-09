@@ -92,6 +92,8 @@
 /* Tall glassware, the matching drop zones, and a separate right-hand tool rack. */
 :is(#card-2,#card-8) .bench-water-station .bench-add-target{left:10%;top:50%;width:19%;height:13%}
 .bench-water-station .bench-liquid-target{top:70%;height:15%}
+.bench-water-foreground{position:absolute;inset:0;width:100%;height:100%;z-index:10;pointer-events:none}
+.bench-water-station .bench-paper.dipped{box-shadow:1px 1px 1px #183d4633}
 .bench-water-station .bench-product-spoon.spoon-parked{pointer-events:none;opacity:1;outline:none;box-shadow:none;transition:left .85s ease-in-out,top .85s ease-in-out,rotate .6s ease}
 .bench-product-spoon.spoon-parked>span{display:none}
 .bench-water-station .bench-addition:not(.gas-bubbles){left:13%;top:54%;width:13%;height:31%;clip-path:polygon(25% 0,75% 0,100% 55%,100% 100%,0 100%,0 55%)}

@@ -30,8 +30,7 @@ export function mountTermDemo(root,{review=loadTermReview(),exampleKey='carbon',
       ${storySpeech('grandpa','「我們剛剛看到氧化銀被還原，變成銀金屬；同時，碳被氧化，變成二氧化碳。有物質被還原，就一定會有物質被氧化，氧化與還原反應必定會一起發生喔！」')}
      </div>`:`
      <div class="oxygen-role-pair"><p><b>${e.reduced} · 被還原</b>失去氧</p><p><b>${e.oxidized} · 被氧化</b>得到氧</p></div>
-     ${storySpeech('grandpa','「'+e.conclusion+e.activity+'」')}
-     ${storySpeech('grandpa','「'+e.donor+'是氧化劑，使'+e.receiver+'被氧化，自己被還原。'+e.receiver+'是還原劑，使'+e.donor+'被還原，自己被氧化。」')}
+     ${storySpeech('grandpa','「在這個反應中，鎂從二氧化碳搶走氧，鎂讓二氧化碳還原成碳，鎂就是所謂的還原劑；反之，二氧化碳使鎂被氧化，此時二氧化碳就是氧化劑。」')}
      `}
     </div>
    </section>

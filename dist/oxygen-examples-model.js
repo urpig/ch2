@@ -14,8 +14,8 @@ export function magnesiumExperimentFrame(value){
  const t=clamp(Number(value)||0),ease=p=>{p=clamp(p);return p*p*(3-2*p);},part=(a,b)=>ease((t-a)/(b-a));
  // Keep the jaw centered over the opening during vertical entry and withdrawal.
  // The same physical tongs keep one size while moving from the bench to the jar.
- let jawX=64,jawY=90,angle=5;const scale=.55;
- if(t<.10){const p=part(.02,.075);jawX=64+13*p;jawY=90-6*p;}
+ let jawX=64,jawY=96,angle=5;const scale=.55;
+ if(t<.10){const p=part(.02,.075);jawX=64+13*p;jawY=96-12*p;}
  else if(t<.18){const p=part(.10,.18);jawX=77-57*p;jawY=84-59*p;angle=5-79*p;}
  else if(t<.30){jawX=20;jawY=25;angle=-74;}
  else if(t<.35){jawX=20;jawY=25-25*part(.30,.35);angle=-74;}
@@ -23,7 +23,7 @@ export function magnesiumExperimentFrame(value){
  else if(t<.79){jawX=50;jawY=44*part(.40,.46);angle=-74;}
  else if(t<.845){jawX=50;jawY=44*(1-part(.79,.845));angle=-74;}
  else if(t<.88){jawX=50+18*part(.845,.88);jawY=0;angle=-74;}
- else {const p=part(.88,1);jawX=68-4*p;jawY=90*p;angle=-74+79*p;}
+ else {const p=part(.88,1);jawX=68-4*p;jawY=96*p;angle=-74+79*p;}
  const holding=part(.075,.10),ribbonLength=20*scale;
  // The same ribbon stays under the jaws: close first, then lift and turn together.
  const ribbonX=t<.10?77:jawX,ribbonY=t<.10?84:jawY,ribbonAngle=78*(1-part(.10,.18));

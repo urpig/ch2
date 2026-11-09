@@ -28,8 +28,7 @@ test('antioxidant and bleaching equations identify both partners without swappin
    assert.ok(html.includes(`data-equation-from="${c.from.filter(Boolean).join(' ')}"`));
    assert.ok(html.includes(`data-equation-to="${c.to.filter(Boolean).join(' ')}"`));
   }
-  if(key==='food')assert.doesNotMatch(html,/反應中的氧化與還原|省略完整配平/);
-  else assert.match(html,/省略完整配平/);
+  assert.doesNotMatch(html,/反應中的氧化與還原|省略完整配平/);
  }
 });
 
