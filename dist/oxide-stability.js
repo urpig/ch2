@@ -58,13 +58,13 @@ export function stabilityMarkup(){
   ${stabilityPairs.map((pair,i)=>`<section id="stability-pair-${pair.id}" role="tabpanel" aria-labelledby="stability-tab-${pair.id}" data-stability-pair="${pair.id}" ${i?'hidden':''}>
    <div class="stability-playbar"><b>${pair.title}</b><div><button type="button" class="primary" data-stability-play>▶ 同時開始加熱</button><button type="button" class="secondary" data-stability-pause disabled>暫停</button></div></div>
    <div class="stability-shared-layout">${sharedBench(pair)}<div class="stability-detail-pair">${pair.trials.map(id=>pairedObservation(stabilityTrials.find(t=>t.id===id))).join('')}</div></div>
-   <div class="stability-trial-result" data-stability-result hidden>${pair.trials.map(id=>storySpeech('grandpa','「'+stabilityTrials.find(t=>t.id===id).explanation+'」')).join('')}</div>
+   <div class="stability-trial-result" data-stability-result hidden>${storySpeech('grandpa',pair.id==='elements'?'「鎂的活性大，較不安定，加熱後會被氧化成氧化鎂。<br>銀的活性小，較安定，加熱後不反應。」':'「鎂原本很不安定，但氧化鎂卻很安定。<br>銀原本很安定，但氧化銀卻很不安定，加熱後就會失去氧。」')}</div>
   </section>`).join('')}
  </div>
  <section class="stability-conclusion" data-stability-conclusion hidden aria-label="四種物質的比較結果"><h3>元素和它的氧化物，特性不同</h3>
  <div class="stability-table-scroll"><table><thead><tr><th>對氧活性</th><th>元素加熱後</th><th>氧化物加熱後</th></tr></thead><tbody>
- <tr><th scope="row">鎂 Mg：活性大</th><td><b>鎂較不安定</b><br>燃燒，形成白色氧化鎂</td><td><b>氧化鎂：安定</b><br>本次加熱不會變回鎂</td></tr>
- <tr><th scope="row">銀 Ag：活性小</th><td><b>銀較安定</b><br>一般加熱不燃燒</td><td><b>氧化銀：較不安定</b><br>受熱失去氧，留下銀</td></tr></tbody></table></div>
+ <tr><th scope="row">鎂 Mg：活性大</th><td><b>鎂不安定</b><br>易氧化成氧化鎂</td><td><b>氧化鎂很安定</b><br>不易還原回去變回鎂</td></tr>
+ <tr><th scope="row">銀 Ag：活性小</th><td><b>銀很安定</b><br>不易氧化成氧化銀</td><td><b>氧化銀不安定</b><br>易還原回去變回銀</td></tr></tbody></table></div>
  </section></section>
  ${notebookMarkup('stability')}`;
 }
@@ -76,14 +76,14 @@ function sharedBench(pair){
   ${pair.trials.map((id,i)=>{const t=stabilityTrials.find(t=>t.id===id);return `<div class="stability-heating-station station-${i}" data-stability-station="${id}" style="--reaction-change:0"><div class="free-crucible-fill"><div data-free-before>${material(t.materials[0],id+'-bench-before')}</div><div data-free-after>${material(t.materials[1],id+'-bench-after')}</div></div><div class="stability-shared-flame" data-stability-flame><img src="${affinityBenchArt.flame}" alt="" draggable="false"></div><div class="stability-reaction-glow" data-stability-glow></div></div>`;}).join('')}
   <img class="stability-bench-front" src="${bench}" alt="" aria-hidden="true" draggable="false">
   <b class="stability-phase" data-stability-phase>加熱前</b>
- </div><figcaption>${pair.trials.map(id=>`<p data-stability-bench-caption="${id}">${stabilityTrials.find(t=>t.id===id).before}</p>`).join('')}</figcaption></figure>`;
+ </div>${pair.id==='elements'?'':`<figcaption>${pair.trials.map(id=>`<p data-stability-bench-caption="${id}">${stabilityTrials.find(t=>t.id===id).before}</p>`).join('')}</figcaption>`}</figure>`;
 }
 
 function pairedObservation(t){
  const [before,after]=t.materials,p=t.id;
  return `<section class="stability-case" data-stability-case="${p}"><h4>${t.label}</h4>
    <section class="stability-before-after"><h4>物質的前後變化</h4><div>${specimenDish(before,'加熱前',p+'-compare-before')}<figure class="stability-dish"><div class="free-specimen-dish"><img class="free-dish-photo" src="${affinityBenchArt.dish}" alt="" draggable="false"><div class="free-dish-contents"><div data-stability-before-mixture>${material(before,p+'-compare-live-before')}</div><div data-stability-after-mixture>${material(after,p+'-compare-live-after')}</div></div></div><figcaption data-stability-result-label>加熱前</figcaption></figure></div></section>
-   <p class="stability-case-equation" data-stability-equation hidden>${t.equation}</p></section>`;
+   <p class="stability-case-equation" data-stability-equation hidden>${t.id==='heat-mg'?'<b class="stability-reaction-label">有反應</b>':''}${t.equation}</p></section>`;
 }
 
 export function mountOxideStability(root,addQuestion){
@@ -118,7 +118,7 @@ export function mountOxideStability(root,addQuestion){
    station.querySelector('[data-stability-flame]').style.opacity=String(f.heat);
    station.querySelector('[data-stability-glow]').style.opacity=String(f.glow*.94);
    group.querySelector('[data-stability-phase]').textContent=f.stage;
-   group.querySelector('[data-stability-bench-caption="'+t.id+'"]').textContent=f.complete?t.after:p<.32?t.before:t.during;
+   const caption=group.querySelector('[data-stability-bench-caption="'+t.id+'"]');if(caption)caption.textContent=f.complete?t.after:p<.32?t.before:t.during;
    view.querySelector('[data-stability-result-label]').textContent=p===0?'加熱前':f.complete?'冷卻後':'觀察中';
    view.querySelector('[data-stability-equation]').hidden=!f.complete;
    paintOxygen(view,t,f,matchMedia('(prefers-reduced-motion: reduce)').matches);

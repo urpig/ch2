@@ -65,7 +65,7 @@ export function mountCombustion(root,{key,isMetal,autoLoad=false,spoonOrigin=nul
  if(completed){shelfTarget(board);step.textContent=['S','C','CO'].includes(key)?'燃燒結束並示意冷卻後，直接加水、輕搖；玻璃片自動開合。再用滴管取液，滴在桌面的紅、藍石蕊試紙上。':'觀察完成。可直接把產物加入水中，或從架上取下一份樣本。';return {board,water};}
  let state=newSpoonHeating(key,isMetal,autoLoad),point=spoonOrigin?[...spoonOrigin]:[320,224],inJar=false,held=false,alive=true,started=false,last=performance.now(),timer=0,previousMessage='',clock=0;
  const spoon=board.querySelector('[data-spoon]'),label=board.querySelector('[data-heat-label]'),detail=board.querySelector('[data-heat-detail]'),meter=board.querySelector('[role="progressbar"]');
- const continueButton=document.createElement('button');continueButton.type='button';continueButton.className='combustion-observation-continue primary';continueButton.textContent='觀察完成，查看產物 →';continueButton.hidden=true;board.append(continueButton);
+ const continueButton=document.createElement('button');continueButton.type='button';continueButton.className='combustion-observation-continue primary';continueButton.textContent='觀察完成，查看產物 →';continueButton.hidden=true;board.before(continueButton);
  function finish(){if(!alive||!state.complete||held)return false;dispose();onComplete([...point]);return true;}
  continueButton.onclick=finish;
  function show(){ onProcessChange(state.loaded?'burn':'load');

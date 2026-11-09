@@ -59,7 +59,7 @@ test('four new observations are required and retired transfer progress cannot un
  assert.equal(restoreStability(null).observed.length,0);
  const position=chapterSequence.findIndex(c=>c.id==='card-8');
  assert.equal(chapterSequence[position+1].id,'oxide-stability');assert.equal(chapterSequence[position+1].number,'04');
- assert.match(stabilityMarkup(),/氧化鎂：安定/);assert.match(stabilityMarkup(),/氧化銀：較不安定/);
+ assert.match(stabilityMarkup(),/氧化鎂很安定/);assert.match(stabilityMarkup(),/氧化銀不安定/);
  assert.doesNotMatch(stabilityMarkup(),/反應完都很安定|銅 Cu|氧化銅/);
 });
 

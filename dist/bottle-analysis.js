@@ -23,7 +23,7 @@ export function mountBottleAnalysis(board,{key,completed,delay,onCleanup=()=>{},
  <path transform="translate(-75 -35)" d="M232 346H278L286 356H224Z" fill="#667f83" stroke="#bfd0cf"/><path transform="translate(-75 -35)" d="M230 170H280M236 170V346M274 170V346" fill="none" stroke="#7a949a" stroke-width="3"/>
  </svg>
  <div class="analysis-spoon-rest spoon-rest">${restingSpoon()}</div>
- <div class="analysis-lid auto-lid" data-analysis-lid aria-label="自動開合的玻璃片瓶蓋">${photographicLid()}<span>玻璃片</span></div>
+ <div class="analysis-lid auto-lid" data-analysis-lid aria-label="自動開合的玻璃片瓶蓋">${photographicLid()}</div>
  <div class="analysis-mouth drop-target" data-analysis-mouth><span>瓶口 ↓</span></div>
  <div class="analysis-wash" data-analysis-wash aria-label="蒸餾水洗瓶；把細口拖到集氣瓶瓶口">${photographicWash()}</div>
  <div class="analysis-shaker" data-analysis-shaker aria-label="玻璃片已扶穩；按住瓶身左右搖晃"></div>
@@ -43,7 +43,7 @@ export function mountBottleAnalysis(board,{key,completed,delay,onCleanup=()=>{},
  function show(){
   onWaterAddedIfReady();
   onPhaseChange(state.phase==='test'?'litmus':state.phase==='complete'?'complete':'water');station.dataset.phase=state.phase;station.dataset.shake=String(Math.round(state.shake));water.setAttribute('visibility',state.water?'visible':'hidden');
-  lid.classList.toggle('is-covered',state.phase==='shake');lid.tabIndex=-1;enable(wash,state.phase==='pour');enable(shaker,state.phase==='shake'||shakingHeld);mouth.hidden=state.phase!=='pour';
+  lid.classList.toggle('is-covered',state.phase==='shake'||shakingHeld);lid.tabIndex=-1;enable(wash,state.phase==='pour');enable(shaker,state.phase==='shake'||shakingHeld);mouth.hidden=state.phase!=='pour';
   const tool=station.querySelector('[data-pipette=sample]');enable(tool,state.phase==='test');tool.classList.toggle('charged',state.loaded);tool.dataset.loaded=String(state.loaded);
   for(const paper of ['red','blue']){
    const strip=station.querySelector('[data-litmus-paper='+paper+']'),name=paper==='red'?'紅色':'藍色';
@@ -66,7 +66,7 @@ export function mountBottleAnalysis(board,{key,completed,delay,onCleanup=()=>{},
   delay(()=>{if(!alive||!board.isConnected)return;station.classList.remove('pouring');wash.style.left=(355/760*100)+'%';wash.style.top=(200/430*100)+'%';wash.style.transform='';},650);return true;
  }
  function moveShaker(p,held){
-  shakingHeld=held;const dx=p[0]-560,transform=`translate(${dx} 0)`;
+  shakingHeld=held;lid.classList.toggle('is-covered',state.phase==='shake'||held);const dx=p[0]-560,transform=`translate(${dx} 0)`;
   baseJar.setAttribute('transform',transform);water.setAttribute('transform',transform);lid.style.translate=(dx/760*board.getBoundingClientRect().width)+'px 0';
   station.querySelector('[data-jar-water]').setAttribute('d',`M483 ${314+dx*.12}Q560 ${318-dx*.2} 637 ${314-dx*.12}V326Q637 342 560 342Q483 342 483 326Z`);
   if(held&&state.phase==='shake')dispatch({type:'shake',distance:p[0]-lastShake});lastShake=p[0];if(!held&&state.phase!=='shake')show();

@@ -64,7 +64,8 @@ export function mountDemonstrationBench(root,c,key,onEvidence){
     const point=p<.48?mix([444,216],[560,94],p/.48):p<.77?[560,94]:mix([560,94],[444,216],(p-.77)/.23);
     water.moveWash(point);if(p>.55)once('water',()=>water.addWater());
    }
-   if(phase==='shake'){water.shake(560+Math.sin(p*Math.PI*6)*22);if(p>.96)water.stopShaking();}
+   if(phase==='shake')water.shake(560+Math.sin(p*Math.PI*6)*22);
+   if(['take','red','retake','blue','result'].includes(phase))once('shake-finished',()=>water.stopShaking());
    if(phase==='take'||phase==='retake'){
     const paper=root.querySelector('[data-litmus-paper="red"]'),r=bench.apparatus.board.getBoundingClientRect(),target=paper.getBoundingClientRect();
     const from=phase==='take'?[180,300]:[(target.x+target.width/2-r.x)/r.width*760,(target.y+target.height/2-r.y)/r.height*430];

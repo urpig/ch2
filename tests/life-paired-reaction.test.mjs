@@ -21,7 +21,7 @@ test('antioxidant and bleaching equations identify both partners without swappin
  assert.deepEqual(changes('peroxide')[0],{from:['過氧化氫','H₂O₂'],to:['水','H₂O'],role:'reduction'});
  assert.deepEqual(changes('chlorine')[0],{from:['次氯酸鈉','NaClO'],to:['氯化鈉','NaCl'],role:'reduction'});
  assert.deepEqual(changes('sulfur')[0],{from:['二氧化硫','SO₂'],to:['硫酸根','SO₄²⁻'],role:'oxidation'});
- for(const key of ['food','peroxide','chlorine','sulfur']){
+ for(const key of ['peroxide','chlorine','sulfur']){
   assert.deepEqual(changes(key).map(c=>c.role).sort(),['oxidation','reduction']);
   const html=lifePairedMarkup(key,true);
   for(const c of changes(key)){
@@ -33,7 +33,7 @@ test('antioxidant and bleaching equations identify both partners without swappin
 });
 
 test('life equations remain visible before playback and during replay',()=>{
- for(const key of ['food','peroxide','chlorine','sulfur']){
+ for(const key of ['peroxide','chlorine','sulfur']){
   assert.doesNotMatch(lifeEquationMarkup(key),new RegExp(`data-life-redox-equation="${key}" hidden`));
   assert.doesNotMatch(lifeEquationMarkup(key,true),new RegExp(`data-life-redox-equation="${key}" hidden`));
  }

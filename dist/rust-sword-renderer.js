@@ -68,8 +68,8 @@ export function createRustSwordRenderer(canvas,key){
    const bed=ctx.createLinearGradient(0,330,0,740);bed.addColorStop(0,'#76827b');bed.addColorStop(.5,'#adb5ac');bed.addColorStop(1,'#64746d');ctx.fillStyle=bed;ctx.fillRect(0,330,1000,410);
    ctx.shadowColor='rgba(9,23,21,.34)';ctx.shadowBlur=14;ctx.shadowOffsetY=17;ctx.drawImage(surface,670,25,440,155,-40,365,1080,380);ctx.shadowColor='transparent';
    if(frame.barrier==='oil'&&preparation>0){
-    ctx.globalAlpha=preparation*.48;
-    const film=ctx.createLinearGradient(0,425,0,650);film.addColorStop(0,'rgba(212,188,100,0)');film.addColorStop(.25,'rgba(243,214,137,.1)');film.addColorStop(.55,'rgba(255,250,214,.28)');film.addColorStop(.6,'rgba(253,255,249,.6)');film.addColorStop(.65,'rgba(227,195,97,.08)');film.addColorStop(1,'rgba(227,195,97,0)');ctx.fillStyle=film;ctx.fillRect(0,425,1000,225);ctx.globalAlpha=1;
+    ctx.globalAlpha=preparation*.9;
+    const film=ctx.createLinearGradient(0,425,0,650);film.addColorStop(0,'rgba(212,188,100,0)');film.addColorStop(.25,'rgba(243,214,137,.24)');film.addColorStop(.55,'rgba(255,250,214,.42)');film.addColorStop(.6,'rgba(253,255,249,.6)');film.addColorStop(.65,'rgba(227,195,97,.08)');film.addColorStop(1,'rgba(227,195,97,0)');ctx.fillStyle=film;ctx.fillRect(0,425,1000,225);ctx.globalAlpha=1;
    }
    if(frame.water>0&&preparation>0){const evaporation=1-smooth((progress-.25)/.9)*.67;for(let i=0;i<18;i++)drop(ctx,25+hash(i,8)*950,470+hash(i,3)*150,6+hash(i,5)*15,preparation*evaporation*.82);}
    ctx.restore();
