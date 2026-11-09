@@ -33,7 +33,7 @@
 .bottle-analysis .analysis-shaker>span{display:none}
 .combustion-workbench[data-demonstration=true] .bottle-analysis .analysis-next-tool:before{display:none}
 .analysis-lid.unavailable{opacity:1}
-.analysis-lid.auto-lid{left:82.236842%;top:14.651163%;pointer-events:none;cursor:default;transition:left .4s ease}.analysis-lid.auto-lid.is-covered{left:66.447368%}
+.analysis-lid.auto-lid{left:48.026316%;top:14.651163%;pointer-events:none;cursor:default;transition:left .4s ease}.analysis-lid.auto-lid.is-covered{left:66.447368%}
 .combustion-workbench[data-bottle-analysis]{overflow:clip}
 .combustion-workbench[data-bottle-analysis]>.combustion-art{position:absolute;inset:0;width:100%;height:100%}
 .bottle-analysis .bottle-litmus-tray{left:4%;top:82%;width:37%;height:12%;padding:6px 10px 8px;background:linear-gradient(170deg,#e2e2ca,#c4cbb5);border:1px solid #9fafa2;border-bottom:4px solid #81938b;border-radius:3px;box-shadow:5px 6px 4px #18383240;transform:skewX(-4deg)}.bottle-analysis .bottle-litmus-tray>b{font-size:9px;top:-15px;white-space:nowrap}.bottle-analysis .bottle-litmus-tray .ph-paper-cell{transform:skewX(4deg);font-size:9px}.bottle-analysis .bottle-litmus-strip{box-shadow:2px 3px 2px #45625444;background-image:repeating-linear-gradient(0deg,#ffffff08 0 1px,transparent 1px 3px);height:13px}

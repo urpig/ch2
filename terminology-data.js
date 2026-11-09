@@ -6,7 +6,7 @@ export const dictionaryChapters=[
  {id:'combustion',label:'03A · 金屬燃燒與產物',target:'card-2'},
  {id:'nonmetals',label:'03B · 非金屬燃燒與產物',target:'card-8'},
  {id:'stability',label:'04 · 氧化物的安定性',target:'oxide-stability'},
- {id:'transfer',label:'05 · 氧化與還原',target:'forge-prep-c'},
+ {id:'transfer',label:'05A · 氧化與還原',target:'forge-prep-c'},
  {id:'transfer-magnesium',label:'05B · 鎂與二氧化碳',target:'magnesium-co2'},
  {id:'life',label:'06 · 生活中的氧化還原',target:'life-redox'},
  {id:'furnace',label:'07 · 看見爐內的分工',target:'card-5'},

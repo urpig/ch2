@@ -9,7 +9,7 @@
 #life-redox [data-life-reaction=food] { --life-stage-height:clamp(260px,51dvh,390px); }
 #life-redox [data-life-reaction=peroxide],
 #life-redox [data-life-reaction=chlorine],
-#life-redox [data-life-reaction=sulfur] { --life-stage-height:clamp(180px,33dvh,260px); }
+#life-redox [data-life-reaction=sulfur] { --life-stage-height:clamp(240px,45dvh,350px); }
 #life-redox .life-playback-actions { display:flex; align-items:center; gap:7px; flex-shrink:0; }
 #life-redox [data-life-observation] .life-playback-actions .observation-timeline { padding:0; min-height:0; border:0; background:transparent; }
 #life-redox [data-life-observation] .life-playback-actions .observation-timeline button { min-height:40px; }
@@ -39,6 +39,12 @@
    shrinking its formulas or stretching the laboratory photograph. */
 #life-redox [data-life-reaction=food]>.life-example-equation { padding:7px 12px; margin-top:6px; }
 #life-redox [data-life-observation] .life-equation-art { height:155px; }
+#life-redox [data-life-reaction=peroxide]>.life-example-equation,
+#life-redox [data-life-reaction=chlorine]>.life-example-equation,
+#life-redox [data-life-reaction=sulfur]>.life-example-equation { padding:6px 10px; margin-top:6px; }
+#life-redox [data-life-reaction=peroxide] .life-equation-art,
+#life-redox [data-life-reaction=chlorine] .life-equation-art,
+#life-redox [data-life-reaction=sulfur] .life-equation-art { height:120px; }
 #life-redox [data-life-observation] .life-equation-formula { font-size:32px; }
 #life-redox [data-life-observation] .life-equation-name { font-size:20px; }
 #life-redox [data-life-observation] .bio-equation-formula { font-size:32px; }

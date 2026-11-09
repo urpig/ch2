@@ -40,9 +40,9 @@ export function lifePairedMarkup(key,complete=false){
  if(key==='photo'||key==='resp')return biologyMarkup(key,complete);
  const p=lifeReactionPair(key),lab=lifeLabDefinition(key);
  return `<section class="life-paired-reaction life-manual-reaction life-auto-observation" data-glossary-skip data-life-observation data-life-reaction="${key}" data-phase="${complete?'complete':'ready'}" style="--life-progress:${complete?1:0}" aria-label="${p.title}的氧化還原配對">
- <div class="reaction-heading"><div><small>觀察實驗組與對照組</small><h4>${p.title}</h4></div><div class="life-playback-actions"><button type="button" class="text-button" data-life-retry>${complete?'↻ 重播動畫':'▶ 播放動畫'}</button>${observationTimeline()}</div></div>
+ <div class="reaction-heading"><div><h4>${p.title}</h4></div><div class="life-playback-actions"><button type="button" class="text-button" data-life-retry>${complete?'↻ 重播動畫':'▶ 播放動畫'}</button>${observationTimeline()}</div></div>
  <p class="life-mix-instruction">左側加入${lab.inputs[0].label}，右側保留原樣。比較兩組的顏色。</p>
- <div class="life-mix-workbench life-bleach-workbench"><div class="life-reactor-panel"><div class="life-reactor-condition">${lab.condition}</div><div class="life-reactor-art life-reactor-${key}">${lifeReactorArt(key,complete)}${laboratoryTransfer(key)}<div class="life-reactant bleach-bench-reagent">${bleachSupply(key)}</div></div>
+ <div class="life-mix-workbench life-bleach-workbench"><div class="life-reactor-panel"><div class="life-reactor-art life-reactor-${key}">${lifeReactorArt(key,complete)}${laboratoryTransfer(key)}<div class="life-reactant bleach-bench-reagent">${bleachSupply(key)}</div></div>
  </div></div>
  <p class="life-observe-status" data-life-animation-status role="status">${complete?'實驗組的顏色比對照組淡了。':''}</p>
  ${lifeEquationMarkup(key,complete)}

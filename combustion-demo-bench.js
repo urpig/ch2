@@ -16,7 +16,7 @@ export function mountDemonstrationBench(root,c,key,onEvidence){
  const bench=mountBurn(root,c,ctx,{demonstration:true});
  function placeLid(closed=0){
   const cover=bench.apparatus.board.querySelector('[data-jar-cover]');
-  if(cover){cover.style.transition='none';cover.style.transform=`translate(${110-142*closed}px,${-12+12*closed}px)`;}
+  if(cover){cover.style.transition='none';cover.style.transform=`translate(${-142+110*closed}px,${-12+12*closed}px)`;}
  }
  if(key==='S')placeLid();
  const pickup=key==='Na'?mountSodiumPickup(bench.apparatus.board):key==='S'?mountPowderTransfer(bench.apparatus.board,key):null;
