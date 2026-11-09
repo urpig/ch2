@@ -25,11 +25,10 @@ export function mountTermDemo(root,{review=loadTermReview(),exampleKey='carbon',
     <div class="oxygen-equation"><b>${e.equation}</b><span>加熱條件下的總反應</span></div>
     <div data-oxygen-scene>${oxygenExampleArt(key)}</div>
     ${key==='carbon'?'':`<section class="oxygen-judgement" ${seen?'':'hidden'} data-oxygen-judgement><h4>對照反應式：誰得到氧，誰失去氧？</h4><div>${[`${e.oxidized}被氧化；${e.reduced}被還原`,`${e.reduced}被氧化；${e.oxidized}被還原`].map((text,i)=>`<button type="button" data-oxygen-answer="${i}" aria-pressed="${s.answers[key]===i}">${text}</button>`).join('')}</div><p role="status" data-oxygen-feedback>${message}</p></section>`}
-    <div class="oxygen-explanation" ${judged?'':'hidden'} data-oxygen-explanation>
+    <div class="oxygen-explanation" ${key==='magnesium'||judged?'':'hidden'} data-oxygen-explanation>
      ${key==='carbon'?`<div class="story-dialogue dialogue-stack" aria-label="阿公解釋碳與氧化銀的反應">
       ${storySpeech('grandpa','「我們剛剛看到氧化銀被還原，變成銀金屬；同時，碳被氧化，變成二氧化碳。有物質被還原，就一定會有物質被氧化，氧化與還原反應必定會一起發生喔！」')}
      </div>`:`
-     <div class="oxygen-role-pair"><p><b>${e.reduced} · 被還原</b>失去氧</p><p><b>${e.oxidized} · 被氧化</b>得到氧</p></div>
      ${storySpeech('grandpa','「在這個反應中，鎂從二氧化碳搶走氧，鎂讓二氧化碳還原成碳，鎂就是所謂的還原劑；反之，二氧化碳使鎂被氧化，此時二氧化碳就是氧化劑。」')}
      `}
     </div>
@@ -39,11 +38,11 @@ export function mountTermDemo(root,{review=loadTermReview(),exampleKey='carbon',
   const play=root.querySelector('[data-term-play]'),pause=root.querySelector('[data-term-pause]');
   play.onclick=()=>{
    player?.dispose();s.observed=s.observed.filter(x=>x!==key);delete s.answers[key];save();notify();message='';
-   const judgement=root.querySelector('[data-oxygen-judgement]');if(judgement)judgement.hidden=true;root.querySelector('[data-oxygen-explanation]').hidden=true;root.querySelector('.oxygen-summary')?.remove();
+   const judgement=root.querySelector('[data-oxygen-judgement]');if(judgement)judgement.hidden=true;root.querySelector('[data-oxygen-explanation]').hidden=key!=='magnesium';
    play.textContent='↻ 從頭再看';pause.disabled=false;paused=false;
    player=createFoodPlayback({duration:24000,maxFrameGapMs:250,onTime:t=>paintOxygenExample(scene,key,t/4,reduced),onState:state=>{
     paused=state.paused;pause.textContent=paused?'繼續':'暫停';pause.setAttribute('aria-pressed',String(paused));pause.disabled=state.complete;
-    if(state.complete){s.observed.push(key);save();if(judgement)judgement.hidden=false;root.querySelector('[data-oxygen-explanation]').hidden=!oxygenExampleReady(s,key);play.textContent='↻ 重播實驗動畫';notify();}
+    if(state.complete){s.observed.push(key);save();if(judgement)judgement.hidden=false;root.querySelector('[data-oxygen-explanation]').hidden=key!=='magnesium'&&!oxygenExampleReady(s,key);play.textContent='↻ 重播實驗動畫';notify();}
    }});sync();
   };
   pause.onclick=()=>{if(paused){player?.resume();sync();}else player?.pause();};

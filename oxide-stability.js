@@ -58,13 +58,13 @@ export function stabilityMarkup(){
   ${stabilityPairs.map((pair,i)=>`<section id="stability-pair-${pair.id}" role="tabpanel" aria-labelledby="stability-tab-${pair.id}" data-stability-pair="${pair.id}" ${i?'hidden':''}>
    <div class="stability-playbar"><b>${pair.title}</b><div><button type="button" class="primary" data-stability-play>▶ 同時開始加熱</button><button type="button" class="secondary" data-stability-pause disabled>暫停</button></div></div>
    <div class="stability-shared-layout">${sharedBench(pair)}<div class="stability-detail-pair">${pair.trials.map(id=>pairedObservation(stabilityTrials.find(t=>t.id===id))).join('')}</div></div>
-   <div class="stability-trial-result" data-stability-result hidden>${storySpeech('grandpa',pair.id==='elements'?'「鎂的活性大，較不安定，加熱後會被氧化成氧化鎂。<br>銀的活性小，較安定，加熱後不反應。」':'「鎂原本很不安定，但氧化鎂卻很安定。<br>銀原本很安定，但氧化銀卻很不安定，加熱後就會失去氧。」')}</div>
+   <div class="stability-trial-result" data-stability-result hidden>${storySpeech('grandpa',pair.id==='elements'?'「鎂的活性大，較不安定，加熱後會被氧化成氧化鎂。銀的活性小，較安定，加熱後不反應。」':'「鎂原本很不安定，但氧化鎂卻很安定。<br>銀原本很安定，但氧化銀卻很不安定，加熱後就會失去氧。」')}</div>
   </section>`).join('')}
  </div>
  <section class="stability-conclusion" data-stability-conclusion hidden aria-label="四種物質的比較結果"><h3>元素和它的氧化物，特性不同</h3>
  <div class="stability-table-scroll"><table><thead><tr><th>對氧活性</th><th>元素加熱後</th><th>氧化物加熱後</th></tr></thead><tbody>
- <tr><th scope="row">鎂 Mg：活性大</th><td><b>鎂不安定</b><br>易氧化成氧化鎂</td><td><b>氧化鎂很安定</b><br>不易還原回去變回鎂</td></tr>
- <tr><th scope="row">銀 Ag：活性小</th><td><b>銀很安定</b><br>不易氧化成氧化銀</td><td><b>氧化銀不安定</b><br>易還原回去變回銀</td></tr></tbody></table></div>
+ <tr><th scope="row">鎂 Mg：活性大</th><td><b class="stability-key-unstable">鎂不安定</b><br><span class="stability-key-change">易氧化成氧化鎂</span></td><td><b class="stability-key-stable">氧化鎂很安定</b><br>不易還原回去變回鎂</td></tr>
+ <tr><th scope="row">銀 Ag：活性小</th><td><b class="stability-key-stable">銀很安定</b><br>不易氧化成氧化銀</td><td><b class="stability-key-unstable">氧化銀不安定</b><br><span class="stability-key-change">易還原回去變回銀</span></td></tr></tbody></table></div>
  </section></section>
  ${notebookMarkup('stability')}`;
 }
@@ -83,7 +83,7 @@ function pairedObservation(t){
  const [before,after]=t.materials,p=t.id;
  return `<section class="stability-case" data-stability-case="${p}"><h4>${t.label}</h4>
    <section class="stability-before-after"><h4>物質的前後變化</h4><div>${specimenDish(before,'加熱前',p+'-compare-before')}<figure class="stability-dish"><div class="free-specimen-dish"><img class="free-dish-photo" src="${affinityBenchArt.dish}" alt="" draggable="false"><div class="free-dish-contents"><div data-stability-before-mixture>${material(before,p+'-compare-live-before')}</div><div data-stability-after-mixture>${material(after,p+'-compare-live-after')}</div></div></div><figcaption data-stability-result-label>加熱前</figcaption></figure></div></section>
-   <p class="stability-case-equation" data-stability-equation hidden>${t.id==='heat-mg'?'<b class="stability-reaction-label">有反應</b>':''}${t.equation}</p></section>`;
+   <p class="stability-case-equation" data-stability-equation hidden>${t.id==='heat-mg'?'<b class="stability-reaction-label">有反應</b>':''}${t.id!=='heat-ag'?'<span class="stability-equation-text">'+t.equation+'</span>':'<b class="stability-no-reaction">不反應</b>'}</p></section>`;
 }
 
 export function mountOxideStability(root,addQuestion){

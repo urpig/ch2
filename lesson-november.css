@@ -216,8 +216,9 @@
 .rust-investigation>header{flex-wrap:nowrap}.rust-investigation>header>.secondary{width:auto;flex:0 0 auto;margin:0;white-space:nowrap}.rust-experiment-playback>button{width:auto;margin:0}.rust-experiment-target canvas{max-height:290px;object-fit:contain}.rust-experiment-target{margin:0}.rust-investigation .rust-experiment-status{min-height:0;margin:12px 0}.rust-experiment-tray .text-button{width:auto;margin:0;padding:2px 6px}.rust-investigation .rust-experiment-target:disabled{cursor:default}.rust-experiment-tool[disabled]{opacity:.65}.rust-experiment-target .rust-experiment-treatment{width:100%}
 @media(min-width:901px){.rust-investigation{display:grid;grid-template-columns:220px minmax(0,1fr);column-gap:16px}.rust-investigation>header,.rust-investigation>p,.rust-experiment-playback{grid-column:1/-1}.rust-investigation>.rust-experiment-tools{grid-column:1;grid-row:3;flex-direction:column;margin:0;gap:10px;align-self:start}.rust-investigation>.rust-tool-instruction{grid-column:1;grid-row:4;font-size:13px;margin:8px 0 0;align-self:start}.rust-investigation>.rust-experiment-trays{grid-column:2;grid-row:3/span 2}.rust-experiment-target canvas{height:240px}.rust-investigation h4{font-size:21px}.rust-investigation>p:not(.rust-tool-instruction):not(.rust-experiment-status){margin:8px 0 12px}.rust-experiment-tool{padding:7px 10px;gap:9px}.rust-experiment-tool small{font-size:12px}.rust-investigation .rust-experiment-status{font-size:14px}}
 
-/* Keep the next action above the apparatus and manual cues inside the scene. */
+/* Keep controls clear of the apparatus and sample trays. */
 :is(#card-2,#card-8) .combustion-observation-continue.primary{position:static;display:block;width:fit-content;max-width:100%;min-height:44px;margin:0 0 12px auto;padding:10px 16px;font-size:14px}
+:is(#card-2,#card-8) .combustion-workbench .combustion-observation-continue.primary{position:absolute;display:block;right:auto;bottom:auto;width:max-content;max-width:29%;min-height:44px;margin:0;padding:9px 12px;font-size:14px;z-index:20}
 :is(#card-2,#card-8) .combustion-observation-continue.primary[hidden]{display:none}
 .bottle-analysis .analysis-shaker.analysis-next-tool:before{top:-26px}
 .bottle-analysis .analysis-pipette.analysis-next-tool:before{top:18px;left:100%;transform:translateX(8px);font-size:12px}
@@ -228,3 +229,7 @@
 .finish-rack .finish-sample.blade-next-sample>svg{filter:drop-shadow(0 2px 5px #b57836aa)}
 .rust-explanation>p+p{border-left:1px solid #aebfac;padding-left:18px}
 @media(max-width:600px){.bottle-analysis .analysis-shaker.analysis-next-tool:before{top:-19px;font-size:10px}.bottle-analysis .analysis-pipette.analysis-next-tool:before{top:14px;font-size:10px}.rust-explanation>p+p{border-left:0;border-top:1px solid #aebfac;padding-left:0;padding-top:12px}}
+
+@media(max-width:600px){:is(#card-2,#card-8) .combustion-workbench .combustion-observation-continue.primary{font-size:11px;padding:7px;max-width:35%;white-space:normal;line-height:1.5}}
+
+@media(max-width:600px){#card-2 .combustion-workbench.mobile-combustion[data-element][data-reaction-side] .specimen-reaction-live{top:6%;right:2%;padding:4px 6px;max-width:45%}#card-2 .combustion-workbench.mobile-combustion[data-element][data-reaction-side] .specimen-reaction-live b{font-size:9px;line-height:1.4}#card-2 .combustion-workbench.mobile-combustion[data-element][data-reaction-side] .specimen-reaction-live .specimen-equation{font-size:12px;line-height:1.4;white-space:nowrap;margin-top:2px}}

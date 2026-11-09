@@ -19,7 +19,7 @@ export function mountBenchWater(board,{key,completed,spoonOrigin=null,delay,onCl
  board.append(station);
  const glass=document.createElementNS('http://www.w3.org/2000/svg','svg');
  glass.setAttribute('class','bench-water-foreground');glass.setAttribute('viewBox','0 0 760 430');glass.setAttribute('aria-hidden','true');
- glass.innerHTML='<path d="M94 303 Q151 310 210 303 V359 Q210 371 151 371 Q94 370 94 359Z" fill="#c4e6e9" fill-opacity=".17"/><ellipse cx="152" cy="303" rx="58" ry="4" fill="none" stroke="#f0ffff" stroke-opacity=".64" stroke-width="1.2"/><path d="M96 251V357Q96 369 152 369Q208 369 208 357V251" fill="none" stroke="#f1ffff" stroke-opacity=".27" stroke-width="2"/><path d="M102 309V351M201 311V350" stroke="#fff" stroke-opacity=".2" stroke-width="2"/>';
+ glass.innerHTML=scopeMarkup('<defs><clipPath id="front-glass"><path d="M95 244H208V358Q208 371 151 371Q95 371 95 358Z"/></clipPath><linearGradient id="front-water" x1="0" x2="1"><stop stop-color="#d8eff2" stop-opacity=".3"/><stop offset=".3" stop-color="#cbe6e8" stop-opacity=".17"/><stop offset=".8" stop-color="#e4f6f7" stop-opacity=".24"/><stop offset="1" stop-color="#accbd2" stop-opacity=".33"/></linearGradient></defs><g clip-path="url(#front-glass)" opacity=".3">'+apparatusPhoto('beaker',77,223,140,154)+'</g><path d="M94 303 Q151 310 210 303 V359 Q210 371 151 371 Q94 370 94 359Z" fill="url(#front-water)"/><path d="M94 303Q151 311 210 303" fill="none" stroke="#eaffff" stroke-opacity=".82" stroke-width="1.6"/><path d="M94 303Q151 298 210 303" fill="none" stroke="#d0f4f7" stroke-opacity=".35" stroke-width=".8"/><path d="M96 249V357Q96 369 152 369Q208 369 208 357V249" fill="none" stroke="#f1ffff" stroke-opacity=".4" stroke-width="2"/><path d="M102 252V353M201 256V349" stroke="#fff" stroke-opacity=".28" stroke-width="3"/>','bench-glass-'+key);
  station.append(glass);
  for(const paper of station.querySelectorAll('[data-bench-paper]'))paper.style.height=(benchLitmus.height/430*100)+'%';
  const status=station.querySelector('.bench-water-status'),zone=station.querySelector('[data-bench-add]');zone.hidden=!completed;
@@ -48,7 +48,7 @@ export function mountBenchWater(board,{key,completed,spoonOrigin=null,delay,onCl
  }
  board.classList.add('wet-connected');
  const source=document.createElement('div');source.className='combustion-spoon bench-product-spoon';source.dataset.benchProduct='';source.setAttribute('aria-label','燃燒匙上的'+(key==='Cu'?'黑色氧化層':'燃燒產物'));
- let x=spoonOrigin?spoonOrigin[0]:key==='P'?560:320,y=spoonOrigin?spoonOrigin[1]:key==='P'?283:224;
+ let x=spoonOrigin?spoonOrigin[0]:320,y=spoonOrigin?spoonOrigin[1]:224;
  source.style.left=((x-29)/760*100)+'%';source.style.top=((y-205)/430*100)+'%';source.innerHTML=scopeMarkup(spoonIllustration(key,{oxide:true,cool:true})+'<span>拖曳產物到杯口</span>','product-spoon-'+key);station.append(source);source.setAttribute('aria-disabled','false');
  guide();
  bindDrop(source,zone,{anchor:[.181,.9],onMove:hit=>{source.classList.toggle('spoon-over-water',hit);if(hit)status.hidden=true;},disabled:()=>ready||station.dataset.waterState==='adding',onDrop:()=>add(source),onMiss:()=>tell('差一點！把亮起的匙端移到杯口，再放手。',true)});

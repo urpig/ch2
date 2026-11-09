@@ -107,3 +107,11 @@
 /* Keep metal reaction notes above the samples in both modes. */
 :is(#card-2,#card-8) .combustion-workbench[data-element]:is([data-element=Na],[data-element=Mg],[data-element=Zn],[data-element=Cu])[data-reaction-side] .specimen-reaction-live{left:auto;right:7%;top:12%;width:max-content;max-width:36%;padding:7px 10px}
 .combustion-workbench[data-bottle-analysis] .photographic-lamp,.combustion-workbench[data-bottle-analysis] .lamp-label{transform:translate(-40px,-70px)}
+
+/* Wet paper remains behind the front glass and meniscus. */
+.bench-water-station .bench-paper{width:1.85%;min-width:0;border-radius:1px;border-left:1px solid #ffffff38;border-right:1px solid #243b4429;background-image:linear-gradient(90deg,#fff1,transparent 30%,#203b4d0e);box-shadow:1px 1px 2px #19383c35}
+.bench-water-station .bench-paper .paper-fibre{opacity:.32;background:repeating-linear-gradient(93deg,transparent 0 1px,#ffffff12 1.5px 2px)}
+.bench-water-station .bench-paper .paper-tip{box-shadow:inset 0 2px 3px #16313e35;filter:saturate(.78);border-radius:0 0 1px 1px}
+.bench-water-station[data-water-state=adding] .beaker-dissolving-cloud{transform-origin:151px 340px;animation:beaker-dispersing 2.3s ease-out both}
+@keyframes beaker-dispersing{0%{opacity:0;transform:scale(.3)}25%{opacity:.42;transform:scale(.65)}65%{opacity:.2;transform:scale(1)}100%{opacity:0;transform:scale(1.08)}}
+@media(prefers-reduced-motion:reduce){.bench-water-station[data-water-state=adding] .beaker-dissolving-cloud{animation:none}}
