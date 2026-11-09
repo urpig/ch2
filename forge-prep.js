@@ -123,7 +123,7 @@ export function mountForgePrep({intro,activityRoot,transfer,magnesiumRoot,lifeRo
    ${notebookMarkup('Ccarbon')}
   </div>`;
  const transferNotes=transfer.querySelector('[data-transfer-notes]');
- magnesiumRoot.innerHTML=storySpeech('grandpa','「我們剛剛看到碳能拿走氧化銀中的氧，那麼鎂的活性比碳大，來猜猜看他能不能在二氧化碳裡面燃燒，把二氧化碳的氧搶走！」')+'<div data-magnesium-demo></div><div data-oxygen-comparison></div><div data-magnesium-notes>'+notebookMarkup('Cmagnesium')+'</div>';
+ magnesiumRoot.innerHTML=storySpeech('grandpa','「我們剛剛看到碳能拿走氧化銀中的氧，讓銀還原，此時的碳就叫做還原劑；反之氧化銀讓碳氧化變成二氧化碳，氧化銀就叫做氧化劑。接下來我們看看以下反應，誰是氧化劑誰又是還原劑呢？」')+'<div data-magnesium-demo></div><div data-oxygen-comparison></div><div data-magnesium-notes>'+notebookMarkup('Cmagnesium')+'</div>';
  const magnesiumNotes=magnesiumRoot.querySelector('[data-magnesium-notes]');
  const comparison=magnesiumRoot.querySelector('[data-oxygen-comparison]');
  comparison.innerHTML=`<section class="oxygen-summary"><h3>把兩組反應放在一起看</h3><p class="oxygen-activity-order">對氧活性：鎂 ＞ 碳 ＞ 銀</p><p>較容易得氧的元素，能在合適條件下取走另一種氧化物的氧；它形成的氧化物，通常較難用這類奪氧方式還原。</p><div class="oxygen-summary-table"><table><thead><tr><th>代表反應</th><th>被氧化</th><th>被還原</th></tr></thead><tbody>${Object.values(oxygenExamples).map(d=>`<tr><th>${d.equation}</th><td>${d.oxidized}</td><td>${d.reduced}</td></tr>`).join('')}</tbody></table></div></section>`;
