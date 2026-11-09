@@ -20,7 +20,8 @@ function carbonLab(){
 function magnesiumLab(){return `<div class="magnesium-co2-lab" role="img" aria-label="真實器材外觀的實驗模擬：坩堝鉗夾住鎂帶，在瓶外點燃後移入二氧化碳集氣瓶，持續發出白光，產物沉在瓶底">
  <img class="mg-lab-plate" src="${magnesiumAssets.jar}" alt="" draggable="false">
  <img class="mg-ignition-burner" src="${magnesiumAssets.burner}" alt="" draggable="false">
- <div class="mg-bottom-products">${mixture(['white','black'])}</div>
+ <img class="mg-ribbon-dish" src="${affinityBenchArt.dish}" alt="" draggable="false">
+ <div class="mg-bottom-products" aria-hidden="true"><img class="mg-residue-white" src="./assets/affinity-lab/oxide-white.png" alt=""><img class="mg-residue-carbon" src="./assets/affinity-lab/oxide-black.png" alt=""><img class="mg-residue-carbon mg-carbon-scatter" src="./assets/affinity-lab/oxide-black.png" alt=""></div>
  <div class="mg-photo-tongs"><img class="mg-steel-tongs mg-grip-lower" src="${magnesiumAssets.tongs}" alt="" draggable="false"><img class="mg-steel-tongs mg-grip-upper" src="${magnesiumAssets.tongs}" alt="" draggable="false"></div><div class="mg-held-ribbon"><svg class="mg-metal-ribbon" viewBox="100 555 150 386"><image href="${magnesiumAssets.tongs}" width="1672" height="941"/></svg><svg class="mg-converted-ribbon" viewBox="100 555 150 386"><image href="${magnesiumAssets.tongs}" width="1672" height="941"/></svg></div>
  <div class="mg-oxide-cloud" aria-hidden="true">${Array.from({length:8},(_,i)=>`<i data-mg-wisp="${i}"></i>`).join('')}</div>
  <div class="mg-white-flare" aria-hidden="true"><i></i><i></i><i></i></div>

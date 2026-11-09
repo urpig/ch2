@@ -7,7 +7,7 @@ const common={prep:'準備樣本',load:'放上燃燒匙',heat:'加熱點燃',bur
 // Sulfur's extra transfers and pipette pickups fit inside the same windows.
 const tracks={
  Na:[['prep',2500],['load',3500],['heat',3000],['burn',6500],['cool',3500],['pour',4000],['dissolve',4000],['red',5500],['blue',5500],['result',4000]],
- S:[['prep',2500],['load',3500],['heat',3000],['transfer',3000],['burn',3500],['cool',3500],['wash',4000],['shake',4000],['take',1500],['red',4000],['retake',1500],['blue',4000],['result',4000]]
+ S:[['prep',2500],['load',3500],['heat',3000],['transfer',3000],['burn',3500],['cool',3500],['wash',4000],['shake',4000],['take',3000],['red',2500],['retake',3000],['blue',2500],['result',4000]]
 };
 const captions={
  Na:{prep:'先看鈉的樣子：銀白色的小塊。',load:'從樣本架取鈉，放上燃燒匙。',heat:'把匙端靠近酒精燈的火焰。',burn:'看鈉本身的黃色火焰。',cool:'移開熱源，等產物冷卻。',pour:'把冷卻後的產物加入清水。',dissolve:'產物與水作用；接著測試溶液。',red:'紅色石蕊的浸水端變藍了。',blue:'藍色石蕊的浸水端仍是藍色。',result:'紅變藍、藍不變：溶液呈鹼性。'},

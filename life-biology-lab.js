@@ -8,7 +8,7 @@ import {biologyEquationArt} from './bio-equation-art.js';
 const biologyArt=key=>key==='photo'?photosynthesisArt():respirationArt();
 
 function biologyEquation(key,complete){
- return `<div class="life-paired-equation bio-arrow-equation">${biologyEquationArt(key,complete)}${key==='resp'?'<span class="bio-equation-energy">同時釋放能量</span>':''}</div>`;
+ return `<div class="life-paired-equation bio-arrow-equation">${biologyEquationArt(key,complete)}</div>`;
 }
 
 export function biologyMarkup(key,complete=false){
@@ -52,7 +52,6 @@ export function bindBiologyLab(scene,onComplete){
   light.setAttribute('opacity',String(illumination*.72));beam?.setAttribute('opacity',String(.25+illumination*.75));
   productLabels.hidden=emerging<.24;productLabels.style.opacity=String(fraction(emerging,.24,.88));
   equationPaths.removeAttribute('hidden');
-  equationPaths.closest('svg').setAttribute('viewBox','0 0 800 210');
   status.textContent=p===1?(photo?'水被氧化成氧氣；二氧化碳被還原，用來合成養分。':'葡萄糖被氧化成二氧化碳；氧氣被還原成水。'):p===0?'':photo?'觀察水、二氧化碳與產物的變化。':'觀察養分、氧氣與產物的變化。';
  }
  const dispose=bindLifePlayback(scene,{seconds:5.6,paint,initialComplete:scene.dataset.phase==='complete',onStart:()=>onComplete('start'),onComplete:()=>onComplete('complete')});

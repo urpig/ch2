@@ -123,7 +123,7 @@ export function mountForgePrep({intro,activityRoot,transfer,magnesiumRoot,lifeRo
    ${notebookMarkup('Ccarbon')}
   </div>`;
  const transferNotes=transfer.querySelector('[data-transfer-notes]');
- magnesiumRoot.innerHTML=storySpeech('grandpa','「我們剛剛看到碳能拿走氧化銀中的氧，鎂的活性比碳大，猜猜看他能不能在二氧化碳裡面燃燒，把二氧化碳的氧搶走！」')+'<div data-magnesium-demo></div><div data-oxygen-comparison hidden></div><div data-magnesium-notes hidden>'+notebookMarkup('Cmagnesium')+'</div>';
+ magnesiumRoot.innerHTML=storySpeech('grandpa','「我們剛剛看到碳能拿走氧化銀中的氧，那麼鎂的活性比碳大，來猜猜看他能不能在二氧化碳裡面燃燒，把二氧化碳的氧搶走！」')+'<div data-magnesium-demo></div><div data-oxygen-comparison hidden></div><div data-magnesium-notes hidden>'+notebookMarkup('Cmagnesium')+'</div>';
  const magnesiumNotes=magnesiumRoot.querySelector('[data-magnesium-notes]');
  const comparison=magnesiumRoot.querySelector('[data-oxygen-comparison]');
  comparison.innerHTML=`<section class="oxygen-summary"><h3>把兩組反應放在一起看</h3><p class="oxygen-activity-order">對氧活性：鎂 ＞ 碳 ＞ 銀</p><p>較容易得氧的元素，能在合適條件下取走另一種氧化物的氧；它形成的氧化物，通常較難用這類奪氧方式還原。</p><div class="oxygen-summary-table"><table><thead><tr><th>代表反應</th><th>被氧化</th><th>被還原</th></tr></thead><tbody>${Object.values(oxygenExamples).map(d=>`<tr><th>${d.equation}</th><td>${d.oxidized}</td><td>${d.reduced}</td></tr>`).join('')}</tbody></table></div></section>`;
@@ -144,13 +144,12 @@ export function mountForgePrep({intro,activityRoot,transfer,magnesiumRoot,lifeRo
   peroxide:['「這兩塊豆干一樣，左邊加了過氧化氫會怎麼樣？」','「我們看示範。左邊加入過氧化氫，右邊保留原樣。比較顏色，再看看反應資料。」'],
   chlorine:['「衣服上的色斑也能這樣去掉嗎？」','「這次換成次氯酸鈉。看看左邊加入試劑後，和右邊原樣有什麼不同。」'],
   sulfur:['「換成二氧化硫，也會和剛才的漂白一樣嗎？」','「看看氣體注入密閉罩後，竹筷的顏色怎麼變。再和過氧化氫比一比，反應的角色一樣嗎？」'],
-  food:['「阿公，蘋果切了不趕快吃會黃掉喔」','「不用擔心，只要加上維他命 C 就能減緩蘋果的褐變，維他命 C 是抗氧化劑，會代替蘋果被氧化喔。」']
+  food:['「氧化劑？還原劑？人家說維他命 C 跟 E 是抗氧化劑，那抗氧化劑是什麼呀？」','「抗氧化劑這種東西會代替別人被氧化，只要在蘋果上面塗上抗氧化劑就能讓蘋果不會變黃喔！」']
  };
  function renderLife(selector){
   disposeLife();
   const groups=lifeCaseGroups;
   lifeRoot.innerHTML=`
-   ${storyDialogue('<span data-glossary-skip>「氧化還原反應真神奇，生活中哪裡也能看到氧化還原反應呀？」</span>','「生活中到處都是喔，我們來看看下面的這些例子。」')}
    <div id="everyday-redox" class="life-experiments-stack">
     ${groups.map(([id,title,cases])=>`<section class="life-case-group" id="life-${id}" aria-label="${title}"><h3>${title}</h3><div data-life-dialogue="${id}"></div><div class="prep-studio inquiry-studio life-integrated" data-life-group="${id}"></div></section>`).join('')}
    </div>

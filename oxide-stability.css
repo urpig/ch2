@@ -17,7 +17,7 @@
 .stability-heating-station .stability-reaction-glow{position:absolute;left:calc(var(--station-x) - 10%);top:18%;width:20%;height:31%;opacity:0;z-index:4;pointer-events:none;background:radial-gradient(ellipse,#fff 0 6%,#f4fbffdd 10%,#d9edff66 30%,transparent 69%);filter:blur(1px);mix-blend-mode:screen}
 .stability-shared-photo .stability-phase{z-index:5;left:8px;top:8px;font-size:12px}
 .stability-shared-bench>figcaption{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:10px 12px;background:#edf2e6;min-height:4.5em}
-.stability-shared-bench>figcaption p{margin:0;font-size:14px;line-height:1.6}
+.stability-shared-bench>figcaption p{margin:0;font-size:18px;font-weight:550;line-height:1.75;color:#294f47;letter-spacing:.025em}
 .stability-detail-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 .stability-shared-view .stability-case{min-width:0;border:1px solid #c4d0bc;border-radius:8px;overflow:hidden;background:#fbfcf4}
 .stability-shared-view .stability-case>h4{margin:0;padding:9px 4px;text-align:center;background:#e8eee1;font-size:17px;line-height:1.5}
@@ -30,7 +30,7 @@
 .stability-shared-view .stability-oxygen-card>h4{font-size:13px;margin:0 0 5px;line-height:1.5}
 .stability-shared-view .stability-oxygen-card>h4 small{display:none}
 .stability-shared-view .stability-oxygen{display:block;width:100%;height:auto;max-height:145px}
-.stability-shared-view .stability-case-equation{margin:0;padding:9px 5px;text-align:center;font:600 15px/1.5 Georgia,'Noto Sans TC',serif;background:#e7efdf;border-top:1px solid #cdd7c4;min-height:4.2em}
+.stability-shared-view .stability-case-equation{margin:0;padding:12px 8px;text-align:center;font:650 20px/1.65 'Noto Sans TC',sans-serif;background:#e7efdf;border-top:1px solid #cdd7c4;min-height:4.2em;color:#254f48;letter-spacing:.02em;overflow-wrap:anywhere}
 .stability-shared-view.is-paused .stability-shared-flame img{animation-play-state:paused}
 @keyframes stability-blue-flame{from{transform:scaleX(.9) scaleY(.96)}to{transform:scaleX(1.04) scaleY(1.02)}}
 @media(max-width:1050px){.stability-shared-layout{grid-template-columns:1fr}.stability-shared-view .stability-oxygen{max-height:155px}.stability-shared-view .stability-dish .free-specimen-dish{max-height:100px}}
@@ -43,10 +43,10 @@
  .stability-shared-layout{padding:0 8px 8px;gap:9px}
  .stability-bench-labels{padding:7px 3px}.stability-bench-labels b{font-size:15px}
  .stability-shared-bench>figcaption{gap:7px;padding:8px;font-size:12px}
- .stability-shared-bench>figcaption p{font-size:12px}
+ .stability-shared-bench>figcaption p{font-size:16px}
  .stability-detail-pair{gap:6px}.stability-shared-view .stability-case>h4{font-size:15px}
  .stability-shared-view .stability-before-after,.stability-shared-view .stability-oxygen-card{margin:5px;padding:4px}
  .stability-shared-view .stability-dish figcaption{font-size:10px}.stability-shared-view .stability-before-after>h4{font-size:11px}
- .stability-shared-view .stability-oxygen-card>h4{font-size:12px}.stability-shared-view .stability-case-equation{font-size:12px;min-height:4.5em}
+ .stability-shared-view .stability-oxygen-card>h4{font-size:12px}.stability-shared-view .stability-case-equation{font-size:17px;min-height:4.5em}
 }
 @media(prefers-reduced-motion:reduce){.stability-shared-flame img{animation:none}}
