@@ -1,6 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {combustionNextAction,solidNextAction} from '../dist/combustion-guidance.js';
+import {combustionNextAction,solidNextAction,nextPracticeSample} from '../dist/combustion-guidance.js';
+
+test('practice starts after the demonstrated sample and advances only after a full observation',()=>{
+ assert.equal(nextPracticeSample('metals',[]),'Mg');
+ assert.equal(nextPracticeSample('metals',['Na']),'Mg');
+ assert.equal(nextPracticeSample('metals',['Na','Mg']),'Zn');
+ assert.equal(nextPracticeSample('metals',['Na','Mg','Zn']),'Cu');
+ assert.equal(nextPracticeSample('metals',['Na','Mg','Zn','Cu']),null);
+ assert.equal(nextPracticeSample('nonmetals',['S']),'P');
+ assert.equal(nextPracticeSample('nonmetals',['S','P']),'C');
+ assert.equal(nextPracticeSample('nonmetals',['S','P','C']),null);
+});
 test('combustion guides sample, heat, bottle, then observation',()=>{
  assert.equal(combustionNextAction({loaded:false}).id,'load');
  assert.equal(combustionNextAction({loaded:true,near:false}).id,'heat');

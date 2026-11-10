@@ -1,7 +1,7 @@
 /* Shared chapter refinements: nested life tabs and the sword preservation bench. */
 /* Guide the next physical object without adding instruction badges. */
-.combustion-lesson .combustion-workbench[data-demonstration=false] .next-specimen::before{content:"";position:absolute;inset:20% 0 15%;border:3px solid #ffd56b;border-radius:50%;background:#ffd56b18;box-shadow:0 0 0 3px #6b481f88,0 0 18px #ffd56b99;pointer-events:none;z-index:4}
-.combustion-lesson .combustion-workbench[data-demonstration=false] .next-specimen .tabletop-sample-label{color:#ffdf82;font-weight:800}
+.combustion-lesson .combustion-workbench[data-demonstration=false]:is([data-next-action=load],[data-next-action=next-sample]) [data-next-specimen]::before{content:"";position:absolute;inset:20% 0 15%;border:3px solid #ffd56b;border-radius:50%;background:#ffd56b18;box-shadow:0 0 0 3px #6b481f88,0 0 18px #ffd56b99;pointer-events:none;z-index:4}
+.combustion-lesson .combustion-workbench[data-demonstration=false]:is([data-next-action=load],[data-next-action=next-sample]) [data-next-specimen] .tabletop-sample-label{color:#ffdf82;font-weight:800}
 .combustion-lesson .combustion-workbench[data-demonstration=false] .experiment-next-tool:not(.tabletop-material)>svg{filter:drop-shadow(0 0 2px #ffdc78) drop-shadow(0 0 6px #ffc64c)}
 .combustion-lesson .combustion-workbench[data-demonstration=false] .experiment-next-tool:not(.tabletop-material):not(:has(>svg)){outline:3px solid #ffd56b!important;outline-offset:3px;box-shadow:0 0 12px #ffd56b88!important}
 .combustion-lesson .combustion-workbench[data-demonstration=false] .experiment-next-target{outline:3px solid #ffd56b!important;outline-offset:-3px;box-shadow:inset 0 0 13px #ffd56b55!important}

@@ -4,6 +4,7 @@
  --dialogue-padding:8px 14px;
  --dialogue-gap:12px;
  --dialogue-space:12px;
+ --dialogue-outer-space:16px;
 }
 
 body .story-dialogue.story-dialogue {
@@ -11,7 +12,7 @@ body .story-dialogue.story-dialogue {
  grid-template-columns:repeat(2,minmax(0,1fr));
  gap:var(--dialogue-space);
  align-items:start;
- margin-block:0 var(--dialogue-space);
+ margin-block:var(--dialogue-outer-space);
 }
 
 body .story-dialogue.dialogue-stack,
@@ -20,7 +21,7 @@ body .with-forge-scene .story-dialogue {
 }
 
 body .story-dialogue > .story-speech.story-speech {
- margin-inline:0;
+ margin:0;
 }
 
 body .story-speech.story-speech {
@@ -36,7 +37,7 @@ body .story-speech.story-speech {
  min-height:0;
  height:var(--dialogue-height,auto);
  box-sizing:border-box;
- margin:0 auto;
+ margin:var(--dialogue-outer-space) auto;
  padding:var(--dialogue-padding);
  border:1px solid #d9dfcf;
  border-radius:10px;
