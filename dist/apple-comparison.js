@@ -5,7 +5,6 @@ import {bindLifePlayback} from './life-autoplay.js';
 import {appleComparison} from './everyday-redox-model.js';
 import {lifeEquationMarkup,showLifeEquation} from './life-equation-art.js';
 
-const startObservation='剛開始觀察，兩片蘋果的顏色相近。';
 const endObservation='經過相同時間，左側較能保持原色，右側明顯褐變。';
 
 export function appleMarkup(complete=false){return `<section class="apple-comparison life-manual-reaction life-auto-observation" data-life-observation data-life-reaction="food" data-phase="${complete?'complete':'ready'}" aria-label="維生素 C 與蘋果褐變對照實驗" style="--apple-browning:${complete?1:0}"><header><div><h3>維生素 C 能延緩蘋果褐變嗎？</h3><p>左側加入維生素 C，右側保留原樣。比較相同時間後的變化。</p></div><div class="life-playback-actions"><button type="button" class="text-button" data-apple-reset data-life-retry>${complete?'↻ 重播動畫':'▶ 播放動畫'}</button>${observationTimeline()}</div></header>
@@ -22,7 +21,7 @@ export function bindAppleComparison(scene,onComplete){
   scene.style.setProperty('--apple-treated-brown',String(treated*.52));
   scene.style.setProperty('--specimen-wet',String(Math.max(0,Math.min(1,(p*seconds-1.03)/.72))*(1-time)*.62));
   paintTransfer(p);
-  status.textContent=p===1?endObservation:p<.4?startObservation:'縮時觀察中，右側的切面逐漸褐變。';
+  status.textContent=p===1?endObservation:p<.4?'':'縮時觀察中，右側的切面逐漸褐變。';
  }
  const dispose=bindLifePlayback(scene,{seconds,paint,initialComplete:scene.dataset.phase==='complete',onStart:()=>onComplete('start'),onComplete:()=>onComplete('complete')});
  return dispose;

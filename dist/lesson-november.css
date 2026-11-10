@@ -72,6 +72,8 @@
 .oxygen-lab-view>figcaption{display:flex;justify-content:space-between;gap:10px;padding:12px 14px;background:#2c5247;color:#fff8de;font-size:16px}
 .oxygen-lab-view>p{margin:0;padding:13px 14px;min-height:76px;color:#3b594b;font-size:16px;line-height:1.7}
 .carbon-oxygen-bench.term-demonstration{display:block;margin:0;border:0;border-radius:0;aspect-ratio:3/2}
+.carbon-oxygen-bench.term-demonstration .term-mixture-before{clip-path:none;opacity:calc(var(--term-mixed,0) * (1 - var(--oxygen-progress,0)))}
+.carbon-oxygen-bench.term-demonstration .term-mixture-after{clip-path:none;opacity:var(--oxygen-progress,0)}
 .carbon-oxygen-bench .term-mixture-after .material-copper{left:0;top:0;width:100%;height:100%}
 .oxygen-co2-release{position:absolute;left:50%;top:18%;color:#f1f7ec;font-size:17px;text-shadow:0 1px 4px #0b211f;background:#345d4fbb;padding:4px 9px;border-radius:50%;z-index:6;opacity:0}
 [data-phase=react] .oxygen-co2-release{opacity:1;translate:0 calc(var(--oxygen-progress)*-45px)}
@@ -104,8 +106,9 @@
 .mg-steel-tongs{clip-path:polygon(0 0,100% 0,100% 100%,17% 100%,17% 60%,0 60%)}
 .mg-grip-lower{clip-path:polygon(0 61.1%,48.4% 38.6%,100% 21%,100% 100%,17% 100%,17% 60%,0 60%)}
 .mg-grip-upper{clip-path:polygon(0 0,100% 0,100% 21%,48.4% 38.6%,0 61.1%);transform-origin:48.4% 38.6%;rotate:calc((1 - var(--mg-holding,0)) * 2deg)}
-.mg-held-ribbon{position:absolute;left:calc(var(--mg-ribbon-x,77%) - 1.1%);top:var(--mg-ribbon-y,84%);width:4.2%;height:calc(20% * var(--mg-scale,.55));z-index:4;transform-origin:26% 0;transform:rotate(var(--mg-ribbon-angle,78deg))}
-.mg-held-ribbon svg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}
+.mg-held-ribbon{position:absolute;left:calc(var(--mg-ribbon-x,77%) - 5.7%);top:calc(var(--mg-ribbon-y,84%) - 2.46%);width:9.5%;aspect-ratio:7/4;z-index:4;transform-origin:60% 34%;transform:rotate(calc(var(--mg-ribbon-angle,78deg) - 78deg))}
+.mg-held-ribbon>div{position:absolute;inset:0}
+.mg-held-ribbon svg{display:block;width:100%;height:100%;overflow:visible}
 .mg-resting-ribbon{position:absolute;left:75%;top:84%;width:5%;height:13%;transform:rotate(78deg);opacity:calc(1 - var(--mg-holding,0));filter:drop-shadow(0 2px 1px #10202088)}
 .mg-resting-ribbon svg{width:100%;height:100%}
 .mg-metal-ribbon{opacity:var(--mg-metal)}
@@ -128,7 +131,8 @@
 .mg-bottom-products .free-material-mixture.is-mixed .material-black{left:20%;top:36%;width:37%;height:46%;opacity:.85}
 .mg-front-glass{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:6;clip-path:polygon(36% 38%,64% 38%,64% 91%,36% 91%);mask-image:linear-gradient(90deg,#000 0 37%,#0000 40% 60%,#000 63% 100%),linear-gradient(0deg,#000 0 10%,#0000 16% 100%),linear-gradient(0deg,#0000 0 58%,#000 59% 61%,#0000 63% 100%)}
 .mg-gas-label{position:absolute;left:49.4%;top:73.8%;transform:translate(-50%,-50%);z-index:7;font:650 clamp(12px,1.4vw,18px)/1 Georgia,serif;color:#3e5049;text-shadow:0 1px 1px #fff6}
-.oxygen-material-change .mg-ribbon-closeup{display:block;width:44px;height:100px;margin:7px auto 9px;filter:drop-shadow(1px 2px 1px #40545433)}
+.oxygen-material-change .mg-ribbon-closeup{display:block;width:100%;max-width:140px;aspect-ratio:7/4;margin:7px auto 9px;filter:drop-shadow(1px 2px 1px #40545433)}
+.mg-ribbon-closeup svg{display:block;width:100%;height:100%}
 .mg-product-closeup{width:100%;margin:auto;opacity:var(--oxygen-progress)}
 .mg-product-closeup .free-material-mixture.is-mixed .material-white{left:0;top:0;width:100%;height:100%;transform:none}
 .mg-product-closeup .free-material-mixture.is-mixed .material-black{left:19%;top:43%;width:32%;height:44%;transform:rotate(-8deg)}

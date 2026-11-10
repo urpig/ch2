@@ -1,4 +1,4 @@
-import {laboratoryBackdrop,gasChamber} from './life-laboratory-scene.js';
+import {laboratoryBackdrop,gasChamber,gasChamberBase} from './life-laboratory-scene.js';
 import {laboratoryReagent} from './lab-reagent-art.js';
 
 const items={
@@ -14,6 +14,7 @@ export function bleachLabArt(key,complete){
  return `<div class="life-lab-room bleach-lab-room" role="img" aria-label="實驗室中${agent}作用於${name}的對照實驗">
   ${laboratoryBackdrop(complete)}
   <div class="lab-specimen-groups">${[true,false].map(treated=>`<figure class="${treated?'lab-experimental':'lab-control'}">
+   ${key==='sulfur'?(treated?'':gasChamberBase()):'<img class="lab-porcelain-plate" src="./assets/story/bleach-props/porcelain-plate-v1.png" alt="" aria-hidden="true">'}
    <div class="lab-specimen-photo"><div class="lab-specimen-original"></div>${treated&&key!=='sulfur'?'<div class="lab-specimen-treated"></div>':''}</div>
    <figcaption><b>${treated?'實驗組':'對照組'}</b><span>${treated?'加入'+agent:'未加漂白劑'}</span></figcaption>
   </figure>`).join('')}</div>

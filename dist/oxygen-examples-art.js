@@ -1,4 +1,5 @@
 import {affinityBenchArt,mixture} from './affinity-appearance.js';
+import {combustionSpecimen} from './combustion-specimens.js';
 import {termExperimentFrame} from './term-demo-model.js';
 import {oxygenExamples,oxygenExampleFrame,magnesiumExperimentFrame} from './oxygen-examples-model.js';
 
@@ -22,7 +23,7 @@ function magnesiumLab(){return `<div class="magnesium-co2-lab" role="img" aria-l
  <img class="mg-ignition-burner" src="${magnesiumAssets.burner}" alt="" draggable="false">
  <img class="mg-ribbon-dish" src="${affinityBenchArt.dish}" alt="" draggable="false">
  <div class="mg-bottom-products" aria-hidden="true"><img class="mg-residue-white" src="./assets/affinity-lab/oxide-white.png" alt=""><img class="mg-residue-carbon" src="./assets/affinity-lab/oxide-black.png" alt=""><img class="mg-residue-carbon mg-carbon-scatter" src="./assets/affinity-lab/oxide-black.png" alt=""></div>
- <div class="mg-photo-tongs"><img class="mg-steel-tongs mg-grip-lower" src="${magnesiumAssets.tongs}" alt="" draggable="false"><img class="mg-steel-tongs mg-grip-upper" src="${magnesiumAssets.tongs}" alt="" draggable="false"></div><div class="mg-held-ribbon"><svg class="mg-metal-ribbon" viewBox="100 555 150 386"><image href="${magnesiumAssets.tongs}" width="1672" height="941"/></svg><svg class="mg-converted-ribbon" viewBox="100 555 150 386"><image href="${magnesiumAssets.tongs}" width="1672" height="941"/></svg></div>
+ <div class="mg-photo-tongs"><img class="mg-steel-tongs mg-grip-lower" src="${magnesiumAssets.tongs}" alt="" draggable="false"><img class="mg-steel-tongs mg-grip-upper" src="${magnesiumAssets.tongs}" alt="" draggable="false"></div><div class="mg-held-ribbon"><div class="mg-metal-ribbon">${combustionSpecimen('Mg',{width:140,height:80,prefix:'mgco2-ribbon-metal'})}</div><div class="mg-converted-ribbon">${combustionSpecimen('Mg',{width:140,height:80,prefix:'mgco2-ribbon-ash'})}</div></div>
  <div class="mg-oxide-cloud" aria-hidden="true">${Array.from({length:8},(_,i)=>`<i data-mg-wisp="${i}"></i>`).join('')}</div>
  <div class="mg-white-flare" aria-hidden="true"><i></i><i></i><i></i></div>
  <div class="mg-glass-light" aria-hidden="true"></div>
@@ -30,7 +31,7 @@ function magnesiumLab(){return `<div class="magnesium-co2-lab" role="img" aria-l
  <span class="mg-gas-label" aria-hidden="true">CO₂</span>
  </div>`;}
 
-function magnesiumSpecimen(after){return after?`<div class="mg-product-closeup">${dish(mixture(['white','black']))}</div>`:`<svg class="mg-ribbon-closeup" viewBox="100 555 150 386" aria-hidden="true"><image href="${magnesiumAssets.tongs}" width="1672" height="941"/></svg>`;}
+function magnesiumSpecimen(after){return after?`<div class="mg-product-closeup">${dish(mixture(['white','black']))}</div>`:`<div class="mg-ribbon-closeup">${combustionSpecimen('Mg',{width:140,height:80,prefix:'mgco2-ribbon-closeup'})}</div>`;}
 
 function oxygenTrack(key){
  const carbon=key==='carbon',bases=carbon?[['Ag',12,35],['Ag',24,35],['Ag',12,65],['Ag',24,65],['C',78,50]]:[['C',22,50],['Mg',78,35],['Mg',78,65]];
@@ -70,7 +71,7 @@ export function paintOxygenExample(root,key,value,reduced=false){
   const mapped=value<.3?value/.3*.44:value<.46?.44+(value-.3)/.16*.18:value<.76?.62+(value-.46)/.3*.22:.84+(value-.76)/.24*.16;
   const bench=root.querySelector('.carbon-oxygen-bench'),b=termExperimentFrame(mapped,reduced);
   for(const [material,pour] of [['oxide',b.oxide],['zinc',b.zinc]])for(const [name,amount] of Object.entries(pour))bench.style.setProperty('--term-'+material+'-'+name,amount);
-  for(const [name,amount] of [['mixed',b.mixed],['stir',b.stir],['stir-depth',b.stirDepth],['product-edge',f.travel*100+'%'],['warmth',0],['glow',f.glow*.45],['glow-position',50]])bench.style.setProperty('--term-'+name,amount);
+  for(const [name,amount] of [['mixed',b.mixed],['stir',b.stir],['stir-depth',b.stirDepth],['warmth',0],['glow',f.glow*.45],['glow-position',50]])bench.style.setProperty('--term-'+name,amount);
   bench.dataset.phase=b.stage;
  }
 }

@@ -6,6 +6,12 @@
  padding:14px;
  scroll-margin-block:6px;
 }
+#life-redox :is(.apple-comparison,.life-biology-lab)[data-life-observation] {
+ background:#fffdf4;
+ border:1px solid #c3cdb8;
+ border-radius:14px;
+ box-shadow:none;
+}
 #life-redox .life-playback-actions { display:flex; align-items:center; gap:7px; flex-shrink:0; }
 #life-redox [data-life-observation] .life-playback-actions .observation-timeline { padding:0; min-height:0; border:0; background:transparent; }
 #life-redox [data-life-observation] .life-playback-actions .observation-timeline button { min-height:40px; }
@@ -27,6 +33,7 @@
 #life-redox [data-life-observation] .observation-timeline button { min-height:30px; padding:4px 12px; font-size:14px; }
 #life-redox [data-life-observation]>.life-observe-status,
 #life-redox [data-life-observation]>[data-apple-status] { margin:7px 0; min-height:20px; font-size:13px; line-height:1.5; }
+#life-redox [data-life-observation]>[data-apple-status]:empty { display:none; }
 #life-redox [data-life-observation]>.life-paired-equation { margin:8px 0 0; padding:10px 12px; }
 #life-redox [data-life-observation] .life-example-equation h4 { margin:0 0 4px; font-size:16px; }
 #life-redox [data-life-observation] .life-equation-art { height:145px; width:100%; max-width:none; }
@@ -53,20 +60,45 @@
 #life-redox [data-life-observation]>[data-life-redox-equation][hidden] { display:block!important; visibility:hidden; }
 #life-redox [data-life-observation] .bio-equation-art { height:120px; width:100%; max-width:none; }
 #life-redox [data-life-observation] .bio-equation-energy { margin:0; font-size:12px; line-height:1.5; }
-#life-redox .life-biology-lab .life-mix-workbench { grid-template-columns:125px minmax(0,1fr); width:min(100%,calc(var(--life-stage-height) * 760 / 460 + 139px)); margin-inline:auto; }
+#life-redox .life-biology-lab .life-mix-workbench { grid-template-columns:125px minmax(0,1fr); width:100%; margin-inline:auto; padding:0 12px; border:1px solid #c3cfb8; border-radius:10px; background:radial-gradient(ellipse at 30% 5%,#fff9e3,#e8efdf); overflow:hidden; }
+#life-redox .life-biology-lab .life-reactor-panel { width:min(100%,calc((var(--life-stage-height) - 30px) * 760 / 460)); justify-self:center; border:0; border-radius:0; background:transparent; box-shadow:none; overflow:hidden; }
+#life-redox .life-biology-lab .life-reactor-condition { border-radius:0; background:#f5f4e9; }
 #life-redox .life-biology-lab .bio-stage-art { height:auto; aspect-ratio:760/460; }
 #life-redox .life-biology-lab .bio-stage-art>svg { width:100%; height:100%; aspect-ratio:auto; }
-#life-redox .life-biology-lab .bio-molecule-rack { padding:8px; gap:3px; }
+#life-redox .life-biology-lab .bio-molecule-rack { padding:8px; gap:3px; border:0; border-right:1px solid #d6ddc9; border-radius:0; background:transparent; box-shadow:none; }
 #life-redox .life-biology-lab .bio-supply-item { padding:3px 0 8px; gap:3px; }
 #life-redox .life-biology-lab .bio-supply-item+div { padding-top:8px; }
 #life-redox .life-biology-lab .bio-molecule-model { max-height:80px; }
 #life-redox .life-biology-lab .bio-supply-item>strong { font-size:11px; }
 #life-redox [data-life-observation] .lab-specimen-groups figcaption b { font-size:12px; }
 #life-redox [data-life-observation] .lab-specimen-groups figcaption span { font-size:10px; }
+/* The samples rest on photographic porcelain, with a shared contact plane. */
+.bleach-lab-room .lab-specimen-groups figure::before { display:none; }
+.bleach-lab-room .lab-porcelain-plate {
+ position:absolute; left:0; bottom:16.8%; width:100%; height:auto;
+ max-width:none; border:0; border-radius:0; background:none;
+ pointer-events:none; filter:drop-shadow(0 3px 2px #071a2045);
+}
+.bleach-lab-room .lab-specimen-photo {
+ bottom:18%; width:81%; margin:0; transform-origin:50% 90%;
+ filter:drop-shadow(0 2px 1px #13201f65);
+}
+.life-reactor-chlorine .bleach-lab-room .lab-specimen-photo {
+ bottom:20.5%; width:82%; transform:translateX(-50%) perspective(600px) rotateX(62deg);
+}
+.bleach-lab-room .lab-chamber-base {
+ position:absolute; left:-2%; bottom:16%; width:104%; height:auto;
+ max-width:none; pointer-events:none;
+}
+.life-reactor-sulfur .bleach-lab-room .lab-specimen-photo {
+ bottom:16.7%; width:82%; z-index:3;
+ transform:translateX(-50%) rotateX(62deg);
+}
+.bleach-lab-room .lab-gas-chamber { filter:drop-shadow(0 3px 2px #10232638); }
 @media(max-width:1050px) {
  #life-redox .life-biology-lab .life-mix-workbench { grid-template-columns:minmax(0,1fr); gap:8px; width:100%; }
- #life-redox .life-biology-lab .life-reactor-panel { width:min(100%,calc(var(--life-stage-height) * 760 / 460)); justify-self:center; }
- #life-redox .life-biology-lab .bio-molecule-rack { display:grid; grid-template-columns:1fr 1fr; position:relative; padding:6px; }
+ #life-redox .life-biology-lab .life-reactor-panel { width:min(100%,calc((var(--life-stage-height) - 30px) * 760 / 460)); justify-self:center; }
+ #life-redox .life-biology-lab .bio-molecule-rack { display:grid; grid-template-columns:1fr 1fr; position:relative; padding:6px; border-right:0; border-bottom:1px solid #d6ddc9; }
  #life-redox .life-biology-lab .bio-molecule-rack>small { display:none; }
  #life-redox .life-biology-lab .bio-supply-item { display:flex; align-items:center; justify-content:center; gap:5px; padding:0; }
  #life-redox .life-biology-lab .bio-supply-item+div { padding:0; border:0; }
