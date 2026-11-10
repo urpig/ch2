@@ -1,4 +1,5 @@
 import {gasSyringe} from './gas-syringe-art.js';
+import {gasChamberPort} from './life-laboratory-scene.js';
 
 const reagents={
  peroxide:{agent:'過氧化氫',formula:'H₂O₂',impactY:234},
@@ -77,7 +78,7 @@ export function bindLaboratoryTransfer(scene,key,seconds){
 
   if(gas){
    // The horizontal nozzle stops at the side port of the sealed chamber.
-   tool.setAttribute('transform',`translate(${mix(10,173-168*.86,travel)} ${mix(204,225-65*.86,travel)}) scale(.86)`);
+   tool.setAttribute('transform',`translate(${mix(10,gasChamberPort.x-168*.86,travel)} ${mix(204,gasChamberPort.y-65*.86,travel)}) scale(.86)`);
    layer.style.setProperty('--transfer-plunger',String(used));
    return;
   }
