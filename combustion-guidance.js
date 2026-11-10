@@ -1,3 +1,8 @@
+export function nextPracticeSample(group,completed=[]){
+ const order=group==='metals'?['Mg','Zn','Cu']:group==='nonmetals'?['P','C']:[];
+ return order.find(key=>!completed.includes(key))||null;
+}
+
 export function combustionNextAction({loaded,ignited,isMetal,inJar,near,complete}){
  if(complete)return {id:'observe'};
  if(!loaded)return {id:'load',tool:'[data-shelf-sample].selected',target:'[data-shelf-target]',label:'拿取樣本',instruction:'下一步：從桌面拿取樣本，放到箭頭標示的燃燒匙凹槽。'};
