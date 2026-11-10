@@ -13,16 +13,14 @@ export function mountCombustionDemo(root,c,ctx,{onSample,onPractice}){
   <div class="combustion-demo-next" ${seen?'':'hidden'}>${nextMarkup()}</div>
  </section>`;
  const stage=root.querySelector('[data-demo-bench]'),play=root.querySelector('[data-combustion-demo-play]'),pause=root.querySelector('[data-combustion-demo-pause]');
- const step=document.createElement('span');step.className='combustion-demo-step';step.dataset.demoStep='';step.setAttribute('role','status');step.textContent='準備樣本';
  let player=null,alive=true,phase='',inView=false,committed=new Set(),completed=false,bench=null;
  updateCombustionProcedure(root,key);
  function mountBench(){bench?.dispose();bench=mountDemonstrationBench(stage,c,key,evidence=>{if(!committed.has(evidence)){committed.add(evidence);record(evidence);}});}
  mountBench();
  function paint(time){
   const frame=combustionDemoFrame(key,time);bench.paint(time);
-  const sequence=stage.querySelector('.bench-sequence');if(step.parentElement!==sequence)sequence.prepend(step);
   if(phase!==frame.phase){
-   phase=frame.phase;step.textContent=frame.label;
+   phase=frame.phase;
    const instruction=root.closest('article')?.querySelector('[data-demo-instruction]');
    if(instruction)instruction.textContent=`${name} · ${frame.label}：${frame.caption}`;
   }

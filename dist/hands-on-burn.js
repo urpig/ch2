@@ -22,7 +22,7 @@ export function mountBurn(root,c,ctx,{demonstration=false}={}){
  function renderShelf(){
   const board=root.querySelector('.combustion-workbench');
   if(c.type!=='combustion'||!board){shelf.hidden=true;return;}
-  shelf.hidden=false;shelf.className='specimen-shelf tabletop-specimens';board.append(shelf);
+  board.dataset.nextSample=(demonstration?key:nextSample()?.[0])||'';shelf.hidden=false;shelf.className='specimen-shelf tabletop-specimens';board.append(shelf);
   shelf.innerHTML=[['metals','金屬'],['nonmetals','非金屬']].filter(([type])=>!c.sampleGroup||type===c.sampleGroup).map(([type,title])=>'<section class="tabletop-sample-group" aria-label="'+title+'樣本"><div class="tabletop-sample-row">'+materialCases[type].map(([k,label])=>'<div class="tabletop-specimen">'+specimenDishArtwork(k)+'<div class="tabletop-material" data-shelf-sample="'+k+'" aria-label="拿取'+label+'，放上燃燒匙">'+photographicSample(k,true)+'</div>'+specimenDishArtwork(k,true)+'<b class="tabletop-sample-label">'+label+'</b></div>').join('')+'</div></section>').join('');
   for(const item of shelf.querySelectorAll('[data-shelf-sample]'))bindDrop(item,()=>shelfTarget(root.querySelector('.combustion-workbench')),{onDrop:()=>{
    const target=shelfTarget(root.querySelector('.combustion-workbench'));ctx.setCase(item.dataset.shelfSample,true,[Number(target.dataset.spoonX),Number(target.dataset.spoonY)]);
