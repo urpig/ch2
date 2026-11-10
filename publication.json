@@ -18,12 +18,63 @@
     "sourceFolder": "/",
     "publishCommand": "node publish-pages.mjs",
     "url": "https://urpig.github.io/ch2/",
-    "sourceCommit": "0b95adaa7a58d593ee2a2e8754d7385deb80258c",
-    "pagesCommit": "5f59a150a32478e6f5f06d6d5f734625273db0f4",
-    "sourceTree": "302ba73e8fce8d9f854d82bc00d8e0d0828aadc5",
-    "verifiedAt": "2026-11-10T09:29:10.613Z"
+    "sourceCommit": "f1657a0444038733d6c0a69961e8ce3b737fe9c1",
+    "pagesCommit": "2790c42bcb655c541ecd3bebf55c060bf23d83a6",
+    "sourceTree": "26fc54ca747c28e35354a2002b1d68d50c30ef39",
+    "verifiedAt": "2026-11-10T10:19:10.189Z"
   },
   "currentPublicDeployment": {
+    "provider": "github-pages",
+    "url": "https://urpig.github.io/ch2/",
+    "status": "published",
+    "sourceCommit": "f1657a0444038733d6c0a69961e8ce3b737fe9c1",
+    "pagesCommit": "2790c42bcb655c541ecd3bebf55c060bf23d83a6",
+    "sourceTree": "26fc54ca747c28e35354a2002b1d68d50c30ef39",
+    "fileCount": 328,
+    "workflowRunId": 42796900524,
+    "anonymousHttpVerifiedAt": "2026-11-10T10:15:09.957Z",
+    "anonymousHttpChecksPassed": 2,
+    "httpVerification": "Changed index.html and life-viewport.css returned anonymous HTTP 200 and matched committed dist after CRLF normalization.",
+    "verifiedFiles": [
+      "index.html",
+      "life-viewport.css"
+    ],
+    "browserVerifiedAt": "2026-11-10T10:19:10.189Z",
+    "browserVerification": [
+      "Public sulfur bleach playback reached complete after the real replay button was clicked.",
+      "Bamboo specimens are straight, smaller, and contained within the black base and glass hood. No horizontal overflow was observed.",
+      "The same bamboo sizing was also checked locally at 390x844."
+    ],
+    "buildPassed": true,
+    "diffCheckPassed": true,
+    "verificationLimits": "Targeted visual checks of the bamboo change only. Automated unit tests and full-site regression were NOT RUN for this CSS-only specimen adjustment.",
+    "screenshot": "outputs/public-bamboo-f1657a0.png"
+  },
+  "previousPublicDeployment": {
+    "provider": "netlify",
+    "site": "whimsical-babka-221c30",
+    "url": "https://whimsical-babka-221c30.netlify.app/",
+    "deployId": "6add0fa73b84e3e7169c710e",
+    "status": "published",
+    "publishedAtDisplay": "2026-10-25 04:06 Asia/Taipei (minute precision from dashboard)",
+    "sourceCommit": "56efa9804420e626dd16b447a9496e8e7bf10a16",
+    "sourceDirectory": "dist",
+    "sourceTree": "53fdefc95427a3be896c1509a3bbf08d803c98ec",
+    "fileCount": 167,
+    "archiveSha256": "167ec8f7cb332dad3f7452f34bf1c3cc5e2672ff6ef102853190416e726af585",
+    "anonymousHttpVerifiedAt": "2026-10-24T20:14:11.409Z",
+    "anonymousHttpChecksPassed": 7,
+    "httpVerification": "No cookies or authorization supplied; all seven requests returned 200. JavaScript and image contents match the repo. HTML static text and app entry match after hosting link/comment processing.",
+    "browserVerification": [
+      "Public page renders the current story and antioxidant epilogue.",
+      "A prediction can be selected and submitted; the ore responds to keyboard rotation and records evidence.",
+      "Prediction and evidence survive reload; reset restores four choices and a visible scene preview.",
+      "No console errors or warnings observed during the smoke check."
+    ],
+    "verificationLimits": "This publication smoke check did not repeat every lesson interaction or mobile interaction. The unchanged application source previously passed all 123 automated tests.",
+    "publicationSequence": "Published to the existing Netlify site under the explicit public-link request before the user selected GitHub Pages for future publication. No further Netlify publication is authorized by this record."
+  },
+  "previousGitHubPagesDeployment": {
     "provider": "github-pages",
     "url": "https://urpig.github.io/ch2/",
     "status": "published",
@@ -64,72 +115,5 @@
     "automatedTestsPassed": 19,
     "verificationLimits": "Targeted checks of changed scenes only. Full-site interaction regression and physical-device touch testing were NOT RUN. Deployment was verified through matching public files and real public interactions.",
     "screenshot": "outputs/public-bleach-0b95ada.png"
-  },
-  "previousPublicDeployment": {
-    "provider": "netlify",
-    "site": "whimsical-babka-221c30",
-    "url": "https://whimsical-babka-221c30.netlify.app/",
-    "deployId": "6add0fa73b84e3e7169c710e",
-    "status": "published",
-    "publishedAtDisplay": "2026-10-25 04:06 Asia/Taipei (minute precision from dashboard)",
-    "sourceCommit": "56efa9804420e626dd16b447a9496e8e7bf10a16",
-    "sourceDirectory": "dist",
-    "sourceTree": "53fdefc95427a3be896c1509a3bbf08d803c98ec",
-    "fileCount": 167,
-    "archiveSha256": "167ec8f7cb332dad3f7452f34bf1c3cc5e2672ff6ef102853190416e726af585",
-    "anonymousHttpVerifiedAt": "2026-10-24T20:14:11.409Z",
-    "anonymousHttpChecksPassed": 7,
-    "httpVerification": "No cookies or authorization supplied; all seven requests returned 200. JavaScript and image contents match the repo. HTML static text and app entry match after hosting link/comment processing.",
-    "browserVerification": [
-      "Public page renders the current story and antioxidant epilogue.",
-      "A prediction can be selected and submitted; the ore responds to keyboard rotation and records evidence.",
-      "Prediction and evidence survive reload; reset restores four choices and a visible scene preview.",
-      "No console errors or warnings observed during the smoke check."
-    ],
-    "verificationLimits": "This publication smoke check did not repeat every lesson interaction or mobile interaction. The unchanged application source previously passed all 123 automated tests.",
-    "publicationSequence": "Published to the existing Netlify site under the explicit public-link request before the user selected GitHub Pages for future publication. No further Netlify publication is authorized by this record."
-  },
-  "previousGitHubPagesDeployment": {
-    "provider": "github-pages",
-    "url": "https://urpig.github.io/ch2/",
-    "status": "published",
-    "sourceCommit": "5eb6d8064b480128167ef368c076defc492e63c9",
-    "pagesCommit": "9f6812c61d0050112029499325a90643044fa39c",
-    "sourceTree": "1e29e98aafa9c2f28b626abef077af3ea2bf3056",
-    "fileCount": 325,
-    "anonymousHttpVerifiedAt": "2026-11-10T06:47:11.953Z",
-    "anonymousHttpChecksPassed": 16,
-    "httpVerification": "All 16 requests were anonymous, returned HTTP 200, and matched committed dist after CRLF normalization.",
-    "verifiedFiles": [
-      "index.html",
-      "combustion-demo.css",
-      "combustion-demo.js",
-      "combustion-guidance.js",
-      "combustion-workbench.css",
-      "combustion-workbench.js",
-      "dialogue-sizing.js",
-      "dialogue-unified.css",
-      "everyday-redox.js",
-      "forge-prep.js",
-      "hands-on-burn.js",
-      "lesson-november.css",
-      "life-equation-art.js",
-      "story-app.js",
-      "story-dialogue.js",
-      "sulfur-gas-flow.js"
-    ],
-    "browserVerifiedAt": "2026-11-10T06:56:45.065Z",
-    "browserVerification": [
-      "At 1531x715, all visible character dialogue boxes share a 119px height with no clipped text.",
-      "At 390x844, all visible character dialogue boxes share a 225px height with no clipped text or horizontal document overflow.",
-      "Dialogue text was identical before and after the sizing-only edit in the same local lesson state.",
-      "Public element comparison replay reached its cooled result and displayed its unchanged Grandpa explanation.",
-      "Public photosynthesis and bleach tabs switched successfully; the bleach comparison table shows the requested reagent labels.",
-      "03B carbon practice was locally exercised with a half-covered mouth, visible CO2 markers, and a continue button clear of the jar on desktop and mobile.",
-      "No browser console errors were observed during targeted public verification."
-    ],
-    "automatedTestsPassed": 245,
-    "verificationLimits": "Targeted public desktop and 390x844 browser viewport checks. Full-site interaction regression and physical-device touch testing were NOT RUN. Workflow run metadata was unavailable due the shared anonymous GitHub API rate limit; publication was verified by matching all changed public files and real public interactions.",
-    "screenshot": "outputs/public-dialogues-5eb6d80.jpg"
   }
 }
