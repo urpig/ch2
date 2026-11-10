@@ -18,12 +18,69 @@
     "sourceFolder": "/",
     "publishCommand": "node publish-pages.mjs",
     "url": "https://urpig.github.io/ch2/",
-    "sourceCommit": "1f3ce9988b8cb7b19b48b0e8762bc86f137b3096",
-    "pagesCommit": "da882a50ab884d94a73f40b6a64f3faf4d76a2a2",
-    "sourceTree": "4a9ccc9f25fe5712ab901682ca9eeeb3948072f8",
-    "verifiedAt": "2026-11-09T10:02:38.749Z"
+    "sourceCommit": "99d426f8d58d6bb3f706080eea512f6dc3f9cafb",
+    "pagesCommit": "4d95fd008c3f94c5856295cff5ac157a6e17725a",
+    "sourceTree": "df2b799effb831f9f6127f7a4dc202b1c6e0b3d3",
+    "verifiedAt": "2026-11-10T02:54:40.698Z"
   },
   "currentPublicDeployment": {
+    "provider": "github-pages",
+    "url": "https://urpig.github.io/ch2/",
+    "status": "published",
+    "sourceCommit": "99d426f8d58d6bb3f706080eea512f6dc3f9cafb",
+    "pagesCommit": "4d95fd008c3f94c5856295cff5ac157a6e17725a",
+    "sourceTree": "df2b799effb831f9f6127f7a4dc202b1c6e0b3d3",
+    "fileCount": 325,
+    "anonymousHttpVerifiedAt": "2026-11-10T02:42:21.451Z",
+    "anonymousHttpChecksPassed": 6,
+    "httpVerification": "All six requests were anonymous, returned HTTP 200, and matched committed dist after CRLF normalization.",
+    "verifiedFiles": [
+      "index.html",
+      "life-viewport.css",
+      "life-paired-reaction.js",
+      "life-biology-lab.js",
+      "life-equation-art.js",
+      "bio-equation-art.js"
+    ],
+    "deploymentRun": "https://github.com/urpig/ch2/actions/runs/42742617600",
+    "deploymentConclusion": "success",
+    "browserVerifiedAt": "2026-11-10T02:54:40.698Z",
+    "browserVerification": [
+      "Public Vitamin C, photosynthesis, and respiration playback reached completion after real play-button clicks.",
+      "Public peroxide bleach playback reached completion; all three bleach tabs opened successfully.",
+      "At 1531x715, the three life example groups share approximately 603x365 animation stages; the photosynthesis animation and equation fit together within the viewport.",
+      "At 390x844, Vitamin C, respiration, and sulfur bleach stages all measure 268.8x162.7 with no horizontal document overflow.",
+      "No browser console errors were observed during targeted public verification."
+    ],
+    "automatedTestsPassed": 245,
+    "verificationLimits": "Targeted public desktop and 390x844 browser viewport checks. Full-site interaction regression and physical-device touch testing were NOT RUN.",
+    "screenshot": "outputs/public-life-sizes-99d426f.png"
+  },
+  "previousPublicDeployment": {
+    "provider": "netlify",
+    "site": "whimsical-babka-221c30",
+    "url": "https://whimsical-babka-221c30.netlify.app/",
+    "deployId": "6add0fa73b84e3e7169c710e",
+    "status": "published",
+    "publishedAtDisplay": "2026-10-25 04:06 Asia/Taipei (minute precision from dashboard)",
+    "sourceCommit": "56efa9804420e626dd16b447a9496e8e7bf10a16",
+    "sourceDirectory": "dist",
+    "sourceTree": "53fdefc95427a3be896c1509a3bbf08d803c98ec",
+    "fileCount": 167,
+    "archiveSha256": "167ec8f7cb332dad3f7452f34bf1c3cc5e2672ff6ef102853190416e726af585",
+    "anonymousHttpVerifiedAt": "2026-10-24T20:14:11.409Z",
+    "anonymousHttpChecksPassed": 7,
+    "httpVerification": "No cookies or authorization supplied; all seven requests returned 200. JavaScript and image contents match the repo. HTML static text and app entry match after hosting link/comment processing.",
+    "browserVerification": [
+      "Public page renders the current story and antioxidant epilogue.",
+      "A prediction can be selected and submitted; the ore responds to keyboard rotation and records evidence.",
+      "Prediction and evidence survive reload; reset restores four choices and a visible scene preview.",
+      "No console errors or warnings observed during the smoke check."
+    ],
+    "verificationLimits": "This publication smoke check did not repeat every lesson interaction or mobile interaction. The unchanged application source previously passed all 123 automated tests.",
+    "publicationSequence": "Published to the existing Netlify site under the explicit public-link request before the user selected GitHub Pages for future publication. No further Netlify publication is authorized by this record."
+  },
+  "previousGitHubPagesDeployment": {
     "provider": "github-pages",
     "url": "https://urpig.github.io/ch2/",
     "status": "published",
@@ -64,68 +121,5 @@
     "automatedTestsPassed": 242,
     "verificationLimits": "Targeted desktop and 390x844 browser viewport checks. Full-site interaction regression and physical-device touch testing were NOT RUN.",
     "screenshot": "outputs/public-redox-equations-20261109.png"
-  },
-  "previousPublicDeployment": {
-    "provider": "netlify",
-    "site": "whimsical-babka-221c30",
-    "url": "https://whimsical-babka-221c30.netlify.app/",
-    "deployId": "6add0fa73b84e3e7169c710e",
-    "status": "published",
-    "publishedAtDisplay": "2026-10-25 04:06 Asia/Taipei (minute precision from dashboard)",
-    "sourceCommit": "56efa9804420e626dd16b447a9496e8e7bf10a16",
-    "sourceDirectory": "dist",
-    "sourceTree": "53fdefc95427a3be896c1509a3bbf08d803c98ec",
-    "fileCount": 167,
-    "archiveSha256": "167ec8f7cb332dad3f7452f34bf1c3cc5e2672ff6ef102853190416e726af585",
-    "anonymousHttpVerifiedAt": "2026-10-24T20:14:11.409Z",
-    "anonymousHttpChecksPassed": 7,
-    "httpVerification": "No cookies or authorization supplied; all seven requests returned 200. JavaScript and image contents match the repo. HTML static text and app entry match after hosting link/comment processing.",
-    "browserVerification": [
-      "Public page renders the current story and antioxidant epilogue.",
-      "A prediction can be selected and submitted; the ore responds to keyboard rotation and records evidence.",
-      "Prediction and evidence survive reload; reset restores four choices and a visible scene preview.",
-      "No console errors or warnings observed during the smoke check."
-    ],
-    "verificationLimits": "This publication smoke check did not repeat every lesson interaction or mobile interaction. The unchanged application source previously passed all 123 automated tests.",
-    "publicationSequence": "Published to the existing Netlify site under the explicit public-link request before the user selected GitHub Pages for future publication. No further Netlify publication is authorized by this record."
-  },
-  "previousGitHubPagesDeployment": {
-    "provider": "github-pages",
-    "url": "https://urpig.github.io/ch2/",
-    "status": "published",
-    "sourceCommit": "761a31f42c2a36d9712a3df05e0c0f9b7b887371",
-    "pagesCommit": "d2127dcb83537a40f07836539a6a1be1f655a6ad",
-    "sourceTree": "3c3286795ff4f784ced9d296b2360ba822c8bb13",
-    "fileCount": 283,
-    "anonymousHttpVerifiedAt": "2026-11-07T14:10:08.050Z",
-    "anonymousHttpChecksPassed": 11,
-    "httpVerification": "All 11 revised source files returned HTTP 200 anonymously and matched committed dist after CRLF normalization.",
-    "verifiedFiles": [
-      "index.html",
-      "journey-cards.js",
-      "ore-hammer.js",
-      "forge-prep.js",
-      "inquiry-model.js",
-      "metal-activity.js",
-      "story-dialogue.js",
-      "story-app.js",
-      "combustion-demo.js",
-      "combustion-demo.css",
-      "term-demo.js"
-    ],
-    "deploymentRun": "https://github.com/urpig/ch2/actions/runs/42380135183",
-    "deploymentConclusion": "success",
-    "browserVerifiedAt": "2026-11-07T14:14:06.397Z",
-    "browserVerification": [
-      "Public intro and activity headings reflect the requested removals.",
-      "Public potassium demonstration starts with cold water and completes with a potassium reaction result.",
-      "Public 03 procedure is below the opening dialogue; the redundant discovery section is absent.",
-      "Public 03A replay, pause and resume work; the longer animation reaches completion.",
-      "Public rust product is labelled iron oxide; the removed rust sentence is absent.",
-      "Public mass-change dialogue appears immediately before the research record."
-    ],
-    "automatedTestsPassed": 209,
-    "verificationLimits": "Targeted desktop interaction checks only. A 390x844 viewport shell showed no horizontal overflow, but the complete mobile flows and physical touch were NOT RUN. Browser console collection and full-site regression were NOT RUN.",
-    "screenshot": "outputs/qa-manual-life-furnace-20261107/public-weight-dialogue.png"
   }
 }
