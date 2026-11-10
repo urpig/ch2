@@ -1,7 +1,7 @@
 /* Shared dialogue dimensions, including explanations added after an experiment. */
 :root {
  --dialogue-avatar:56px;
- --dialogue-padding:12px 14px;
+ --dialogue-padding:8px 14px;
  --dialogue-gap:12px;
  --dialogue-space:12px;
 }
@@ -125,7 +125,7 @@ body .dialogue-size-probe > .story-speech {
 @media(max-width:700px) {
  :root {
   --dialogue-avatar:48px;
-  --dialogue-padding:12px;
+  --dialogue-padding:8px 12px;
   --dialogue-gap:10px;
  }
 }

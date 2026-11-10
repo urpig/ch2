@@ -19,16 +19,36 @@ export function mountUniformDialogue(root=document.body){
   if(!speeches.length)return;
   const activeParents=new Set(speeches.map(speech=>speech.parentElement));
   for(const parent of parents)if(!activeParents.has(parent)){resize.unobserve(parent);parents.delete(parent);}
-  let width=Infinity;
+  const availableWidths=new Map(),layoutWidths=new Map();
+  const layout=speech=>{
+   const dialogue=speech.closest('.story-dialogue');
+   return !dialogue?'solo':dialogue.closest('.with-forge-scene')?'scene':dialogue.classList.contains('dialogue-stack')?'stack':'pair';
+  };
   for(const parent of activeParents){
    if(!parents.has(parent)){parents.add(parent);resize.observe(parent);}
   }
   for(const speech of speeches){
    const available=speech.getBoundingClientRect().width;
-   if(available>0)width=Math.min(width,available);
+   if(available>0){
+    availableWidths.set(speech,Math.floor(available));
+    const kind=layout(speech);
+    layoutWidths.set(kind,Math.min(layoutWidths.get(kind)||Infinity,Math.floor(available)));
+   }
   }
-  if(!Number.isFinite(width))return;
-  width=Math.floor(width);
+  if(!availableWidths.size)return;
+  const fallbackWidth=Math.min(...availableWidths.values());
+  const hiddenWidth=speech=>{
+   const kind=layout(speech);
+   if(kind==='pair'||kind==='scene')return layoutWidths.get(kind)||fallbackWidth;
+   for(let parent=speech.parentElement;parent;parent=parent.parentElement){
+    const width=parent.getBoundingClientRect().width;
+    if(width>0){
+     const style=getComputedStyle(parent);
+     return Math.floor(width-parseFloat(style.paddingLeft)-parseFloat(style.paddingRight)-parseFloat(style.borderLeftWidth)-parseFloat(style.borderRightWidth));
+    }
+   }
+   return layoutWidths.get(kind)||fallbackWidth;
+  };
 
   // Include unrevealed explanations so opening a tab does not clip longer text.
   const probe=document.createElement('div');
@@ -40,7 +60,9 @@ export function mountUniformDialogue(root=document.body){
    const copy=speech.cloneNode(true);
    copy.removeAttribute('hidden');
    copy.removeAttribute('id');
-   copy.style.width=width+'px';
+   // Full-width explanations must be measured at their own width, not squeezed
+   // into a half-width copy that adds empty height to every dialogue on the page.
+   copy.style.width=(availableWidths.get(speech)||hiddenWidth(speech))+'px';
    copy.querySelectorAll('[id]').forEach(node=>node.removeAttribute('id'));
    probe.append(copy);
   }

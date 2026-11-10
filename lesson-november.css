@@ -1,4 +1,17 @@
 /* Shared chapter refinements: nested life tabs and the sword preservation bench. */
+/* Guide the next physical object without adding instruction badges. */
+.combustion-lesson .combustion-workbench[data-demonstration=false] .next-specimen::before{content:"";position:absolute;inset:20% 0 15%;border:3px solid #ffd56b;border-radius:50%;background:#ffd56b18;box-shadow:0 0 0 3px #6b481f88,0 0 18px #ffd56b99;pointer-events:none;z-index:4}
+.combustion-lesson .combustion-workbench[data-demonstration=false] .next-specimen .tabletop-sample-label{color:#ffdf82;font-weight:800}
+.combustion-lesson .combustion-workbench[data-demonstration=false] .experiment-next-tool:not(.tabletop-material)>svg{filter:drop-shadow(0 0 2px #ffdc78) drop-shadow(0 0 6px #ffc64c)}
+.combustion-lesson .combustion-workbench[data-demonstration=false] .experiment-next-tool:not(.tabletop-material):not(:has(>svg)){outline:3px solid #ffd56b!important;outline-offset:3px;box-shadow:0 0 12px #ffd56b88!important}
+.combustion-lesson .combustion-workbench[data-demonstration=false] .experiment-next-target{outline:3px solid #ffd56b!important;outline-offset:-3px;box-shadow:inset 0 0 13px #ffd56b55!important}
+.combustion-lesson .comparison-sheet table{font-size:16px;line-height:1.6}
+.combustion-lesson .comparison-sheet caption{font-size:18px;padding:12px 14px}
+.combustion-lesson .comparison-sheet :is(th,td){font-size:16px;line-height:1.6;padding:9px 12px;vertical-align:middle}
+.combustion-lesson .comparison-sheet .combustion-product-record b{font-size:16px}
+.combustion-lesson .comparison-sheet .combustion-record-equation{font-size:17px;line-height:1.55;white-space:normal;margin:4px 0 0}
+.combustion-lesson .comparison-sheet .flame-table-visual{font-size:16px}
+@media(max-width:600px){.combustion-lesson .comparison-sheet :is(th,td),.combustion-lesson .comparison-sheet .combustion-product-record b{font-size:15px}.combustion-lesson .comparison-sheet .combustion-record-equation{font-size:16px}.combustion-lesson .comparison-sheet caption{font-size:17px}}
 :is(#card-2,#card-8) .integrated-studio .specimen-shelf.tabletop-specimens{position:absolute;display:block;inset:auto 2% 5% auto;width:43%;padding:0;border:0;border-radius:0;margin:0;background:none;box-shadow:none;z-index:8;overflow:visible}
 .tabletop-sample-row{display:flex;gap:5px;align-items:flex-end}
 .tabletop-specimen{position:relative;flex:1;min-width:0;aspect-ratio:1;filter:drop-shadow(0 5px 3px #10222377)}
@@ -225,6 +238,9 @@
 .stability-reaction-label{display:block;margin-bottom:7px;font:700 16px/1.4 sans-serif}
 .life-antioxidant-summary{text-align:center;padding:14px!important;font-size:19px;line-height:1.5}
 .life-example-equation .life-equation-art .life-equation-word{font-size:30px}
+.bleach-comparison table{table-layout:fixed}
+.bleach-comparison th:first-child{width:50%}
+.bleach-comparison th:not(:first-child),.bleach-comparison td{width:25%}
 .finish-rack .finish-sample.blade-next-sample{outline:3px solid #b78228;outline-offset:-2px;background:#fff4d5;box-shadow:0 0 0 4px #e6bd6640}
 .finish-rack .finish-sample.blade-next-sample>svg{filter:drop-shadow(0 2px 5px #b57836aa)}
 .rust-explanation>p+p{border-left:1px solid #aebfac;padding-left:18px}
