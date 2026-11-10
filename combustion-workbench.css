@@ -115,3 +115,7 @@
 .bench-water-station[data-water-state=adding] .beaker-dissolving-cloud{transform-origin:151px 340px;animation:beaker-dispersing 2.3s ease-out both}
 @keyframes beaker-dispersing{0%{opacity:0;transform:scale(.3)}25%{opacity:.42;transform:scale(.65)}65%{opacity:.2;transform:scale(1)}100%{opacity:0;transform:scale(1.08)}}
 @media(prefers-reduced-motion:reduce){.bench-water-station[data-water-state=adding] .beaker-dissolving-cloud{animation:none}}
+
+/* Keep the wet colour opaque across the whole width and bottom edge. */
+.bench-water-station .bench-paper .paper-tip{left:-1px;right:-1px;bottom:-1px;z-index:3;border-radius:0;filter:none;box-shadow:none}
+:is(#card-2,#card-8) .spoon-heat-readout{display:none}

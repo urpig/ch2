@@ -39,14 +39,14 @@ function oxygenTrack(key){
 
 export function oxygenExampleArt(key){
  const e=oxygenExamples[key];
- return `<div class="oxygen-experiment-grid"><figure class="oxygen-lab-view"><figcaption><b>實驗台</b><span data-physical-phase>反應前</span></figcaption>${key==='carbon'?carbonLab():magnesiumLab()}<p data-physical-caption>${e.before}</p></figure><div class="oxygen-observation-side"><div class="oxygen-material-change"><h4>物質的前後變化</h4><div>${['反應前','反應後'].map((label,i)=>`<section><b>${label}</b>${key==='carbon'?dish(mixture([i?'silver':'black'])):magnesiumSpecimen(i)}<span data-specimen-description>${i?'播放後觀察產物':e.before}</span></section>`).join('')}</div></div>${oxygenTrack(key)}</div></div>`;
+ return `<div class="oxygen-experiment-grid"><figure class="oxygen-lab-view"><figcaption><b>實驗台</b><span data-physical-phase>反應前</span></figcaption>${key==='carbon'?carbonLab():magnesiumLab()}${key==='carbon'?'':'<p data-physical-caption>'+e.before+'</p>'}</figure><div class="oxygen-observation-side"><div class="oxygen-material-change"><h4>物質的前後變化</h4><div>${['反應前','反應後'].map((label,i)=>`<section><b>${label}</b>${key==='carbon'?dish(mixture([i?'silver':'black'])):magnesiumSpecimen(i)}<span data-specimen-description>${i?'播放後觀察產物':e.before}</span></section>`).join('')}</div></div>${oxygenTrack(key)}</div></div>`;
 }
 
 export function paintOxygenExample(root,key,value,reduced=false){
  const f=oxygenExampleFrame(value,reduced),e=oxygenExamples[key];root.dataset.phase=f.stage;
  const phase={before:'反應前',prepare:'準備樣本',heat:'加熱、點燃',react:'反應中',cool:'觀察產物',complete:'反應後'}[f.stage];
  root.querySelector('[data-physical-phase]').textContent=phase;
- root.querySelector('[data-physical-caption]').textContent=f.stage==='before'||f.stage==='prepare'?e.before:key==='magnesium'?(f.stage==='heat'?'先點燃鎂帶，再放進 CO₂。':f.stage==='react'?'放進 CO₂ 後，鎂仍發出耀眼白光。':e.after):(f.stage==='heat'?'加熱混合物。':f.stage==='react'?'深色混合物逐漸形成灰色、帶金屬光澤的銀。':e.after);
+ const physicalCaption=root.querySelector('[data-physical-caption]');if(physicalCaption)physicalCaption.textContent=f.stage==='before'||f.stage==='prepare'?e.before:key==='magnesium'?(f.stage==='heat'?'先點燃鎂帶，再放進 CO₂。':f.stage==='react'?'放進 CO₂ 後，鎂仍發出耀眼白光。':e.after):(f.stage==='heat'?'加熱混合物。':f.stage==='react'?'深色混合物逐漸形成灰色、帶金屬光澤的銀。':e.after);
  root.style.setProperty('--oxygen-progress',f.travel);
  if(key==='magnesium'){
   const m=magnesiumExperimentFrame(value),lab=root.querySelector('.magnesium-co2-lab');lab.dataset.magnesiumStage=m.stage;

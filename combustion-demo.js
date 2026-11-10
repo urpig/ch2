@@ -20,7 +20,7 @@ export function mountCombustionDemo(root,c,ctx,{onSample,onPractice}){
  mountBench();
  function paint(time){
   const frame=combustionDemoFrame(key,time);bench.paint(time);
-  const scene=stage.querySelector('.combustion-workbench');if(step.parentElement!==scene)scene.append(step);
+  const sequence=stage.querySelector('.bench-sequence');if(step.parentElement!==sequence)sequence.prepend(step);
   if(phase!==frame.phase){
    phase=frame.phase;step.textContent=frame.label;
    const instruction=root.closest('article')?.querySelector('[data-demo-instruction]');

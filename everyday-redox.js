@@ -39,7 +39,7 @@ export function mountEverydayRedox(root,{tab=0,caseKey=null,review,onCaseChange=
   ${lifePairedMarkup(key,seen)}
   ${guidedExplanations[key]?`<div class="life-guided-explanation" data-life-teacher ${seen?'':'hidden'}>${storySpeech('grandpa',guidedExplanations[key])}</div>`:''}
   </div>
-  ${!caseKey&&group===1&&s.evidence.includes('peroxide')&&s.evidence.includes('sulfur')?'<section class="bleach-comparison"><h4>都能褪色，角色一樣嗎？</h4><table><thead><tr><th>試劑</th><th>色素</th><th>試劑自己</th></tr></thead><tbody><tr><th>過氧化氫</th><td>被氧化</td><td>被還原</td></tr><tr><th>二氧化硫</th><td>被還原</td><td>被氧化</td></tr></tbody></table></section>':''}
+  ${!caseKey&&group===1&&s.evidence.includes('peroxide')&&s.evidence.includes('sulfur')?'<section class="bleach-comparison"><h4>都能褪色，角色一樣嗎？</h4><table><thead><tr><th>試劑</th><th>色素</th><th>試劑自己</th></tr></thead><tbody><tr><th>過氧化氫、次氯酸鈉</th><td>被氧化</td><td>被還原</td></tr><tr><th>二氧化硫</th><td>被還原</td><td>被氧化</td></tr></tbody></table></section>':''}
 `;
   cleanup=bindLifePairedReaction(root.querySelector('[data-life-observation]'),event=>{
    if(event==='start'){
