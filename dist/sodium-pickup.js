@@ -23,11 +23,7 @@ export function sodiumPickupPose(progress,source,destination){
 }
 
 function forcepsArtwork(){
- const grooves=Array.from({length:15},(_,i)=>{const x=58+i*2.7,y=-89-i*3.05;return '<path d="M'+x+' '+y+'l5.2 4.6"/>';}).join('');
- return `<defs><linearGradient id="sodium-forceps-steel" x1="0" y1="0" x2="1" y2=".35"><stop stop-color="#38474c"/><stop offset=".17" stop-color="#c6d0d2"/><stop offset=".35" stop-color="#f0f3f2"/><stop offset=".48" stop-color="#78888d"/><stop offset=".68" stop-color="#dbe1e2"/><stop offset="1" stop-color="#647479"/></linearGradient></defs>
- <g data-pickup-forceps><path d="M99 -137Q105 -146 111 -137L110 -129L102 -130Z" fill="url(#sodium-forceps-steel)" stroke="#58696e" stroke-width=".5"/>
- <g data-pickup-rear-jaw><path d="M-12 -3L-13 -13L57 -104Q82 -131 102 -141L107 -136Q84 -117 67 -94L-7 -10L-7 -3Z" fill="url(#sodium-forceps-steel)" stroke="#526267" stroke-width=".6"/><path d="M-10 -12L63 -103L102 -138" stroke="#f0f5f5" stroke-opacity=".8" stroke-width=".8" fill="none"/><g stroke="#526065" stroke-width=".65" opacity=".72">${grooves}</g></g>
- <g data-pickup-front-jaw><path d="M10 -3L10 -12L76 -111Q93 -135 104 -141L111 -136Q96 -117 86 -98L17 -9L16 -2Z" fill="url(#sodium-forceps-steel)" stroke="#53656b" stroke-width=".6"/><path d="M15 -10L82 -109L108 -137" stroke="#fbffff" stroke-opacity=".85" stroke-width=".8" fill="none"/><path d="M10 -5L17 -4M11 -7L19 -6M13 -9L20 -8" stroke="#34494f" stroke-width=".65"/><g transform="translate(14 1)" stroke="#526065" stroke-width=".65" opacity=".65">${grooves}</g></g></g>`;
+ return '<g data-pickup-forceps><g data-pickup-rear-jaw><image href="./assets/story/metal-activity/forceps.png" x="-8" y="-55" width="180" height="60" transform="rotate(-35)" preserveAspectRatio="xMidYMid meet"/></g><g data-pickup-front-jaw></g></g>';
 }
 
 export function mountSodiumPickup(board){
